@@ -1,8 +1,8 @@
 //*************************************************************************************************
 /*========================================================================
- /////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   | Query Selectors |  |   |   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
+/////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   | Query Selectors |  |   |   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
 ========================================================================*/
 //*************************************************************************************************
 // Login  + prod Info
@@ -23,29 +23,31 @@ var backerInputYes = document.querySelector("#E_WouldYouLikeABackerOnYourCards1"
 var backerSelectFirstChild = document.querySelector("#OPTION_4020111");
 var backerQ = document.querySelector("#ELEMENT_1215739");
 var backerSelectQ = document.querySelector("#ELEMENT_1226753");
-var backSelector = document.querySelector("#E_PleaseSelectYourBusinessCardBackerbswh, ");
+var backSelector = document.querySelector("#E_PleaseSelectYourBusinessCardBackerbswh");
 var backerLabel = document.querySelector("#L_PleaseSelectYourBusinessCardBackerbswh");
 var nameAndCreds = document.querySelector("#E_NameandCredentials");
 var logoSelector = document.querySelector("#E_PleaseChooseYourLogobsw");
+var quantityDD = document.querySelector("#E_Quantity");
+var zip = document.querySelector("#E_ZipCode");
 
 //*************************************************************************************************
 /*========================================================================
- /////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   |          Styles         |  |   |   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
+/////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   |          Styles         |  |   |   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
 ========================================================================*/
 //*************************************************************************************************
 /*===================================================
-                                            JS added classes              
+                                        JS added classes              
 ====================================================*/
 
 /*===================================================
-                                                    Stylesheet               
+                                                Stylesheet               
 ====================================================*/
 var styles = `
-  #ELEMENT_1226753 h3, #ELEMENT_744853 h3{
-    margin-bottom: 15px;
-  }
+#ELEMENT_1226753 h3, #ELEMENT_744853 h3 {
+margin-bottom: 15px;
+}
 `;
 
 var styleSheet = document.createElement("style");
@@ -54,91 +56,87 @@ document.head.appendChild(styleSheet);
 
 //*************************************************************************************************
 /*========================================================================
- /////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   |        Objects        |  |   |   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
+/////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   |        Objects        |  |   |   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
 ========================================================================*/
 //*************************************************************************************************
 var productOverView = `
-    <div  style="
-        min-height: 90px; 
-        height: fit-content; 
-        width: auto; 
-        background-color: rgba(0, 0, 0, .1); 
-        border-radius: 20px; 
-        display: flex; 
-        flex-direction: row; 
-        margin: 25px;
-    ">
-        <div style="display: flex; flex-direction: column; margin: 10px;">
-            <h2 style="color: white; ">Order Details:</h2>
-            <h2 style="color: white;">Amount</h2>;
-        </div>
+<div  style="
+    min-height: 90px; 
+    height: fit-content; 
+    width: auto; 
+    background-color: rgba(0, 0, 0, .1); 
+    border-radius: 20px; 
+    display: flex; 
+    flex-direction: row; 
+    margin: 25px;
+">
+    <div style="display: flex; flex-direction: column; margin: 10px;">
+        <h2 style="color: white; ">Order Details:</h2>
+        <h2 style="color: white;">Amount</h2>;
     </div>
+</div>
 `;
 
 var dataPopup = `
-    <div 
-        class="highlight textmessage" 
-        id="ELEMENT_276937" 
-        data-element_id="276937" 
-        style="-webkit-user-select: auto;"
-    >
-        DATA ENTRY NAVIGATION:
-        <br style="-webkit-user-select: auto;" />
-        1. Press the TAB KEY to move to the next data entry field.
-        <br style="-webkit-user-select: auto;" />
-        2. Press the ENTER KEY to move to the next text line ONLY while you are within a multiline text field.  Multiline text fields can be recognized by their larger size.
-    </div>
+<div 
+    class="highlight textmessage" 
+    style="-webkit-user-select: auto;"
+>
+    DATA ENTRY NAVIGATION:
+    <br style="-webkit-user-select: auto;" />
+    1. Press the TAB KEY to move to the next data entry field.
+    <br style="-webkit-user-select: auto;" />
+    2. Press the ENTER KEY to move to the next text line ONLY while you are within a multiline text field.  Multiline text fields can be recognized by their larger size.
+</div>
 `;
 
 var nameAndCreds = `
-    <input 
-        id="E_NameandCredentials" 
-        name="step2Attribute_Value_744836"
-        data-element_id="744836" data-autofill="" 
-        style="height: 60px; -webkit-user-select: auto;" 
-        placeholder="" 
-        required="required" 
-        data-required="1"
-    >
-    </input>
+<input 
+    id="E_NameandCredentials" 
+    name="step2Attribute_Value_744836"
+    data-element_id="744836" data-autofill="" 
+    style="height: 60px; -webkit-user-select: auto;" 
+    placeholder="" 
+    required="required" 
+    data-required="1"
+>
+</input>
 `;
 
 //*************************************************************************************************
 /*========================================================================
- /////////////////////////////////////////////////////////////                                  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   GENERIC FUNCTIONS   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                                   ///////////////////////////////////////////////////////////                         
+/////////////////////////////////////////////////////////////                                  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   GENERIC FUNCTIONS   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                                   ///////////////////////////////////////////////////////////                         
 ========================================================================*/
 //*************************************************************************************************
 
 // wrap any item with an element and describe
-// var wrap = (function (toWrap, wrapper, id) {
-// 	wrapper = wrapper || document.createElement("div");
-// 	wrapper.setAttribute("id", `${id}`);
-// 	toWrap.parentNode.appendChild(wrapper);
+// const item = document.querySelector(".item");
 
-// 	// Non-working auto id something to
-// 	var id = document.querySelector(`${id}`);
-// 	window.id = id;
+// var wrap = function (toWrap, wrapperType, id) {
+// 	const wrapper = document.createElement(wrapperType ?? "div");
+// 	wrapper.setAttribute("id", id);
+// 	toWrap.parentNode.insertBefore(wrapper, toWrap);
+// 	wrapper.appendChild(toWrap);
+// 	return wrapper;
+// };
 
-// 	return wrapper.appendChild(toWrap);
-// })(window);
-
-// console.log(window.id);
-// wrap(item, "div", "item-added");
+// const wrapper = wrap(item, "div", "itemadded");
+// console.log("wrapper item with ID", wrapper.id);
 
 //*************************************************************************************************
 /*========================================================================
- /////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   | ON PAGE LOAD |  |   |   |   | |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
+/////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   | ON PAGE LOAD |  |   |   |   | |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
 ========================================================================*/
 //*************************************************************************************************
 
 /*===================================================
-                                             Login and Prod info               
+                                            Login and Prod info               
 ====================================================*/
 loginInfo.style.marginTop = "-30px"; // moves login info up
 if (prodInfo) {
@@ -148,7 +146,7 @@ note.style.display = "none"; // hides the main note item
 note2.style.display = "none"; // hides the secondary note item
 
 /*===================================================
-                                             Questions + Inputs               
+                                            Questions + Inputs               
 ====================================================*/
 
 // ===============              Backer              ===============
@@ -159,60 +157,115 @@ dataEntryNote.style.display = "none";
 backerInputNo.checked = "true";
 backerSelectQ.style.display = "none";
 
-backSelector.addEventListener("focus", respondFocus, true);
-function respondFocus() {
-	console.log("focus");
+// ==============              ZipCode             ==============
+zip.setAttribute("maxlength", 5);
+
+//*************************************************************************************************
+/*========================================================================
+/////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   |        EVENTS        |  |   |   |   | |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
+========================================================================*/
+//*************************************************************************************************
+
+/*===================================================
+                                            Quantity Focus        
+====================================================*/
+
+// Quantity Focus on Page Load
+quantityDD.focus();
+console.log("init focused");
+
+document.addEventListener("click", (e) => {
+	console.log(e.target);
+});
+// Quantity Focus on tab
+quantityDD.addEventListener("keyup", quantityTabPress, true);
+function quantityTabPress(event) {
+	console.log("quantity tab press");
+	if (event.code === "Tab") {
+		document.querySelector("#E_HowQuicklyDoYouNeedThisProduct0").focus();
+		document.querySelector("#E_HowQuicklyDoYouNeedThisProduct0").checked = "checked";
+	}
+}
+quantityDD.addEventListener("change", quantityClick, true);
+function quantityClick() {
+	console.log("click heard");
+	document.addEventListener("keyup", quantityTabPress, true);
+	document.removeEventListener("keyup", quantityTabPress, true);
+}
+
+/*===================================================
+                                                Speed Focus        
+====================================================*/
+// Select all the radio buttons
+var speedRadios = document.querySelectorAll("input[name=step2Attribute_Value_297318]");
+console.log(speedRadios);
+
+speedRadios.forEach((radio) => {
+	radio.addEventListener("change", (e) => {
+		console.log("change");
+		e.target.focus();
+		document.addEventListener("keyup", respondKeyUp, true);
+		function respondKeyUp(event) {
+			if (event.code === "Tab") {
+				document.removeEventListener("keyup", respondKeyUp, true);
+				console.log("Space 3 pressed");
+				// add an event here...(focus on the backer radio element rather than the logo dropdown)
+				backerInputNo.focus();
+			}
+		}
+		backSelector.removeEventListener("focus", respondFocus2, true);
+	});
+});
+
+/*===================================================
+                                Backer Is Selected To be Wanted               
+====================================================*/
+
+backSelector.addEventListener("focus", respondFocus2, true);
+function respondFocus2() {
+	console.log("focus  2");
 	document.addEventListener("keyup", respondKeyUp, true);
 	function respondKeyUp(event) {
 		if (event.code === "Space") {
 			document.removeEventListener("keyup", respondKeyUp, true);
-			console.log("Space pressed");
+			console.log("Space 2 pressed");
 			dataEntryNote.style.display = "block";
 		}
 		var addedDataBackerNote = document.createElement(dataPopup);
 		addedDataBackerNote.setAttribute("id", "addedDataBackerNote");
 		backerQ.insertAdjacentElement("afterend", addedDataBackerNote);
-		return addedDataBackerNote;
+		// return addedDataBackerNote;
 	}
-	backSelector.removeEventListener("focus", respondFocus, true);
-	return addedDataBackerNote;
+	backSelector.removeEventListener("focus", respondFocus2, true);
+	// return addedDataBackerNote ? addedDataBackerNote : null;
 }
 
-logoSelector.addEventListener("focus", respondFocus, true);
-function respondFocus() {
-	console.log("focus");
-	document.addEventListener("keyup", respondKeyUp, true);
-	function respondKeyUp(event) {
-		if (event.code === "Space") {
-			document.removeEventListener("keyup", respondKeyUp, true);
-			console.log("Space pressed");
-			dataEntryNote2.style.display = "block";
-		}
-	}
-	logoSelector.removeEventListener("focus", respondFocus, true);
-}
+// logoSelector.addEventListener("focus", respondFocus, true);
+// function respondFocus() {
+// 	console.log("focus");
+// 	document.addEventListener("keyup", respondKeyUp, true);
+// 	function respondKeyUp(event) {
+// 		if (event.code === "Space") {
+// 			document.removeEventListener("keyup", respondKeyUp, true);
+// 			console.log("Space pressed");
+// 			dataEntryNote.style.display = "block";
+// 		}
+// 	}
+// 	logoSelector.removeEventListener("focus", respondFocus, true);
+// }
 
-//*************************************************************************************************
-/*========================================================================
- /////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   |        EVENTS        |  |   |   |   | |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
-========================================================================*/
-//*************************************************************************************************
-
-/*===================================================
-                                 Backer Is Selected To be Wanted               
-====================================================*/
 backerInputNo.addEventListener("change", () => {
 	console.log("checked No");
 	backerLabel.innerHTML = `
-        <span 
-            id="L_PleaseSelectYourBusinessCardBackerbswh" 
-            style="-webkit-user-select: auto;"
-        >
-            Please Select Your Business Card Backer
-        </span>
-    `;
+    <span 
+        id="L_PleaseSelectYourBusinessCardBackerbswh" 
+        style="-webkit-user-select: auto;"
+    >
+        Please Select Your Business Card Backer
+    </span>
+`;
 });
 
 var backerClickCount = 0; // define number of times yes is clicked to prevent reoccuring alerts.
@@ -223,30 +276,29 @@ backerInputYes.addEventListener("change", () => {
 		backSelector.required = true;
 		backerSelectQ.style.display = "block";
 		backerLabel.innerHTML = `
-            <span class="warning" style="-webkit-user-select: auto;">*</span>
-             <span id="L_PleaseSelectYourBusinessCardBackerbswh" style="-webkit-user-select: auto;">
-                Please Select Your Business Card Backer
-            </span>
-        `;
+        <span class="warning" style="-webkit-user-select: auto;">*</span>
+            <span id="L_PleaseSelectYourBusinessCardBackerbswh" style="-webkit-user-select: auto;">
+            Please Select Your Business Card Backer
+        </span>
+    `;
 		if (backerClickCount == 1) {
 			alert("Please ensure you are sure you want a backer, and if so, select a backer according to the backer options");
 		}
 	} else {
 		backSelector.removeAttribute("required");
 		backerLabel.innerHTML = `
-            <span id="L_PleaseSelectYourBusinessCardBackerbswh" style="-webkit-user-select: auto;">
-                Please Select Your Business Card Backer
-            </span>
-        `;
+        <span id="L_PleaseSelectYourBusinessCardBackerbswh" style="-webkit-user-select: auto;">
+            Please Select Your Business Card Backer
+        </span>
+    `;
 	}
 });
 /*===================================================
-                                        Name and Credentials              
+                                    Name and Credentials              
 ====================================================*/
-console.log(nameAndCreds);
 
 /*===================================================
-                                                Price Changes               
+                                            Price Changes               
 ====================================================*/
 totalCostInput.addEventListener("input", () => {
 	newTotalCost = totalCost.value; // match tne input value
@@ -286,3 +338,7 @@ observeElement(totalCostInput, "value", function (oldValue, newValue) {
 	productOverView = `${newValue}`;
 	prodTabs.innerHTML = productOverView;
 });
+
+/*===================================================
+                                                    Zip Code              
+====================================================*/
