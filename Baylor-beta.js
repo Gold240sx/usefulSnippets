@@ -22,8 +22,35 @@ var backerInputNo = document.querySelector("#E_WouldYouLikeABackerOnYourCards0")
 var backerInputYes = document.querySelector("#E_WouldYouLikeABackerOnYourCards1");
 var backerSelectFirstChild = document.querySelector("#OPTION_4020111");
 var backerQ = document.querySelector("#ELEMENT_1215739");
-var backSelector = document.querySelector("#E_PleaseSelectYourBusinessCardBackerbswh");
+var backerSelectQ = document.querySelector("#ELEMENT_1226753");
+var backSelector = document.querySelector("#E_PleaseSelectYourBusinessCardBackerbswh, ");
 var backerLabel = document.querySelector("#L_PleaseSelectYourBusinessCardBackerbswh");
+var nameAndCreds = document.querySelector("#E_NameandCredentials");
+var logoSelector = document.querySelector("#E_PleaseChooseYourLogobsw");
+
+//*************************************************************************************************
+/*========================================================================
+ /////////////////////////////////////////////////////////////                             \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+ ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   |   |   |          Styles         |  |   |   |   | ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\                              ////////////////////////////////////////////////////////////////                         
+========================================================================*/
+//*************************************************************************************************
+/*===================================================
+                                            JS added classes              
+====================================================*/
+
+/*===================================================
+                                                    Stylesheet               
+====================================================*/
+var styles = `
+  #ELEMENT_1226753 h3, #ELEMENT_744853 h3{
+    margin-bottom: 15px;
+  }
+`;
+
+var styleSheet = document.createElement("style");
+styleSheet.innerText = styles;
+document.head.appendChild(styleSheet);
 
 //*************************************************************************************************
 /*========================================================================
@@ -48,6 +75,34 @@ var productOverView = `
             <h2 style="color: white;">Amount</h2>;
         </div>
     </div>
+`;
+
+var dataPopup = `
+    <div 
+        class="highlight textmessage" 
+        id="ELEMENT_276937" 
+        data-element_id="276937" 
+        style="-webkit-user-select: auto;"
+    >
+        DATA ENTRY NAVIGATION:
+        <br style="-webkit-user-select: auto;" />
+        1. Press the TAB KEY to move to the next data entry field.
+        <br style="-webkit-user-select: auto;" />
+        2. Press the ENTER KEY to move to the next text line ONLY while you are within a multiline text field.  Multiline text fields can be recognized by their larger size.
+    </div>
+`;
+
+var nameAndCreds = `
+    <input 
+        id="E_NameandCredentials" 
+        name="step2Attribute_Value_744836"
+        data-element_id="744836" data-autofill="" 
+        style="height: 60px; -webkit-user-select: auto;" 
+        placeholder="" 
+        required="required" 
+        data-required="1"
+    >
+    </input>
 `;
 
 //*************************************************************************************************
@@ -86,7 +141,9 @@ var productOverView = `
                                              Login and Prod info               
 ====================================================*/
 loginInfo.style.marginTop = "-30px"; // moves login info up
-prodInfo.style.display = "none"; // hides the product preview header
+if (prodInfo) {
+	prodInfo.style.display = "none";
+} // hides the product preview header
 note.style.display = "none"; // hides the main note item
 note2.style.display = "none"; // hides the secondary note item
 
@@ -99,6 +156,9 @@ backerQ.style.paddingBottom = "40px";
 backerSelectFirstChild.value = "";
 backerSelectFirstChild.textContent = "SELECT";
 dataEntryNote.style.display = "none";
+backerInputNo.checked = "true";
+backerSelectQ.style.display = "none";
+
 backSelector.addEventListener("focus", respondFocus, true);
 function respondFocus() {
 	console.log("focus");
@@ -109,8 +169,27 @@ function respondFocus() {
 			console.log("Space pressed");
 			dataEntryNote.style.display = "block";
 		}
+		var addedDataBackerNote = document.createElement(dataPopup);
+		addedDataBackerNote.setAttribute("id", "addedDataBackerNote");
+		backerQ.insertAdjacentElement("afterend", addedDataBackerNote);
+		return addedDataBackerNote;
 	}
 	backSelector.removeEventListener("focus", respondFocus, true);
+	return addedDataBackerNote;
+}
+
+logoSelector.addEventListener("focus", respondFocus, true);
+function respondFocus() {
+	console.log("focus");
+	document.addEventListener("keyup", respondKeyUp, true);
+	function respondKeyUp(event) {
+		if (event.code === "Space") {
+			document.removeEventListener("keyup", respondKeyUp, true);
+			console.log("Space pressed");
+			dataEntryNote2.style.display = "block";
+		}
+	}
+	logoSelector.removeEventListener("focus", respondFocus, true);
 }
 
 //*************************************************************************************************
@@ -136,23 +215,24 @@ backerInputNo.addEventListener("change", () => {
     `;
 });
 
-let backerClickCount = 0; // define number of times yes is clicked to prevent reoccuring alerts.
+var backerClickCount = 0; // define number of times yes is clicked to prevent reoccuring alerts.
 backerInputYes.addEventListener("change", () => {
 	backerClickCount = backerClickCount + 1;
-	backSelector.required = "required";
+	backSelector.setAttribute("required", "");
 	if (backerInputYes.checked) {
 		backSelector.required = true;
+		backerSelectQ.style.display = "block";
 		backerLabel.innerHTML = `
             <span class="warning" style="-webkit-user-select: auto;">*</span>
              <span id="L_PleaseSelectYourBusinessCardBackerbswh" style="-webkit-user-select: auto;">
                 Please Select Your Business Card Backer
             </span>
         `;
-		if (count == 1) {
+		if (backerClickCount == 1) {
 			alert("Please ensure you are sure you want a backer, and if so, select a backer according to the backer options");
 		}
 	} else {
-		backSelector.required = false;
+		backSelector.removeAttribute("required");
 		backerLabel.innerHTML = `
             <span id="L_PleaseSelectYourBusinessCardBackerbswh" style="-webkit-user-select: auto;">
                 Please Select Your Business Card Backer
@@ -160,6 +240,11 @@ backerInputYes.addEventListener("change", () => {
         `;
 	}
 });
+/*===================================================
+                                        Name and Credentials              
+====================================================*/
+console.log(nameAndCreds);
+
 /*===================================================
                                                 Price Changes               
 ====================================================*/
