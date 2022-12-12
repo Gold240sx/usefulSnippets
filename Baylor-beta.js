@@ -29,6 +29,9 @@ var nameAndCreds = document.querySelector("#E_NameandCredentials");
 var logoSelector = document.querySelector("#E_PleaseChooseYourLogobsw");
 var quantityDD = document.querySelector("#E_Quantity");
 var zip = document.querySelector("#E_ZipCode");
+var stateNote = document.querySelector("#ELEMENT_1366633");
+var webURL = document.querySelector("#E_Website");
+var email = document.querySelector("#E_EmailAddress");
 
 //*************************************************************************************************
 /*========================================================================
@@ -159,6 +162,8 @@ backerSelectQ.style.display = "none";
 
 // ==============              ZipCode             ==============
 zip.setAttribute("maxlength", 5);
+// ==============              stateNote             ==============
+stateNote.display = "none";
 
 //*************************************************************************************************
 /*========================================================================
@@ -228,13 +233,13 @@ function respondFocus2() {
 	console.log("focus  2");
 	document.addEventListener("keyup", respondKeyUp, true);
 	function respondKeyUp(event) {
-		if (event.code === "Space") {
+		if (event.code === "Tab") {
 			document.removeEventListener("keyup", respondKeyUp, true);
 			console.log("Space 2 pressed");
 			dataEntryNote.style.display = "block";
 		}
 		var addedDataBackerNote = document.createElement(dataPopup);
-		addedDataBackerNote.setAttribute("id", "addedDataBackerNote");
+		addedDataBackerNote.setAttribute("id", "addedDataBackerNote2");
 		backerQ.insertAdjacentElement("afterend", addedDataBackerNote);
 		// return addedDataBackerNote;
 	}
@@ -245,12 +250,13 @@ function respondFocus2() {
 // logoSelector.addEventListener("focus", respondFocus, true);
 // function respondFocus() {
 // 	console.log("focus");
+// 	dataEntryNote.style.display = "block";
+
 // 	document.addEventListener("keyup", respondKeyUp, true);
 // 	function respondKeyUp(event) {
 // 		if (event.code === "Space") {
 // 			document.removeEventListener("keyup", respondKeyUp, true);
 // 			console.log("Space pressed");
-// 			dataEntryNote.style.display = "block";
 // 		}
 // 	}
 // 	logoSelector.removeEventListener("focus", respondFocus, true);
@@ -340,5 +346,114 @@ observeElement(totalCostInput, "value", function (oldValue, newValue) {
 });
 
 /*===================================================
-                                                    Zip Code              
+                                          Name and Credentials             
 ====================================================*/
+
+/*===================================================
+                                                    Credentials             
+====================================================*/
+
+/*===================================================
+                                                    Website            
+====================================================*/
+webURL.addEventListener("keyup", webProcess, true);
+function webProcess(e) {
+	const input = e.target.value;
+	console.log({ input });
+
+	const Alert = (e) =>
+		alert(`
+            Per Guidelines provided by Baylor Scott,
+            your business card's website may not
+            begin with any of the following:
+
+                www.
+                https:
+                https://www.
+                http://
+                http://www.
+
+            Please type in your website with the format:
+
+                                        "Website.com"
+
+            Thank you!
+        `);
+
+	switch (input) {
+		case "www.":
+			var prefix = "www.";
+			webURL.value = input.slice(prefix.length);
+			Alert();
+			break;
+		case "//":
+			var prefix = "//";
+			webURL.value = input.slice(prefix.length);
+			Alert();
+			break;
+		case "https://":
+			var prefix = "https://";
+			webURL.value = input.slice(prefix.length);
+			Alert();
+			break;
+		case "http://":
+			var prefix = "http://";
+			webURL.value = input.slice(prefix.length);
+			Alert();
+			break;
+	}
+}
+
+/*===================================================
+                                                    Email            
+====================================================*/
+email.addEventListener("keyup", emailProcess, true);
+function emailProcess(e) {
+	var input = e.target.value;
+	var last4 = input.slice(-4);
+	var last3 = input.slice(-3);
+	var last1 = input.slice(-1);
+	const Alert = (e) =>
+		alert(`
+               Per Guidelines provided by Baylor Scott,
+                  your email address may ONLY begin 
+                                       with ".org":
+
+            Thank you!
+    `);
+	console.log({ input });
+	if (input.contains("@")) {
+		//  email.removeEventListener("keyup", emailProcess, true);
+		console.log({ last4 });
+	}
+
+	// document.addEventListener("keyup", domainProcess, true);
+	// function domainProcess({ last3, last4 }) {}
+
+	// switch (input) {
+	// 	case "www.":
+	// 		var prefix = "www.";
+	// 		console.log({ prefix });
+	// 		webURL.value = input.slice(prefix.length);
+	// 		Alert();
+	// 		break;
+	// 	case "//":
+	// 		var prefix = "//";
+	// 		console.log({ prefix });
+	// 		webURL.value = input.slice(prefix.length);
+	// 		Alert();
+	// 		break;
+	// 	case "https://":
+	// 		var prefix = "https://";
+	// 		console.log({ prefix });
+	// 		webURL.value = input.slice(prefix.length);
+	// 		Alert();
+	// 		break;
+	// 	case "http://":
+	// 		var prefix = "http://";
+	// 		console.log({ prefix });
+	// 		webURL.value = input.slice(prefix.length);
+	// 		Alert();
+	// 		break;
+	//}
+}
