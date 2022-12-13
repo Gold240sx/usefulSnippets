@@ -11,6 +11,12 @@ bdis.border = "2px solid grey";
 bdis.borderRadius = "8px";
 bdis.cursor = "pointer";
 
+input.addEventListener("focusout", () => {
+	var text = input.value;
+	var regex = /((?:[^m.]+|m[.]ed|m(?![.]ed))+)|[.]/gm;
+	input.value = text.replace(regex, "$1");
+});
+
 // let edit_1 = {
 // 	refEl: bdis,
 // 	event: "click",

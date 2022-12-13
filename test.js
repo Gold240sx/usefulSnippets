@@ -1,106 +1,242 @@
 const button = document.querySelector(".buttons");
 const value = document.querySelector(".value");
 
-(function () {
-	var count = 0;
-	window.baz = function baz(w1, w2) {
-		var output = `${w1} + ${w2}`;
-		count = count + 1;
-		value.textContent = count;
-		console.log(output);
-		// return output;
-	};
-})(window);
+const inputName = document.querySelector("#input-name");
+const title = document.querySelector("#input-title");
+const combined = document.querySelector("#input-combined");
+const TITLE_REGEX = /^(?!.*uspi\.org).+(?:uspi\.com|\.org)$/gm;
 
-button.addEventListener("click", () => window.baz("Hello", "Wisconsin"));
+inputName.value + title.value;
+inputName.onpaste = (e) => e.preventDefault();
 
-//buzz and bazz are the same.. except count is hidden from global context in the upper and available in the lower.
-// only practical application is to enclose variables at the cost of code bloat and hurt performance.
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// if not, delete
+// if so check if next letter is e
+// if not delete period.
+// if so, check if next letter is M,
+// if so, end function
+// if not delete period.
+function func1(event) {
+	var input = inputName.value;
 
-var count = 0;
-const buzz = (w1, w2) => {
-	var output = `${w1} + ${w2}`;
-	count = count + 1;
-	value.textContent = count;
-	console.log(output);
-	// return output;
-};
-button.addEventListener("click", () => buzz("Hello", "Arizona"));
+	//Check if period was pressed
+	if (event.key === ".") {
+		console.log("period has been pressed");
+		// now check the previous letter to see if it is M.
+		if (input.slice(-2, -1) === "m") {
+			console.log("m is the correct letter");
+			console.log(event.key);
 
-const webURL = document.querySelector("#url_input");
-
-webURL.addEventListener("keyup", (e) => {
-	input = e.target.value;
-
-	if (input.startsWith("www.")) {
-		console.log("triggered");
-		const wwwdot = "www.";
-		webURL.value = input.slice(wwwdot.length);
-		alert(`
-            Per Guidelines provided by Baylor Scott, 
-            your business card's website may not 
-            begin with any of the following:
-                
-                www.
-                https:
-                https://www.
-                http://
-                http://www.
-
-            Please type in your website with the format: 
-
-                                     "Website.com"
-
-            Thank you!
-        `);
+			//   boiler
+			function func2(event) {
+				if (event.key === "e") {
+					console.log(" e = continue");
+					function func3(event) {
+						if ((event.key = "M")) {
+							console.log("horray all the functions worked!");
+							/////////////////////////////////////////////////////////////////////////////////
+							box3.removeEventListener("click", func3, true);
+						} else if (event.key === "delete") {
+							console.log(input.slice(-3));
+						} else {
+							console.log(input.slice(-3));
+							box3.removeEventListener("click", func3, true);
+						}
+					}
+					box3.addEventListener("click", func3, true);
+				} else if (event.key === "m") {
+					console.log("m.m is not allowed");
+				} else {
+					inputName.value = input.slice(0, -2);
+				}
+				/////////////////////////////////////////////////////////////////////////////////
+				box2.removeEventListener("click", func2, true);
+			}
+			box2.addEventListener("click", func2, true);
+		} else {
+			// delete the period and say it is not allowed.
+			inputName.value = input.slice(0, -1);
+			console.log("set alert. Period is not valid except for 'M.ED' ");
+		}
+		/////////////////////////////////////////////////////////////////////////////////
+		//now fire func2 event listener to see if the next key pressed is  E...
+		box1.removeEventListener("click", func1, true);
 	}
-	webURL.removeEventListener("keyup");
+	/// fake function 1 content
+	combined.value = inputName.value + "  " + title.value;
+}
+box1.addEventListener("click", func1, true);
+
+//
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+const checkPeriodOutter = (event) => {
+	var input = inputName.value;
+	if (event.key === ".") {
+		console.log("period has been pressed");
+
+		if (input.slice(-2, -1) === "m") {
+			console.log("m is the correct letter");
+			console.log(event.key);
+			//////////////////////////////////////////////////////////////////////////////////////////
+			inputName.addEventListener("keyup", (event) => {
+				console.log(event.key);
+
+				if (event.key === "e") {
+					console.log(" e = continue");
+					// /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+					///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				} else if (event.key === "m") {
+					console.log("m.m is not allowed");
+				} else {
+					inputName.value = input.slice(0, -2);
+				}
+				//
+				//
+				///
+				//
+				//
+			});
+			//////////////////////////////////////////////////////////////////////////////////////////
+		} else {
+			inputName.value = input.slice(0, -1);
+			console.log("set alert. Period is not valid except for 'M.D' ");
+		}
+		// if not, delete
+		// if so check if next letter is e
+		// if not delete period.
+		// if so, check if next letter is M,
+		// if so, end function
+		// if not delete period.
+	}
+
+	combined.value = inputName.value + "  " + title.value;
+};
+const checkE = () => {};
+const checkD = () => {};
+
+///
+///
+////
+///
+////
+//
+//
+//
+//
+//
+//
+///
+///
+//
+//
+////
+////
+///
+///
+//
+//
+inputName.addEventListener("keyup", (event) => {
+	// function respondKeyUp(event) {
+	var input = inputName.value;
+	if (event.key === ".") {
+		console.log("period has been pressed");
+
+		if (input.slice(-2, -1) === "m") {
+			console.log("m is the correct letter");
+			console.log(event.key);
+
+			const checkM = (e) => {
+				//
+			};
+			//
+			//
+			//
+			//
+			//
+			//
+			inputName.addEventListener("keyup", (event) => {
+				console.log(event.key);
+				//
+				//
+				//
+				//
+				if (event.key === "e") {
+					console.log(" e = continue");
+					inputName.addEventListener("keyup", (event) => {
+						if ((event.key = "delete")) {
+							console.log("delete was pressed");
+						}
+					});
+				} else if (event.key === "m") {
+					console.log("m.m is not allowed");
+				} else {
+					inputName.value = input.slice(0, -2);
+				}
+				//
+				//
+				///
+				//
+				//
+			});
+		} else {
+			inputName.value = input.slice(0, -1);
+			console.log("set alert. Period is not valid except for 'M.D' ");
+		}
+		// if not, delete
+		// if so check if next letter is e
+		// if not delete period.
+		// if so, check if next letter is M,
+		// if so, end function
+		// if not delete period.
+	}
+
+	combined.value = inputName.value + "  " + title.value;
 });
 
-// <h2>Per Guidelines provided by Baylor Scott, they do not allow websites on your business card to include any of the following:</h2> <br/>
-// <p>Please type in your website with the format: "Website.com"</p>
-// <ul>
-//     <li>www.</li>
-//     <li>https:// </li>
-//     <li>https://www.</li>
-//     <li>http:// </li>
-//     <li>http://www.</li>
-// </ul>
-const email = document.querySelector("#email");
-// const EML_ORGONLY_REGEX = /[a-z0-9-]+\( .org | uspi.com )/g;
-// const EML_ORGONLY_REGEX = /[a-z-]+(.org|uspi.com)/s;
-// const EML_ORGONLY_REGEX = /[a-z-]+((?!@uspi.org)(@+[a-z-]+(.org))|(@uspi.com))?$/;
-const EML_ORGONLY_REGEX = /[a-z-]+((?!uspi).*\.org|.*\@uspi.com)$/m;
-
-email.addEventListener("keyup", emailProcess, true);
-function emailProcess(e) {
-	var input = e.target.value;
-	switch (EML_ORGONLY_REGEX.test(input)) {
-		case true:
-			console.log("true");
-			lastIndex = 0;
-			break;
-		case false:
-			// console.log("false");
-			lastIndex = 0;
-			break;
-	}
-}
-
-// const EML_ORGONLY_REGEX = /(?:https?:\/\/)?(?:www\.)?[a-z-]+\.(?:org)(?:\[a-z]{0,0})?/g;
-// email.addEventListener("keyup", emailProcess, true);
-// function emailProcess(e) {
-// 	var input = e.target.value;
-// 	// console.log(EML_ORGONLY_REGEX.test(input));
-// 	// console.log({ input });
-// 	switch (EML_ORGONLY_REGEX.test(input)) {
-// 		case true:
-// 			// console.log("true");
-// 			// console.log(input.length);
-// 			// console.log(input.slice(-3));
-// 			break;
-// 		// case false:
-// 		// 	console.log("false");
-// 		// 	break;
-// 	}
-// }
+title.addEventListener("change", () => {
+	combined.value = inputName.value + " " + title.value;
+});

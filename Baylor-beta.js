@@ -48,9 +48,12 @@ var email = document.querySelector("#E_EmailAddress");
                                                 Stylesheet               
 ====================================================*/
 var styles = `
-#ELEMENT_1226753 h3, #ELEMENT_744853 h3 {
-margin-bottom: 15px;
-}
+    #ELEMENT_1226753 h3, #ELEMENT_744853 h3 {
+        margin-bottom: 15px;
+    }
+    .invalid-input::-webkit-input-placeholder {
+        color: red;
+    }
 `;
 
 var styleSheet = document.createElement("style");
@@ -302,6 +305,7 @@ backerInputYes.addEventListener("change", () => {
 /*===================================================
                                     Name and Credentials              
 ====================================================*/
+//nameAndCreds...
 
 /*===================================================
                                             Price Changes               
@@ -407,53 +411,42 @@ function webProcess(e) {
 /*===================================================
                                                     Email            
 ====================================================*/
-email.addEventListener("keyup", emailProcess, true);
+const EML_ORGONLY_REGEX2 = /^(?!.*uspi\.org).+(?:uspi\.com|\.org)$/m;
+
+email.addEventListener("focusout", emailProcess, true);
+
 function emailProcess(e) {
-	var input = e.target.value;
-	var last4 = input.slice(-4);
-	var last3 = input.slice(-3);
-	var last1 = input.slice(-1);
-	const Alert = (e) =>
-		alert(`
-               Per Guidelines provided by Baylor Scott,
-                  your email address may ONLY begin 
-                                       with ".org":
+	email.classList.remove("invalid-input");
+	email.placeholder = "";
+	var regcheck = undefined;
+	var input = email.value;
+	let regexCheck = !!EML_ORGONLY_REGEX2.test(input);
 
-            Thank you!
-    `);
-	console.log({ input });
-	if (input.contains("@")) {
-		//  email.removeEventListener("keyup", emailProcess, true);
-		console.log({ last4 });
+	switch (true) {
+		case regexCheck:
+			console.log("run true");
+			regcheck = true;
+			lastIndex = 0;
+			break;
+
+		default:
+			console.log("run false");
+			console.log(regcheck);
+			var regcheck = false;
+			lastIndex = 0;
+
+			if (email.value.slice(-3) === "com") {
+				email.value = email.value.slice(0, -3) + "org";
+			} else if ((email.length = 0)) {
+				email.placeholder = "";
+				email.classList.remove("invalid-input");
+				return;
+			} else {
+				email.classList.add("invalid-input");
+				console.log("regex = false");
+				email.placeholder = "Invalid email";
+				email.value = "";
+			}
+			return;
 	}
-
-	// document.addEventListener("keyup", domainProcess, true);
-	// function domainProcess({ last3, last4 }) {}
-
-	// switch (input) {
-	// 	case "www.":
-	// 		var prefix = "www.";
-	// 		console.log({ prefix });
-	// 		webURL.value = input.slice(prefix.length);
-	// 		Alert();
-	// 		break;
-	// 	case "//":
-	// 		var prefix = "//";
-	// 		console.log({ prefix });
-	// 		webURL.value = input.slice(prefix.length);
-	// 		Alert();
-	// 		break;
-	// 	case "https://":
-	// 		var prefix = "https://";
-	// 		console.log({ prefix });
-	// 		webURL.value = input.slice(prefix.length);
-	// 		Alert();
-	// 		break;
-	// 	case "http://":
-	// 		var prefix = "http://";
-	// 		console.log({ prefix });
-	// 		webURL.value = input.slice(prefix.length);
-	// 		Alert();
-	// 		break;
-	//}
 }
