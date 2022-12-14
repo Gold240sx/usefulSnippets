@@ -66,7 +66,7 @@ function func1(event) {
 	/// fake function 1 content
 	combined.value = inputName.value + "  " + title.value;
 }
-box1.addEventListener("click", func1, true);
+// box1.addEventListener("click", func1, true);
 
 //
 
