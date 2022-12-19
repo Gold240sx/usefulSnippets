@@ -34,6 +34,8 @@ var testString = [
 	"Ro RO Jones",
 	"Ruby Jo Tarrent",
 	"Ruby-Jo Mellie",
+	"D.j. hemmingway",
+	"Dj hemmingway",
 ];
 
 const nameProcess = (array) => {
@@ -156,6 +158,8 @@ const newData = nameProcess(testString);
 const oldData = testString;
 var newList = document.getElementById("new");
 var oldList = document.getElementById("old");
+var testInput = document.getElementById("testInput");
+var output = document.getElementById("output");
 
 oldData.forEach((item) => {
 	let li = document.createElement("li");
@@ -169,4 +173,57 @@ newData.forEach((item) => {
 	newList.appendChild(li);
 });
 
+testInput.addEventListener("keyup", (e) => {
+	const input = e.target.value;
+	output.innerText = nameProcess([input])[0];
+});
+
+// function formatNames(names) {
+// 	const formattedNames = [];
+
+// 	for (const name of names) {
+// 		// Split the name into parts
+// 		const parts = name.split(" ");
+
+// 		// Initialize a new name with the first part in uppercase
+// 		let formattedName = parts[0].toUpperCase();
+
+// 		// Loop through the rest of the parts
+// 		for (let i = 1; i < parts.length; i++) {
+// 			// Get the current part
+// 			const part = parts[i];
+
+// 			// If the part is a single letter followed by a period,
+// 			// add it to the formatted name in uppercase
+// 			if (part.length === 2 && part[1] === ".") {
+// 				formattedName += " " + part.toUpperCase();
+// 			}
+// 			// If the part is "Jr" or "Sr", add it to the formatted name in uppercase
+// 			else if (part === "jr" || part === "sr") {
+// 				formattedName += " " + part.toUpperCase();
+// 			}
+// 			// Otherwise, add the part to the formatted name with the first letter capitalized
+// 			else {
+// 				formattedName += " " + part[0].toUpperCase() + part.slice(1);
+// 			}
+// 		}
+
+// 		// Trim any excess whitespace from the formatted name
+// 		formattedName = formattedName.trim();
+
+// 		// Add the formatted name to the array
+// 		formattedNames.push(formattedName);
+// 	}
+
+// 	return formattedNames;
+// }
+
+// const chatGPTData = formatNames(testString);
+// const chatGPTList = document.getElementById("chatGPT");
+
+// chatGPTData.forEach((item) => {
+// 	let li = document.createElement("li");
+// 	li.innerText = item;
+// 	chatGPTList.appendChild(li);
+// });
 // nameProcess(testString);
