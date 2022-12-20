@@ -160,6 +160,7 @@ var newList = document.getElementById("new");
 var oldList = document.getElementById("old");
 var testInput = document.getElementById("testInput");
 var output = document.getElementById("output");
+var formatBtn = document.getElementById("formatBtn");
 
 oldData.forEach((item) => {
 	let li = document.createElement("li");
@@ -176,6 +177,10 @@ newData.forEach((item) => {
 testInput.addEventListener("keyup", (e) => {
 	const input = e.target.value;
 	output.innerText = nameProcess([input])[0];
+});
+
+formatBtn.addEventListener("click", (e) => {
+	testInput.value = nameProcess([testInput.value])[0];
 });
 
 // function formatNames(names) {

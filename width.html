@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<script src="width.js" defer></script>
+        <style>
+            *, ** {
+                box-sizing: border-box;
+                font-size: 8px;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
+        </style>
+		<title>Width</title>
+	</head>
+	<body>
+		<div id="preview-container" style="padding: 15px; width: fit-content;">
+			<h1>Preview</h1>
+			<div id="card-border" style="width: 252px; height: 144px; border: 2px solid black; margin-inline: auto; margin-bottom: 20px;">
+                <div id="card" style="display: flex; margin-inline: auto; align-items: center; justify-content: center; height: 100%; padding: 0; margin: 0; padding: 0;">
+                    <div id="leftMargin" style="position: relative; height: 100%; margin: 0">
+                        <div id="left-margin" style="position: relative; height: 100%; border: 2px dotted gray; width: 12.45px; background-color: azure; margin: 0;"></div>
+                    </div>
+                    <div id="left" style="margin-left: auto;">
+                        <div id="left-box" style="height: 20px; border: 2px solid red; width: 20px; overflow: hidden;"></div>
+                    </div>
+                    <div  id="mid-box" style="height: 20px; border: 2px  solid rgb(0, 195, 255); width: 33.12px; background-color: rgb(0, solid195, 255);"></div>
+                    <div id="right" style="margin-right: auto;">
+                        <div id="right-box" style="height: 20px; border: 2px solid red; width: 20px; overflow: hidden;"></div>
+                    </div>
+                      <div id="rightMargin" style="position: relative; height: 100%; margin: 0">
+                        <div id="right-margin" style="position: relative; height: 100%; border: 2px dotted gray; width: 12.45px; background-color: azure; margin: 0;"></div>
+                    </div>
+            </div>
+		</div>
+		<div class="form">
+			<div id="row">
+				<label for="left-name">Left Name</label>
+				<input type="text" id="left-name" />
+				<label for="right-name">Right Name</label>
+				<input type="text" id="right-name" />
+			</div>
+            <div style="display: flex; justify-content:space-evenly">
+				<label for="left-width">Left Width:</label>
+                <span id="left-value">0</span>
+				<label for="right-width">Right Width:</label>
+                <span id="right-value">0</span>
+			</div>
+            	<label for="width" >Total Width:</label>
+		</div>
+        <canvas id="myCanvas" width="255" height="144" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+	</body>
+</html>

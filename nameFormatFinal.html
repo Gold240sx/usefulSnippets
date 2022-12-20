@@ -17,11 +17,43 @@
 		<div style="display: flex; align-items: center; margin-inline: auto; flex-direction: row">
 			<div style="width: fit-content; flex-direction: column">
 				<h3>Type in your name:</h3>
-				<input type="text" id="testInput" />
+				<div>
+					<input
+						type="text"
+						id="testInput"
+						style="
+							color: white;
+							font-size: 25px;
+							padding: 2px 20px;
+							border-radius: 10px 0px 0px 10px;
+							border: none !important;
+							background-color: rgb(175, 188, 210);
+							margin-right: 0;
+							margin-block: auto;
+							align-items: center;
+							justify-self: auto;
+						" />
+					<button
+						id="formatBtn"
+						style="
+							color: white;
+							font-size: 15px;
+							background-color: rgb(33, 57, 102);
+							border: none !important;
+							padding: 7px 20px;
+							border-radius: 0px 10px 10px 0px;
+							margin-left: 0;
+							margin-block: auto;
+							align-items: center;
+							justify-self: auto;
+						">
+						Format
+					</button>
+				</div>
 			</div>
 			<div style="width: fit-content; flex-direction: column; margin-left: 40px">
 				<h3>Output:</h3>
-				<h4 id="output">output here</h4>
+				<h4 id="output" style="color: #bdbdbd">output here</h4>
 			</div>
 		</div>
 	</body>
