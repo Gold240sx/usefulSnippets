@@ -36,6 +36,11 @@ var testString = [
 	"Ruby-Jo Mellie",
 	"D.j. hemmingway",
 	"Dj hemmingway",
+	"Dr. John Smith",
+	"John Dr. Smith",
+	"Dr John Smith",
+	"DR. H. J.  smith",
+	"Dr. H.J.  smith",
 ];
 
 const nameProcess = (array) => {
@@ -52,8 +57,20 @@ const nameProcess = (array) => {
 			.replace(regex_lowercase_last_letter, function (match, capture1, capture2) {
 				return capture1.toLowerCase() + capture2;
 			});
+
+		// remove dr, Dr, dr. and Dr, from the beginning of the name.
+		const noTitleFunct = (initStr) => {
+			if (initStr.toLowerCase().slice(0, 3) === "dr.") {
+				return initStr.replace(/dr./gi, "");
+			} else if (initStr.toLowerCase().slice(0, 2) === "dr") {
+				return initStr.slice(2, initStr.length);
+			} else {
+				return initStr;
+			}
+		};
+		const noTitle = noTitleFunct(initStr);
 		//remove all periods and commas
-		var firstStr = initStr.replaceAll(".", "").replaceAll(",", "");
+		var firstStr = noTitle.replaceAll(".", "").replaceAll(",", "");
 		//add periods to all 2 letter words
 		var secndStr = firstStr.replace(regex_all_two_letter_words, "$1.");
 		//add periods to all 1 letter words
@@ -80,11 +97,11 @@ const nameProcess = (array) => {
 		/////  Final String Manilpulation
 
 		//check if str first name of two characters includes  a period
-		const initCheck1 = spaceChecked[1] === "." ? true : false;
-		const initCheck2 = spaceChecked[3] === "." ? true : false;
+		const initCheck1 = noTitle[1] === "." ? true : false;
+		const initCheck2 = noTitle[3] === "." ? true : false;
 		const initCheckNone = !initCheck1 && !initCheck2 ? true : false;
 		const initCheckAll = initCheck1 && initCheck2 ? true : false;
-		const twoLettrWordBegin = spaceChecked[0] !== " " && spaceChecked[1] !== " " && spaceChecked[2] == " " ? true : false;
+		const twoLettrWordBegin = noTitle[0] !== " " && noTitle[1] !== " " && noTitle[2] == " " ? true : false;
 
 		const eighthStringFunct = (eighth_sttring) => {
 			if (initCheckNone) {
@@ -112,7 +129,7 @@ const nameProcess = (array) => {
 			} else if (initCheck1) {
 				//user input something like "J. HANDCOCK or J.R Handcock"
 				// if 4th letter[3] of str  is a space,  add a space before the 3rd letter[2] in text
-				if (spaceChecked[2] !== " ") {
+				if (noTitle[2] !== " ") {
 					//this means that the second letter is a period and the fourth letter is a space. ie: "J.S Handcock"
 					// assume spelling error (first initial, middle initial) and add a space before the 3rd letter
 					var text = eighth_sttring.slice(0, 2) + " " + eighth_sttring.substr(2);
@@ -136,12 +153,18 @@ const nameProcess = (array) => {
 			}
 		};
 		const eighthString = eighthStringFunct(seventhString);
-		const ninthString = (text) =>
+		const ninthString = (text) => {
 			text.replace(/\b[a-zA-Z]+-[a-zA-Z]+.[a-zA-Z]+.+\b/g, function (word) {
 				return word.replace(/\./g, "");
 			});
+			return text;
+		};
 
-		return ninthString(eighthString);
+		const tenthString = ninthString(eighthString)
+			.replace(/ jr\.?$/i, ", Jr.")
+			.replace(/ sr\.?$/i, ", Sr.");
+
+		return tenthString;
 	});
 
 	return newArray;
@@ -182,53 +205,3 @@ testInput.addEventListener("keyup", (e) => {
 formatBtn.addEventListener("click", (e) => {
 	testInput.value = nameProcess([testInput.value])[0];
 });
-
-// function formatNames(names) {
-// 	const formattedNames = [];
-
-// 	for (const name of names) {
-// 		// Split the name into parts
-// 		const parts = name.split(" ");
-
-// 		// Initialize a new name with the first part in uppercase
-// 		let formattedName = parts[0].toUpperCase();
-
-// 		// Loop through the rest of the parts
-// 		for (let i = 1; i < parts.length; i++) {
-// 			// Get the current part
-// 			const part = parts[i];
-
-// 			// If the part is a single letter followed by a period,
-// 			// add it to the formatted name in uppercase
-// 			if (part.length === 2 && part[1] === ".") {
-// 				formattedName += " " + part.toUpperCase();
-// 			}
-// 			// If the part is "Jr" or "Sr", add it to the formatted name in uppercase
-// 			else if (part === "jr" || part === "sr") {
-// 				formattedName += " " + part.toUpperCase();
-// 			}
-// 			// Otherwise, add the part to the formatted name with the first letter capitalized
-// 			else {
-// 				formattedName += " " + part[0].toUpperCase() + part.slice(1);
-// 			}
-// 		}
-
-// 		// Trim any excess whitespace from the formatted name
-// 		formattedName = formattedName.trim();
-
-// 		// Add the formatted name to the array
-// 		formattedNames.push(formattedName);
-// 	}
-
-// 	return formattedNames;
-// }
-
-// const chatGPTData = formatNames(testString);
-// const chatGPTList = document.getElementById("chatGPT");
-
-// chatGPTData.forEach((item) => {
-// 	let li = document.createElement("li");
-// 	li.innerText = item;
-// 	chatGPTList.appendChild(li);
-// });
-// nameProcess(testString);

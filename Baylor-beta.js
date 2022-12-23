@@ -22,11 +22,13 @@ var backerInputNo = document.querySelector("#E_WouldYouLikeABackerOnYourCards0")
 var backerInputYes = document.querySelector("#E_WouldYouLikeABackerOnYourCards1");
 var backerSelectFirstChild = document.querySelector("#OPTION_4020111");
 var backerQ = document.querySelector("#ELEMENT_1215739");
+var backerQTitle = document.querySelector("#L_WouldYouLikeABackerOnYourCards");
 var backerSelectQ = document.querySelector("#ELEMENT_1226753");
 var backSelector = document.querySelector("#E_PleaseSelectYourBusinessCardBackerbswh");
 var backerLabel = document.querySelector("#L_PleaseSelectYourBusinessCardBackerbswh");
 var nameAndCreds = document.querySelector("#E_NameandCredentials");
 var logoSelector = document.querySelector("#E_PleaseChooseYourLogobsw");
+var logoLabel = document.querySelector("#L_PleaseChooseYourLogobsw");
 var quantityDD = document.querySelector("#E_Quantity");
 var zip = document.querySelector("#E_ZipCode");
 var stateNote = document.querySelector("#ELEMENT_1366633");
@@ -162,6 +164,8 @@ backerSelectFirstChild.textContent = "SELECT";
 dataEntryNote.style.display = "none";
 backerInputNo.checked = "true";
 backerSelectQ.style.display = "none";
+backerQTitle.textContent = 'SELECT: 2-Sided-Printed Card: ("Yes")? Default is a single-sided card: ("No").';
+logoLabel.textContent = "Please Choose Your Logo:";
 
 // ==============              ZipCode             ==============
 zip.setAttribute("maxlength", 5);
@@ -294,6 +298,8 @@ backerInputYes.addEventListener("change", () => {
 			alert("Please ensure you are sure you want a backer, and if so, select a backer according to the backer options");
 		}
 	} else {
+		// backer Input No is checked
+		logoSelector.value = "";
 		backSelector.removeAttribute("required");
 		backerLabel.innerHTML = `
         <span id="L_PleaseSelectYourBusinessCardBackerbswh" style="-webkit-user-select: auto;">
@@ -411,7 +417,7 @@ function webProcess(e) {
 /*===================================================
                                                     Email            
 ====================================================*/
-const EML_ORGONLY_REGEX2 = /^(?!.*uspi\.org).+(?:uspi\.com|\.org)$/m;
+const EML_ORGONLY_REGEX2 = /^(?!.*uspi\.org).+(?:(uspi|bswRehab)\.com|\.org)$/gm;
 
 email.addEventListener("focusout", emailProcess, true);
 
