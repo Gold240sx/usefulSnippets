@@ -305,7 +305,7 @@ backerInputYes.addEventListener("change", () => {
 /*===================================================
                                     Name and Credentials              
 ====================================================*/
-//nameAndCreds...
+//nameAndCreds... Awaiting for the name and creentials to be individually added.
 
 /*===================================================
                                             Price Changes               
