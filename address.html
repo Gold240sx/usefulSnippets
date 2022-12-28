@@ -46,9 +46,10 @@
 				margin: 0px;
 				justify-content: center;
 				cursor: pointer;
+				margin: 5px;
 			}
 			ul li {
-				margin: 10px 4px;
+				margin: 5px 4px;
 				text-align: center;
 				justify-content: center;
 				align-items: center;
@@ -119,27 +120,40 @@
 				<label for="address">Addr_1:</label>
 				<input type="text" id="Addr_1" placeholder="# W. Sandy Rd" />
 
-				<div id="Addr_2_Container" style="margin: 0 20px">
-					<div id="Addr_2_Options_Container" style="display: flex; flex-direction: row">
-						<h3>Line 2 Options:</h3>
-						<ul style="display: flex; flex-direction: row; align-items: center; margin-left: auto">
-							<li>
-								<label for="Addr_Ln_2_None">None</label>
-								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_None" value="" />
-							</li>
-							<li>
-								<label for="Addr_Ln_2_Floor"># Floor</label>
-								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Floor" value="floor" />
-							</li>
-							<li>
-								<label for="Addr_Ln_2_Suite">Suite #</label>
-								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Suite" value="suite" />
-							</li>
-							<li>
-								<label for="Addr_Ln_2_Mailstop">Mailstop</label>
-								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Mailstop" value="mailstop" />
-							</li>
-						</ul>
+				<div id="Addr_2_Container" style="display: flex; flex-direction: column; margin-top: 20px">
+					<div style="display: flex; flex-direction: row">
+						<label for="Addr_2_Options_Container" style="display: flex; line-height: 100%; margin-block: auto">Addr_2:</label>
+						<div
+							id="Addr_2_Options_Container"
+							style="display: flex; flex-direction: row; width: fit-content; height: 80%; padding: 0; margin-left: auto">
+							<ul
+								style="
+									display: flex;
+									flex-direction: row;
+									align-items: center;
+									margin-left: auto;
+									padding-inline: 3px;
+									border: 1px solid rgb(213, 213, 213);
+									border-radius: 50px;
+								">
+								<li>
+									<label for="Addr_Ln_2_None">None</label>
+									<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_None" value="" checked />
+								</li>
+								<li>
+									<label for="Addr_Ln_2_Floor"># Floor</label>
+									<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Floor" value="floor" />
+								</li>
+								<li>
+									<label for="Addr_Ln_2_Suite">Suite #</label>
+									<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Suite" value="suite" />
+								</li>
+								<li>
+									<label for="Addr_Ln_2_Mailstop">Mailstop</label>
+									<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Mailstop" value="mailstop" />
+								</li>
+							</ul>
+						</div>
 					</div>
 
 					<div id="Addr_2_Inputs_Container" style="flex-direction: row">
@@ -267,7 +281,7 @@
 									addrLn2InputsContainer.style.display = "flex";
 									addrLn2InputOptionsContainer.style.display = "flex";
 								} else {
-									// addrLn2InputsContainer.style.display = "none";
+									addrLn2InputsContainer.style.display = "none";
 								}
 
 								const thisSelect = document.getElementById("bld_type_select");
@@ -299,18 +313,12 @@
 									suiteQ.querySelector('input[name="Addr_Ln_2"]').value = "";
 									mailstopQ.querySelector('input[name="Addr_Ln_2"]').value = "";
 
-									thisSelect.value = thisSelect.children[0].innerText;
-									thisSelect.options[0].setAttribute("selected", "selected");
-
-									// apply the
+									// handle the value and the selected option for the select element
 									thisSelect.options[0].selected = "selected";
 									thisSelect.setAttribute("value", "");
 									// Applies the "-- SELECT --" text to the select element when deselected
 									thisSelect.value = thisSelect.options[0].value;
 									thisSelect.style.color = "#999";
-
-									// thisSelect.setAttribute("value", "-- SELECT --");
-									// thisSelect.setAttribute("data-value", "-- SELECT --");
 								}
 							})
 						);
@@ -322,6 +330,7 @@
 				<input type="text" id="Addr_3" placeholder="city, state, zip/postal" />
 				<button>Fix</button><br /><br />
 			</div>
+			<script defer></script>
 		</form>
 		<div>
 			<label>Fixed:</label>
