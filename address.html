@@ -114,7 +114,25 @@
 				position: relative;
 				box-sizing: border-box;
 			">
-			<h1>New Inputs</h1>
+			<h1 style="margin: 20px 0 10px 0">Address Input</h1>
+
+			<div
+				id="country"
+				style="display: flex; flex-direction: row; width: 100%; height: auto; position: absolute; right: 0; width: fit-content">
+				<h5 style="margin: auto; height: 100%">Country:</h5>
+				<ul style="display: flex; flex-direction: row; font-size: medium">
+					<li>
+						<label for="Addr_Country_USA">USA</label
+						><input type="radio" id="Addr_Country_USA" name="country" value="USA" checked />
+					</li>
+					<li>
+						<label for="Addr_Country_CAN">CAN</label><input type="radio" id="Addr_Country_CAN" name="country" value="CAN" />
+					</li>
+					<li>
+						<label for="Addr_Country_MEX">MEX</label><input type="radio" id="Addr_Country_MEX" name="country" value="MEX" />
+					</li>
+				</ul>
+			</div>
 
 			<div id="US-address" style="display: flex; flex-direction: column; width: 100%; height: auto">
 				<label for="address">Addr_1:</label>
@@ -136,6 +154,9 @@
 									border: 1px solid rgb(213, 213, 213);
 									border-radius: 50px;
 								">
+								<label for="" style="font-size: small; font-weight: 600; text-align: start; margin: 0px 0px 0 5px"
+									>Options:</label
+								>
 								<li>
 									<label for="Addr_Ln_2_None">None</label>
 									<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_None" value="" checked />
@@ -156,7 +177,7 @@
 						</div>
 					</div>
 
-					<div id="Addr_2_Inputs_Container" style="flex-direction: row">
+					<div id="Addr_2_Inputs_Container" style="flex-direction: row; margin-top: 10px">
 						<div
 							style="
 								display: flex;
