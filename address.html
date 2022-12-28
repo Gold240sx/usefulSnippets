@@ -75,7 +75,7 @@
 				justify-self: auto;
 			}
 			li:has(input[type="radio"]:hover) {
-				background-color: rgb(117, 150, 85);
+				background-color: rgb(183, 203, 162);
 			}
 			li:has(input[type="radio"]:checked) {
 				background-color: rgb(86, 158, 13);
@@ -90,6 +90,10 @@
 			select:invalid,
 			select[value=""] {
 				color: #999999;
+			}
+			div#Addr_2_Inputs_Container,
+			div#Addr_2_Input_Options_Container {
+				display: none;
 			}
 		</style>
 		<title>Address</title>
@@ -120,22 +124,25 @@
 						<h3>Line 2 Options:</h3>
 						<ul style="display: flex; flex-direction: row; align-items: center; margin-left: auto">
 							<li>
-								<label for="Addr_Ln_2_None">None</label> <input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_None" checked />
+								<label for="Addr_Ln_2_None">None</label>
+								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_None" value="" />
 							</li>
 							<li>
-								<label for="Addr_Ln_2_Floor"># Floor</label> <input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Floor" />
+								<label for="Addr_Ln_2_Floor"># Floor</label>
+								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Floor" value="floor" />
 							</li>
 							<li>
-								<label for="Addr_Ln_2_Suite">Suite #</label> <input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Suite" />
+								<label for="Addr_Ln_2_Suite">Suite #</label>
+								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Suite" value="suite" />
 							</li>
 							<li>
 								<label for="Addr_Ln_2_Mailstop">Mailstop</label>
-								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Mailstop" />
+								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Mailstop" value="mailstop" />
 							</li>
 						</ul>
 					</div>
 
-					<div id="Addr_2_Inputs_Container" style="display: flex; flex-direction: row">
+					<div id="Addr_2_Inputs_Container" style="flex-direction: row">
 						<div
 							style="
 								display: flex;
@@ -144,7 +151,7 @@
 								height: 90px;
 								position: relative;
 								width: 100%;
-								max-width: 302px;
+								width: 302px;
 							">
 							<label for="bld_type_select" style="margin: 0">Building Type</label>
 							<div
@@ -153,10 +160,12 @@
 									overflow: -moz-hidden-unscrollable;
 									background: url(https://i.ibb.co/cy3tFx8/Dropdown5.png) no-repeat right white;
 									background-size: 22px auto;
+									background-position: right 10px center;
 									display: inline-block;
 									position: relative;
 									width: auto;
 									margin-block: auto;
+									margin-left: auto;
 								">
 								<select
 									type="select"
@@ -169,7 +178,6 @@
 										padding: 0 15px;
 										font-size: 20px;
 										min-width: fit-content;
-										width: 240px;
 										max-width: 100%;
 										height: 35px;
 										padding-right: 40px;
@@ -190,11 +198,12 @@
 									<option value="Medical Pavilian">Medical Pavilian</option>
 									<option value="Office Pavilian">Office Pavilian</option>
 								</select>
-								<script>
+								<script defer>
 									const thisSelect = document.getElementById("bld_type_select");
 									thisSelect.addEventListener("change", (e) => {
 										const selectedValue = thisSelect[thisSelect.selectedIndex].value;
 										thisSelect.setAttribute("value", selectedValue);
+										thisSelect.style.color = "black";
 									});
 								</script>
 							</div>
@@ -211,7 +220,7 @@
 							<input type="text" placeholder=" #" id="Addr_Ln_2_Bld_Num" style="max-width: 100px" /> -->
 						</div>
 						<div id="Addr_2_Input_Options_Container" style="display: flex; flex-direction: row; margin-inline: auto">
-							<!-- <div style="display: flex; flex-direction: column; margin-inline: auto">
+							<div id="floor-container" style="flex-direction: column; margin-inline: auto">
 								<label for="Addr_Ln_2_Floor" style="margin: 0">Floor #</label>
 								<input
 									type="text"
@@ -220,7 +229,7 @@
 									placeholder="Floor"
 									style="width: 80px; margin-block: auto" />
 							</div>
-							<div style="display: flex; flex-direction: column; margin-inline: auto">
+							<div id="suite-container" style="display: flex; flex-direction: column; margin-inline: auto">
 								<label for="Addr_Ln_2_Suite" style="margin: 0">Suite #</label>
 								<input
 									type="text"
@@ -228,8 +237,8 @@
 									id="Addr_Ln_2_Suite"
 									placeholder="Suite"
 									style="width: 80px; margin-block: auto" />
-							</div> -->
-							<div style="display: flex; flex-direction: column; margin-inline: auto">
+							</div>
+							<div id="mailstop-container" style="display: flex; flex-direction: column; margin-inline: auto">
 								<label for="Addr_Ln_2_Mailstop" style="margin: 0">Mailstop</label>
 								<input
 									type="text"
@@ -240,6 +249,73 @@
 							</div>
 						</div>
 					</div>
+					<script defer>
+						// Line 2 Option Show / Hide
+						const addrLn2RadioBtns = document.querySelectorAll('input[name="Addr_Ln_2"]');
+						const addrLn2InputsContainer = document.querySelector("#Addr_2_Inputs_Container");
+						const addrLn2InputOptionsContainer = document.querySelector("#Addr_2_Input_Options_Container");
+						const floorQ = document.querySelector("#floor-container");
+						const suiteQ = document.querySelector("#suite-container");
+						const mailstopQ = document.querySelector("#mailstop-container");
+
+						const mailstopInput = addrLn2RadioBtns.forEach((btn) =>
+							btn.addEventListener("click", () => {
+								const addrLn2RadioBtnSelected = document.querySelector('input[name="Addr_Ln_2"]:checked');
+
+								if (addrLn2RadioBtnSelected.value) {
+									console.log(addrLn2RadioBtnSelected.value);
+									addrLn2InputsContainer.style.display = "flex";
+									addrLn2InputOptionsContainer.style.display = "flex";
+								} else {
+									// addrLn2InputsContainer.style.display = "none";
+								}
+
+								const thisSelect = document.getElementById("bld_type_select");
+
+								if (addrLn2RadioBtnSelected.value === "floor") {
+									floorQ.style.display = "flex";
+									suiteQ.style.display = "none";
+									mailstopQ.style.display = "none";
+									//Remove values of other inputs
+									suiteQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+									mailstopQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+								} else if (addrLn2RadioBtnSelected.value === "suite") {
+									floorQ.style.display = "none";
+									suiteQ.style.display = "flex";
+									mailstopQ.style.display = "none";
+									//Remove values of other inputs
+									floorQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+									mailstopQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+								} else if (addrLn2RadioBtnSelected.value === "mailstop") {
+									floorQ.style.display = "none";
+									suiteQ.style.display = "none";
+									mailstopQ.style.display = "flex";
+									//Remove values of other inputs
+									floorQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+									suiteQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+								} else {
+									addrLn2InputOptionsContainer.style.display = "none";
+									floorQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+									suiteQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+									mailstopQ.querySelector('input[name="Addr_Ln_2"]').value = "";
+
+									thisSelect.value = thisSelect.children[0].innerText;
+									thisSelect.options[0].setAttribute("selected", "selected");
+
+									// apply the
+									thisSelect.options[0].selected = "selected";
+									thisSelect.setAttribute("value", "");
+									// Applies the "-- SELECT --" text to the select element when deselected
+									thisSelect.value = thisSelect.options[0].value;
+									thisSelect.style.color = "#999";
+
+									// thisSelect.setAttribute("value", "-- SELECT --");
+									// thisSelect.setAttribute("data-value", "-- SELECT --");
+								}
+							})
+						);
+						// console.log(addrLn2RadioBtns);
+					</script>
 				</div>
 
 				<label for="address">Addr_3:</label>
