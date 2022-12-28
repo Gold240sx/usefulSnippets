@@ -4,13 +4,261 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<script src="address.js" defer></script>
+		<style>
+			* {
+				font-family: sans-serif;
+			}
+			input {
+				font-size: larger;
+				font-weight: 300;
+				padding: 7px 10px;
+				border-radius: 5px;
+				border: 1px solid rgb(203, 203, 203);
+			}
+			label {
+				font-size: larger;
+				font-weight: 500;
+				margin: 20px 0 5px 0;
+			}
+			button {
+				font-size: large;
+				font-weight: 500;
+				padding: 10px 30px;
+				width: fit-content;
+				margin-top: 20px;
+				cursor: pointer;
+				background-color: dimgrey;
+				color: white;
+				border-radius: 10px;
+				margin-inline: auto;
+				border: none;
+			}
+			button:hover {
+				background-color: grey;
+			}
+			form.output input {
+				background-color: rgb(94, 94, 94);
+				color: white;
+			}
+			ul {
+				list-style: none;
+				padding: 0;
+				margin: 0px;
+				justify-content: center;
+				cursor: pointer;
+			}
+			ul li {
+				margin: 10px 4px;
+				text-align: center;
+				justify-content: center;
+				align-items: center;
+				vertical-align: middle;
+				border: 2 px solid black !important;
+				width: fit-content;
+				height: fit-content;
+				cursor: pointer;
+				background-color: rgb(226, 226, 226);
+				color: black;
+				padding: 3px 12px;
+				border-radius: 999px;
+				text-align: center;
+				line-height: 100%;
+			}
+			li label {
+				font-size: medium;
+				cursor: pointer;
+			}
+			input[type="radio"] {
+				/* margin: auto 10px; */
+				margin-block: auto;
+				display: none;
+				justify-self: auto;
+			}
+			li:has(input[type="radio"]:hover) {
+				background-color: rgb(117, 150, 85);
+			}
+			li:has(input[type="radio"]:checked) {
+				background-color: rgb(86, 158, 13);
+				color: white;
+				cursor: pointer;
+			}
+			option {
+				font-size: 1.5rem;
+				font-weight: 300;
+				cursor: pointer !important;
+			}
+			select:invalid,
+			select[value=""] {
+				color: #999999;
+			}
+		</style>
 		<title>Address</title>
 	</head>
 	<body>
-		<label for="address">Address:</label>
-		<input type="text" id="address" placeholder="address" />
-		<button>Fix</button><br /><br />
-		<label>Fixed:</label>
-		<span id="fixedAddress"></span>
+		<form
+			style="
+				border: rgb(94, 94, 94) 2px solid;
+				padding: 15px;
+				border-radius: 20px;
+				display: flex;
+				flex-direction: column;
+				width: 600px;
+				margin-inline: auto;
+				margin-top: 40px;
+				font-size: 20px;
+				position: relative;
+				box-sizing: border-box;
+			">
+			<h1>New Inputs</h1>
+
+			<div id="US-address" style="display: flex; flex-direction: column; width: 100%; height: auto">
+				<label for="address">Addr_1:</label>
+				<input type="text" id="Addr_1" placeholder="# W. Sandy Rd" />
+
+				<div id="Addr_2_Container" style="margin: 0 20px">
+					<div id="Addr_2_Options_Container" style="display: flex; flex-direction: row">
+						<h3>Line 2 Options:</h3>
+						<ul style="display: flex; flex-direction: row; align-items: center; margin-left: auto">
+							<li>
+								<label for="Addr_Ln_2_None">None</label> <input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_None" checked />
+							</li>
+							<li>
+								<label for="Addr_Ln_2_Floor"># Floor</label> <input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Floor" />
+							</li>
+							<li>
+								<label for="Addr_Ln_2_Suite">Suite #</label> <input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Suite" />
+							</li>
+							<li>
+								<label for="Addr_Ln_2_Mailstop">Mailstop</label>
+								<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Mailstop" />
+							</li>
+						</ul>
+					</div>
+
+					<div id="Addr_2_Inputs_Container" style="display: flex; flex-direction: row">
+						<div
+							style="
+								display: flex;
+								flex-direction: column;
+								margin-inline: auto;
+								height: 90px;
+								position: relative;
+								width: 100%;
+								max-width: 302px;
+							">
+							<label for="bld_type_select" style="margin: 0">Building Type</label>
+							<div
+								class="styled-select"
+								style="
+									overflow: -moz-hidden-unscrollable;
+									background: url(https://i.ibb.co/cy3tFx8/Dropdown5.png) no-repeat right white;
+									background-size: 22px auto;
+									display: inline-block;
+									position: relative;
+									width: auto;
+									margin-block: auto;
+								">
+								<select
+									type="select"
+									id="bld_type_select"
+									value=""
+									style="
+										-webkit-appearance: none;
+										-moz-appearance: none;
+										appearance: none;
+										padding: 0 15px;
+										font-size: 20px;
+										min-width: fit-content;
+										width: 240px;
+										max-width: 100%;
+										height: 35px;
+										padding-right: 40px;
+										margin-block: auto;
+										border-radius: 7px;
+										border: 1px solid rgb(227, 227, 227);
+										box-shadow: 1px 0px 5px 1px rgb(226, 226, 226);
+										cursor: pointer;
+										border-bottom: rgb(205, 205, 205) 1px solid;
+										background-color: transparent;
+									">
+									<option value="" disabled selected="selected">-- SELECT --</option>
+									<option value="MOB">Medical Office Building</option>
+									<option value="POB">Proffessional Office Building</option>
+									<option value="Plaza">Plaza</option>
+									<option value="Physician's Building">Physician's Building</option>
+									<option value="Pavilian">Pavilian</option>
+									<option value="Medical Pavilian">Medical Pavilian</option>
+									<option value="Office Pavilian">Office Pavilian</option>
+								</select>
+								<script>
+									const thisSelect = document.getElementById("bld_type_select");
+									thisSelect.addEventListener("change", (e) => {
+										const selectedValue = thisSelect[thisSelect.selectedIndex].value;
+										thisSelect.setAttribute("value", selectedValue);
+									});
+								</script>
+							</div>
+						</div>
+						<div
+							style="
+								display: flex;
+								flex-direction: column;
+								margin-inline: auto;
+								justify-content: space-between;
+								margin: 0 5px;
+							">
+							<!-- <label for="bld_type_select" style="margin: 0">Building #</label>
+							<input type="text" placeholder=" #" id="Addr_Ln_2_Bld_Num" style="max-width: 100px" /> -->
+						</div>
+						<div id="Addr_2_Input_Options_Container" style="display: flex; flex-direction: row; margin-inline: auto">
+							<!-- <div style="display: flex; flex-direction: column; margin-inline: auto">
+								<label for="Addr_Ln_2_Floor" style="margin: 0">Floor #</label>
+								<input
+									type="text"
+									name="Addr_Ln_2"
+									id="Addr_Ln_2_Floor"
+									placeholder="Floor"
+									style="width: 80px; margin-block: auto" />
+							</div>
+							<div style="display: flex; flex-direction: column; margin-inline: auto">
+								<label for="Addr_Ln_2_Suite" style="margin: 0">Suite #</label>
+								<input
+									type="text"
+									name="Addr_Ln_2"
+									id="Addr_Ln_2_Suite"
+									placeholder="Suite"
+									style="width: 80px; margin-block: auto" />
+							</div> -->
+							<div style="display: flex; flex-direction: column; margin-inline: auto">
+								<label for="Addr_Ln_2_Mailstop" style="margin: 0">Mailstop</label>
+								<input
+									type="text"
+									name="Addr_Ln_2"
+									id="Addr_Ln_2_Mailstop"
+									placeholder="Mailstop"
+									style="width: 150px; margin-block: auto" />
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<label for="address">Addr_3:</label>
+				<input type="text" id="Addr_3" placeholder="city, state, zip/postal" />
+				<button>Fix</button><br /><br />
+			</div>
+		</form>
+		<div>
+			<label>Fixed:</label>
+			<span id="fixedAddress"></span>
+		</div>
+
+		<form class="output" style="display: flex; flex-direction: column; width: 600px; margin-top: 5px; font-size: 14px">
+			<h2>Formatted into existing website</h2>
+			<input type="text" id="address-ln-1-out" placeholder="address Ln 1 + 2" disabled />
+			<input type="text" id="addr-city-out" placeholder="City" disabled />
+			<input type="text" id="addr-state-out" placeholder="State" disabled />
+			<input type="text" id="addr-zip-out" placeholder="Zip" disabled />
+			<input type="text" id="addr-country-out" placeholder="Country" disabled />
+		</form>
 	</body>
 </html>
