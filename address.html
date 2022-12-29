@@ -48,7 +48,7 @@
 				cursor: pointer;
 				margin: 5px;
 			}
-			ul li {
+			ul li:has(input[type="radio"]) {
 				margin: 5px 4px;
 				text-align: center;
 				justify-content: center;
@@ -65,9 +65,10 @@
 				text-align: center;
 				line-height: 100%;
 			}
-			li label {
+			li:has(input[type="radio"]) label {
 				font-size: medium;
 				cursor: pointer;
+				font-weight: unset;
 			}
 			input[type="radio"] {
 				/* margin: auto 10px; */
@@ -88,6 +89,22 @@
 				font-weight: 300;
 				cursor: pointer !important;
 			}
+			div.indiv-outputs li {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+			}
+			div.indiv-outputs label {
+				font-weight: 600;
+				margin: 0;
+			}
+			div.indiv-outputs span {
+				display: flex;
+				width: max-content;
+				margin-left: auto;
+				font-size: larger;
+				margin-top: 2px;
+			}
 			select:invalid,
 			select[value=""] {
 				color: #999999;
@@ -96,14 +113,22 @@
 			div#Addr_2_Input_Options_Container {
 				display: none;
 			}
-			         li, label, input, select, option {
-			              -webkit-touch-callout: none; /* iOS Safari */
-			 -webkit-user-select: none; /* Safari */
-			  -khtml-user-select: none; /* Konqueror HTML */
-			    -moz-user-select: none; /* Old versions of Firefox */
-			     -ms-user-select: none; /* Internet Explorer/Edge */
-			         user-select: none; /* Non-prefixed version, currentl
-			         }
+			li,
+			label,
+			input,
+			select,
+			option {
+				-webkit-touch-callout: none; /* iOS Safari */
+				-webkit-user-select: none; /* Safari */
+				-khtml-user-select: none; /* Konqueror HTML */
+				-moz-user-select: none; /* Old versions of Firefox */
+				-ms-user-select: none; /* Internet Explorer/Edge */
+				user-select: none;
+			}
+			.ln1-input-invalid-alert,
+			.ln3-input-invalid-alert {
+				display: none;
+			}
 		</style>
 		<title>Address</title>
 	</head>
@@ -144,7 +169,13 @@
 
 			<div id="US-address" style="display: flex; flex-direction: column; width: 100%; height: auto">
 				<label for="address">Addr_1:</label>
-				<input type="text" id="Addr_1" placeholder="# W. Sandy Rd" />
+				<input type="text" id="Addr_1" placeholder="# W. Sandy Rd" required />
+				<label
+					for="Addr_1"
+					class="ln1-input-invalid-alert"
+					style="font-size: medium; margin-top: 4px; color: red; text-align: right"
+					>The address provided is invalid!</label
+				>
 
 				<div id="Addr_2_Container" style="display: flex; flex-direction: column; margin-top: 20px">
 					<div style="display: flex; flex-direction: row">
@@ -240,6 +271,7 @@
 									<option value="Pavilian">Pavilian</option>
 									<option value="Medical Pavilian">Medical Pavilian</option>
 									<option value="Office Pavilian">Office Pavilian</option>
+									<option value="Apartment">Apartment</option>
 								</select>
 								<script defer>
 									const thisSelect = document.getElementById("bld_type_select");
@@ -306,7 +338,6 @@
 								const addrLn2RadioBtnSelected = document.querySelector('input[name="Addr_Ln_2"]:checked');
 
 								if (addrLn2RadioBtnSelected.value) {
-									console.log(addrLn2RadioBtnSelected.value);
 									addrLn2InputsContainer.style.display = "flex";
 									addrLn2InputOptionsContainer.style.display = "flex";
 								} else {
@@ -356,23 +387,48 @@
 				</div>
 
 				<label for="address">Addr_3:</label>
-				<input type="text" id="Addr_3" placeholder="city, state, zip/postal" />
-				<button>Format</button><br /><br />
+				<input type="text" id="Addr_3" placeholder="city, state, zip/postal" required />
+				<label
+					for="Addr_3"
+					class="ln3-input-invalid-alert"
+					style="font-size: medium; margin-top: 4px; color: red; text-align: right"
+					>The address provided is invalid!</label
+				>
+				<button type="submit">Format</button><br /><br />
 			</div>
 			<script defer></script>
 		</form>
-		<div>
-			<label>Fixed:</label>
-			<span id="fixedAddress"></span>
+		<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: 200px">
+			<ul style="display: flex; flex-direction: column">
+				<li><label for="addNum">AddNum:</label> <span id="addNum">hello</span></li>
+				<li><label for="addPrefix">Prefix:</label> <span id="addPrefix">hello</span></li>
+				<li><label for="addStreet">Street:</label> <span id="addStreet">hello</span></li>
+				<li><label for="addType">StreetType:</label> <span id="addStType">hello</span></li>
+				<li><label for="addSuffix">Suffix:</label> <span id="addSuffix">hello</span></li>
+				<li><label for="addApptNum">ApptNum:</label> <span id="addApptNum">hello</span></li>
+				<hr />
+				<li><label for="addBldgType">BldgType:</label> <span id="addBldgType"></span></li>
+				<li><label for="addBldgNum">BldgNum:</label> <span id="addBldgNum"></span></li>
+				<li><label for="addFlrNum">FloorNum:</label> <span id="addFlrNum"></span></li>
+				<li><label for="addFloorLbl">"Floor":</label> <span id="addFloorLbl"></span></li>
+				<li><label for="addSuiteLbl">"Suite":</label> <span id="addSuiteLbl"></span></li>
+				<li><label for="addSuiteNum">SuiteNum:</label> <span id="addSuiteNum"></span></li>
+				<li><label for="addMailstop">Mailstop:</label> <span id="addMailstop"></span></li>
+				<hr />
+				<li><label for="addCIty">City:</label> <span id="addCIty"></span></li>
+				<li><label for="addState">State:</label> <span id="addState"></span></li>
+				<li><label for="addZip">Zip:</label> <span id="addZip"></span></li>
+				<li><label for="addCountry">Country:</label> <span id="addCountry"></span></li>
+			</ul>
 		</div>
 
-		<form class="output" style="display: flex; flex-direction: column; width: 600px; margin-top: 5px; font-size: 14px">
+		<div class="output" style="display: flex; flex-direction: column; width: 600px; margin-top: 5px; font-size: 14px">
 			<h2>Formatted into existing website</h2>
 			<input type="text" id="address-ln-1-out" placeholder="address Ln 1 + 2" disabled />
 			<input type="text" id="addr-city-out" placeholder="City" disabled />
 			<input type="text" id="addr-state-out" placeholder="State" disabled />
 			<input type="text" id="addr-zip-out" placeholder="Zip" disabled />
 			<input type="text" id="addr-country-out" placeholder="Country" disabled />
-		</form>
+		</div>
 	</body>
 </html>
