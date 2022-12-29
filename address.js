@@ -60,12 +60,12 @@ const dataset = [
 // );
 // now test the standard addresses
 
-console.log(
-	dataset.map((address) => {
-		const regex =
-			/(^([0])([0])(PO BOX|RR|HC|Unit) (?!\d+)([a-z,0-9,A-Z]{1,9})([0])([0]))|((^([0-9,a-z,A-Z]{0,9}[\s-])?[0-9,a-z,A-Z]{1,9})(?!(N\.|S\.|E\.|W\.|NE\.|NW\.|SE\.|SW\.)) ((?:[0-9a-zA-Z\s\.\-\']+\s){0,2}([0-9a-zA-Z\s\.\-\']?)+( Ave\.| St\.| Rd\.| Blvd\.| Dr\.| Pkwy\.| Way)?)((N\.|S\.|E\.|W\.|NE\.|NW\.|SE\.|SW\.))?( North|South| East|West|NorthEast|NorthWest|SouthEast|SouthWest)?((\s)?(#[0-9]))?([0-9]*)?$)/i;
-		const test = regex.test(address);
+// console.log(
+// 	dataset.map((address) => {
+// 		const regex =
+// 			/(^([0])([0])(PO BOX|RR|HC|Unit) (?!\d+)([a-z,0-9,A-Z]{1,9})([0])([0]))|((^([0-9,a-z,A-Z]{0,9}[\s-])?[0-9,a-z,A-Z]{1,9})(?!(N\.|S\.|E\.|W\.|NE\.|NW\.|SE\.|SW\.)) ((?:[0-9a-zA-Z\s\.\-\']+\s){0,2}([0-9a-zA-Z\s\.\-\']?)+( Ave\.| St\.| Rd\.| Blvd\.| Dr\.| Pkwy\.| Way)?)((N\.|S\.|E\.|W\.|NE\.|NW\.|SE\.|SW\.))?( North|South| East|West|NorthEast|NorthWest|SouthEast|SouthWest)?((\s)?(#[0-9]))?([0-9]*)?$)/i;
+// 		const test = regex.test(address);
 
-		return { address, test };
-	})
-);
+// 		return { address, test };
+// 	})
+// );
