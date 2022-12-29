@@ -96,6 +96,14 @@
 			div#Addr_2_Input_Options_Container {
 				display: none;
 			}
+			         li, label, input, select, option {
+			              -webkit-touch-callout: none; /* iOS Safari */
+			 -webkit-user-select: none; /* Safari */
+			  -khtml-user-select: none; /* Konqueror HTML */
+			    -moz-user-select: none; /* Old versions of Firefox */
+			     -ms-user-select: none; /* Internet Explorer/Edge */
+			         user-select: none; /* Non-prefixed version, currentl
+			         }
 		</style>
 		<title>Address</title>
 	</head>
@@ -349,7 +357,7 @@
 
 				<label for="address">Addr_3:</label>
 				<input type="text" id="Addr_3" placeholder="city, state, zip/postal" />
-				<button>Fix</button><br /><br />
+				<button>Format</button><br /><br />
 			</div>
 			<script defer></script>
 		</form>
