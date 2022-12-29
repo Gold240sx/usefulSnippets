@@ -104,6 +104,7 @@
 				margin-left: auto;
 				font-size: larger;
 				margin-top: 2px;
+				color: #999999;
 			}
 			select:invalid,
 			select[value=""] {
@@ -149,22 +150,25 @@
 			">
 			<h1 style="margin: 20px 0 10px 0">Address Input</h1>
 
-			<div
-				id="country"
-				style="display: flex; flex-direction: row; width: 100%; height: auto; position: absolute; right: 0; width: fit-content">
-				<h5 style="margin: auto; height: 100%">Country:</h5>
-				<ul style="display: flex; flex-direction: row; font-size: medium">
-					<li>
-						<label for="Addr_Country_USA">USA</label
-						><input type="radio" id="Addr_Country_USA" name="country" value="USA" checked />
-					</li>
-					<li>
-						<label for="Addr_Country_CAN">CAN</label><input type="radio" id="Addr_Country_CAN" name="country" value="CAN" />
-					</li>
-					<li>
-						<label for="Addr_Country_MEX">MEX</label><input type="radio" id="Addr_Country_MEX" name="country" value="MEX" />
-					</li>
-				</ul>
+			<div style="display: flex; flex-direction: column; width: 100%; height: auto; position: absolute; right: 0; width: fit-content">
+				<div id="country" style="display: flex; flex-direction: row">
+					<h5 style="margin: auto; height: 100%">Country:</h5>
+					<ul style="display: flex; flex-direction: row; font-size: medium">
+						<li>
+							<label for="Addr_Country_USA">USA</label
+							><input type="radio" id="Addr_Country_USA" name="country" value="USA" checked />
+						</li>
+						<li>
+							<label for="Addr_Country_CAN">CAN</label><input type="radio" id="Addr_Country_CAN" name="country" value="CAN" />
+						</li>
+						<li>
+							<label for="Addr_Country_MEX">MEX</label><input type="radio" id="Addr_Country_MEX" name="country" value="MEX" />
+						</li>
+					</ul>
+				</div>
+				<div class="indicates-required" style="font-size: medium; color: #999999; text-align: right; margin: 5px 15px">
+					<span class="asterisk" style="color: red">* </span>indicates required
+				</div>
 			</div>
 
 			<div id="US-address" style="display: flex; flex-direction: column; width: 100%; height: auto">
@@ -422,13 +426,15 @@
 			</ul>
 		</div>
 
-		<div class="output" style="display: flex; flex-direction: column; width: 600px; margin-top: 5px; font-size: 14px">
+		// Add Required fields to ln 2 when applicable
+
+		<form class="output" style="display: flex; flex-direction: column; width: 600px; margin-top: 5px; font-size: 14px">
 			<h2>Formatted into existing website</h2>
 			<input type="text" id="address-ln-1-out" placeholder="address Ln 1 + 2" disabled />
 			<input type="text" id="addr-city-out" placeholder="City" disabled />
 			<input type="text" id="addr-state-out" placeholder="State" disabled />
 			<input type="text" id="addr-zip-out" placeholder="Zip" disabled />
 			<input type="text" id="addr-country-out" placeholder="Country" disabled />
-		</div>
+		</form>
 	</body>
 </html>
