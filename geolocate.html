@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script defer>
+            // src = https://stackoverflow.com/questions/24625013/use-google-maps-api-to-display-street-view-of-a-house-based-on-an-address
+			var panorama;
+			var addLatLng;
+			var showPanoData;
+			var panorama;
+
+			function load_map_and_street_view_from_address(address) {
+				var geocoder = new google.maps.Geocoder();
+				geocoder.geocode(
+					{
+						address: address,
+					},
+					function (results, status) {
+						if (status == google.maps.GeocoderStatus.OK) {
+							var gps = results[0].geometry.location;
+							create_map_and_streetview(gps.lat(), gps.lng(), "map_canvas", "pano");
+						}
+					}
+				);
+			}
+
+			function create_map_and_streetview(lat, lng, map_id, street_view_id) {
+				var goo = google.maps,
+					map = $("#" + map_id),
+					pano = document.getElementById("pano"),
+					addLatLng = new goo.LatLng(lat, lng),
+					myOptions = {
+						zoom: 14,
+						center: addLatLng,
+						mapTypeId: goo.MapTypeId.ROADMAP,
+						backgroundColor: "transparent",
+						streetViewControl: false,
+						keyboardShortcuts: false,
+					};
+				if (!map.data("gmap")) {
+					//store the instances per $.data
+					map.data("gmap", new goo.MVCObject());
+					map.data("gmap").set("panorama", new goo.StreetViewPanorama(pano));
+					map.data("gmap").set("service", new goo.StreetViewService());
+					map.data("gmap").set("map", new goo.Map(map[0], myOptions));
+					map.data("gmap").set(
+						"marker",
+						new goo.Marker({
+							map: map.data("gmap").get("map"),
+							animation: goo.Animation.DROP,
+							position: addLatLng,
+						})
+					);
+				} else {
+					map.data("gmap").get("map").setCenter(addLatLng);
+					map.data("gmap").get("marker").setPosition(addLatLng);
+					//always create a new panorama
+					//otherwise the panorama will be broken as soon as there is no picture available
+					map.data("gmap").set("panorama", new goo.StreetViewPanorama(pano));
+				}
+
+				map.data("gmap")
+					.get("service")
+					.getPanoramaByLocation(addLatLng, 50, function (panoData, status) {
+						if (status != google.maps.StreetViewStatus.OK) {
+							$("#pano").html("No StreetView Picture Available").attr("style", "text-align:center;font-weight:bold").show();
+							return;
+						}
+						var angle = computeAngle(addLatLng, panoData.location.latLng);
+
+						var panoOptions = {
+							position: addLatLng,
+							addressControl: false,
+							linksControl: false,
+							panControl: false,
+							zoomControlOptions: {
+								style: google.maps.ZoomControlStyle.SMALL,
+							},
+							pov: {
+								heading: angle,
+								pitch: 10,
+								zoom: 1,
+							},
+							enableCloseButton: false,
+							visible: true,
+						};
+
+						map.data("gmap").get("panorama").setOptions(panoOptions);
+
+						var map = new google.maps.Map(document.getElementById(map_id), myOptions);
+						var marker = new google.maps.Marker({
+							map: map,
+							animation: google.maps.Animation.DROP,
+							position: addLatLng,
+						});
+
+						function showPanoData(panoData, status) {
+							if (status != google.maps.StreetViewStatus.OK) {
+								$("#pano")
+									.html("No StreetView Picture Available")
+									.attr("style", "text-align:center;font-weight:bold")
+									.show();
+								return;
+							}
+							var angle = computeAngle(addLatLng, panoData.location.latLng);
+
+							var panoOptions = {
+								position: addLatLng,
+								addressControl: false,
+								linksControl: false,
+								panControl: false,
+								zoomControlOptions: {
+									style: google.maps.ZoomControlStyle.SMALL,
+								},
+								pov: {
+									heading: angle,
+									pitch: 10,
+									zoom: 1,
+								},
+								enableCloseButton: false,
+								visible: true,
+							};
+
+							panorama.setOptions(panoOptions);
+						}
+
+						function computeAngle(endLatLng, startLatLng) {
+							var DEGREE_PER_RADIAN = 57.2957795;
+							var RADIAN_PER_DEGREE = 0.017453;
+
+							var dlat = endLatLng.lat() - startLatLng.lat();
+							var dlng = endLatLng.lng() - startLatLng.lng();
+							var yaw = Math.atan2(dlng * Math.cos(endLatLng.lat() * RADIAN_PER_DEGREE), dlat) * DEGREE_PER_RADIAN;
+							return wrapAngle(yaw);
+						}
+
+						function wrapAngle(angle) {
+							if (angle >= 360) {
+								angle -= 360;
+							} else if (angle < 0) {
+								angle += 360;
+							}
+							return angle;
+						}
+
+						$(document).ready(function () {
+							load_map_and_street_view_from_address("150 Glen Road, Toronto");
+
+							$("#change_street").click(function () {
+								alert("How do I pass the new address to the street view code?");
+							});
+						});
+					});
+			}
+			jQuery;
+		</script>
+		<title>Geolocate</title>
+	</head>
+	<body>
+		<h3>Enter an Address to view the street view</h3>
+		<form action="/" method="POST">
+			<textarea name="new_address" class="address">150 Glen Road, Toronto</textarea>
+			<input type="submit" id="change_street" value="Change Street View Address" />
+		</form>
+		<div class="map_container">
+			<div id="map_canvas_cont">
+				<div id="map_canvas"></div>
+			</div>
+			<div id="pano_cont">
+				<div id="pano"></div>
+			</div>
+            <button id="change_street" onclick={load_map_and_street_view_from_address($('textarea[name="new_address"]').val());
+        }>Change Street View Address</button>
+		</div>
+	</body>
+</html>

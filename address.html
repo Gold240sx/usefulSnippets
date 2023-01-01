@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<script src="address.js" defer></script>
+		<script src="suffixArrayTests.js" defer></script>
 		<style>
 			* {
 				font-family: sans-serif;
@@ -18,7 +19,7 @@
 			label {
 				font-size: larger;
 				font-weight: 500;
-				margin: 20px 0 5px 0;
+				margin: 20px 0 5px 0px;
 			}
 			button {
 				font-size: large;
@@ -49,7 +50,7 @@
 				margin: 5px;
 			}
 			ul li:has(input[type="radio"]) {
-				margin: 5px 4px;
+				margin: 5px 2px;
 				text-align: center;
 				justify-content: center;
 				align-items: center;
@@ -129,11 +130,15 @@
 			.ln1-input-invalid-alert,
 			.ln3-input-invalid-alert {
 				display: none;
+				margin-left: auto;
+			}
+			input:focus::placeholder {
+				color: rgb(239, 239, 239);
 			}
 		</style>
 		<title>Address</title>
 	</head>
-	<body>
+	<body style="display: flex; flex-direction: row">
 		<form
 			style="
 				border: rgb(94, 94, 94) 2px solid;
@@ -193,7 +198,7 @@
 									flex-direction: row;
 									align-items: center;
 									margin-left: auto;
-									padding-inline: 3px;
+									padding: 3px 0 3px 5px;
 									border: 1px solid rgb(213, 213, 213);
 									border-radius: 50px;
 								">
@@ -216,6 +221,10 @@
 									<label for="Addr_Ln_2_Mailstop">Mailstop</label>
 									<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Mailstop" value="mailstop" />
 								</li>
+								<li>
+									<label for="Addr_Ln_2_Other">Other</label>
+									<input type="radio" name="Addr_Ln_2" id="Addr_Ln_2_Other" value="ln_2_other" />
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -229,9 +238,10 @@
 								height: 90px;
 								position: relative;
 								width: 100%;
-								width: 302px;
+								min-width: 302px;
+								margin-left: auto;
 							">
-							<label for="bld_type_select" style="margin: 0">Building Type</label>
+							<label for="bld_type_select" style="margin: 0; width: 307px; margin-left: auto">Building Type</label>
 							<div
 								class="styled-select"
 								style="
@@ -275,7 +285,10 @@
 									<option value="Pavilian">Pavilian</option>
 									<option value="Medical Pavilian">Medical Pavilian</option>
 									<option value="Office Pavilian">Office Pavilian</option>
-									<option value="Apartment">Apartment</option>
+									<option value="DEPT">Department</option>
+									<option value="APT">Apartment</option>
+									<option value="RM">Room</option>
+									<option value="Unit">Unit</option>
 								</select>
 								<script defer>
 									const thisSelect = document.getElementById("bld_type_select");
@@ -293,10 +306,11 @@
 								flex-direction: column;
 								margin-inline: auto;
 								justify-content: space-between;
-								margin: 0 5px;
+								margin: 0 10px 0 25px;
+								width: max(50%, 102px);
 							">
-							<!-- <label for="bld_type_select" style="margin: 0">Building #</label>
-							<input type="text" placeholder=" #" id="Addr_Ln_2_Bld_Num" style="max-width: 100px" /> -->
+							<label for="bld_type_select" style="margin: 0px; white-space: nowrap">Bldg #</label>
+							<input type="text" placeholder="#" id="Addr_Ln_2_Bld_Num" style="width: max(80px, 75%); margin: 0 0 9px 0px" />
 						</div>
 						<div id="Addr_2_Input_Options_Container" style="display: flex; flex-direction: row; margin-inline: auto">
 							<div id="floor-container" style="flex-direction: column; margin-inline: auto">
@@ -308,7 +322,7 @@
 									name="Addr_Ln_2"
 									id="Addr_Ln_2_Floor"
 									placeholder="Floor"
-									style="width: 80px; margin-block: auto" />
+									style="width: max(79%, 100px); margin-block: auto" />
 							</div>
 							<div id="suite-container" style="display: flex; flex-direction: column; margin-inline: auto">
 								<label for="Addr_Ln_2_Suite" style="margin: 0"
@@ -319,7 +333,7 @@
 									name="Addr_Ln_2"
 									id="Addr_Ln_2_Suite"
 									placeholder="Suite"
-									style="width: 80px; margin-block: auto" />
+									style="width: max(79%, 100px); margin-block: auto" />
 							</div>
 							<div id="mailstop-container" style="display: flex; flex-direction: column; margin-inline: auto">
 								<label for="Addr_Ln_2_Mailstop" style="margin: 0"
@@ -330,7 +344,7 @@
 									name="Addr_Ln_2"
 									id="Addr_Ln_2_Mailstop"
 									placeholder="Mailstop"
-									style="width: 150px; margin-block: auto" />
+									style="width: max(79%, 100px); margin-block: auto" />
 							</div>
 						</div>
 					</div>
@@ -405,52 +419,58 @@
 				>
 				<button type="submit">Format</button><br /><br />
 			</div>
+			<select name="" id="">
+				<option value="">opt 1</option>
+				<option value="">opt 2</option>
+			</select>
 			<script defer></script>
 		</form>
-		<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: 200px">
-			<ul style="display: flex; flex-direction: column">
-				<li><label for="addNum">AddNum:</label> <span id="addNum"></span></li>
-				<li><label for="addPrefix">Prefix:</label> <span id="addPrefix"></span></li>
-				<li><label for="addStreet">Street:</label> <span id="addStreet"></span></li>
-				<li><label for="addType">StreetType:</label> <span id="addStType"></span></li>
-				<li><label for="addSuffix">Suffix:</label> <span id="addSuffix"></span></li>
-				<li><label for="addApptNum">ApptNum:</label> <span id="addAppNum"></span></li>
-				<hr />
-				<li><label for="addBldgType">BldgType:</label> <span id="addBldgType"></span></li>
-				<li><label for="addBldgNum">BldgNum:</label> <span id="addBldgNum"></span></li>
-				<li><label for="addFlrNum">FloorNum:</label> <span id="addFlrNum"></span></li>
-				<li><label for="addFloorLbl">"Floor":</label> <span id="addFloorLbl"></span></li>
-				<li><label for="addSuiteLbl">"Suite":</label> <span id="addSuiteLbl"></span></li>
-				<li><label for="addSuiteNum">SuiteNum:</label> <span id="addSuiteNum"></span></li>
-				<li><label for="addMailstop">Mailstop:</label> <span id="addMailstop"></span></li>
-				<hr />
-				<li><label for="addCIty">City:</label> <span id="addCIty"></span></li>
-				<li><label for="addState">State:</label> <span id="addState"></span></li>
-				<li><label for="addZip">Zip:</label> <span id="addZip"></span></li>
-				<li><label for="addCountry">Country:</label> <span id="addCountry"></span></li>
-			</ul>
-		</div>
+		<div id="outputs" style="flex-direction: column; display: flex">
+			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: 200px">
+				<ul style="display: flex; flex-direction: column">
+					<li><label for="addNum">AddNum:</label> <span id="addNum"></span></li>
+					<li><label for="addPrefix">Prefix:</label> <span id="addPrefix"></span></li>
+					<li><label for="addStreet">Street:</label> <span id="addStreet"></span></li>
+					<li><label for="addType">StreetType:</label> <span id="addStType"></span></li>
+					<li><label for="addSuffix">Suffix:</label> <span id="addSuffix"></span></li>
+					<li><label for="addApptNum">ApptNum:</label> <span id="addAppNum"></span></li>
+					<hr />
+					<li><label for="addBldgType">BldgType:</label> <span id="addBldgType"></span></li>
+					<li><label for="addBldgNum">BldgNum:</label> <span id="addBldgNum"></span></li>
+					<li><label for="addFlrNum">FloorNum:</label> <span id="addFlrNum"></span></li>
+					<li><label for="addFloorLbl">"Floor":</label> <span id="addFloorLbl"></span></li>
+					<li><label for="addSuiteLbl">"Suite":</label> <span id="addSuiteLbl"></span></li>
+					<li><label for="addSuiteNum">SuiteNum:</label> <span id="addSuiteNum"></span></li>
+					<li><label for="addMailstop">Mailstop:</label> <span id="addMailstop"></span></li>
+					<hr />
+					<li><label for="addCIty">City:</label> <span id="addCIty"></span></li>
+					<li><label for="addState">State:</label> <span id="addState"></span></li>
+					<li><label for="addZip">Zip:</label> <span id="addZip"></span></li>
+					<li><label for="addCountry">Country:</label> <span id="addCountry"></span></li>
+				</ul>
+			</div>
 
-		<!-- 
+			<!-- 
             Move the required labels to match the non required labels 
             Add a custom alert if all required fields are not filled out
         -->
 
-		<form class="output" style="display: flex; flex-direction: column; width: 600px; margin-top: 5px; font-size: 14px">
-			<h2>Formatted into existing website</h2>
-			<input type="text" id="address-ln-1-out" placeholder="address Ln 1 + 2" disabled />
-			<input type="text" id="addr-city-out" placeholder="City" disabled />
-			<input type="text" id="addr-state-out" placeholder="State" disabled />
-			<input type="text" id="addr-zip-out" placeholder="Zip" disabled />
-			<input type="text" id="addr-country-out" placeholder="Country" disabled />
-		</form>
+			<form class="output" style="display: flex; flex-direction: column; width: 400px; margin-top: 5px; font-size: 14px">
+				<h2>Formatted into existing website</h2>
+				<input type="text" id="address-ln-1-out" placeholder="address Ln 1 + 2" disabled />
+				<input type="text" id="addr-city-out" placeholder="City" disabled />
+				<input type="text" id="addr-state-out" placeholder="State" disabled />
+				<input type="text" id="addr-zip-out" placeholder="Zip" disabled />
+				<input type="text" id="addr-country-out" placeholder="Country" disabled />
+			</form>
+		</div>
 		<script defer>
 			// Website link to all Suffixes:
 			const regex =
-				/^([0-9\s\.\-\/]{1,7})\s(N\.?\s|S\.?\s|E\.?\s|W\.?\s|NE\.?\s|NW\.?\s|SE\.?\s|SW\.?|North|South|East|West|NorthEast|NorthWest|SouthEast|SouthWest)?([0-9a-zA-Z\s\.\-\']+)\s(Ave\.?|St\.?|Rd\.?|Circl\.?|Circ\.?|Crcl\.?|Crcle\.?|Clfs\.?|Cor\.?|Pky\.?|Blvd\.?|Expwy\.?|Alle\.?|Ally\.?|Aly\.?|Bch\.?|Bnd\.?|Allee\.?|Ln\.?|Sq\.?|Expy\.?|Dr\.?|Pl\.?|Exp\.?|Pkwy\.?|Av\.?|Cr\.?|Way|Cir\.?|Hwy\.?|Int\.?|Drive|Avenue|Boulevard|Street|Circle|Lane|Expressway|Parkway|Highway|Road|Building|Square|Place|Interstate|Anex|Arcade|Bayou|Alley|Beach|Bend|Bluff|Bluffs|Bottom|Branch|Bridge|Brook|Brooks|Burg|Burgs|Bypass|Camp|Canyon|Cape|Causeway|Center|Centers|Cliff|Cliffs|Common|Commons|Corner|Corners|Course|Court|Courts|Cove|Creek|Crescent|Crest|Crossing|Crossroad|Crossroads|Curve|Dale|Dam|Divide|Drives|Estate|Estates|Extension|Extensions|Fall|Falls|Ferry|Field|Fields|Flat|Flats|Ford|Fords|Forest|Forge|Forges|Fork|Forks|Fort|Freeway|Garden|Gardens|Gateway|Glen|Glens|Green|Greens|Grove|Groves|Harbor|Harbors|Haven|Hollow|Heights|Hill|Hills|Islands|Inlet|Island|Isle|Junction|Junctions|Key|Keys|Knoll|Knolls|Lake|Lakes|Land|Landing|Light|Loop|Loaf|Lodge|Lock|Locks|Mall|Manor|Manors|Meadow|Meadows|Mews|Manor|Manors|Mill|Mills|Mount|Mission|Motorway|Mount|Mountain|Mountains|Neck|Oval|Orchard|Overpass|Oval|Park|Parks|Parkways|Pass|Passage|Path|Pike|Pine|Pines|Plain|Plains|Plaza|Point|Points|Port|Ports|Prairie|Radial|Ramp|Ranch|Rapid|Rapids|Rest|Ridge|Ridges|River|Roads|Route|Row|Rue|Shoal|Shouls|Shore|Shores|Skyway|Spring|Springs|Spur|Spurs|Square|Squares|Stream|Stravenue|Stream|Streets|Summit|Terrace|Throughway|Trace|Track|Trafficway|Trail|Trailer|Tunnel|Turnpike|Underpass|Union|Unions|Valley|Valleys|Viaduct|View|Views|Village|Villages|Ville|Vista|Walk|Walks|Wall|Ways|Well|Wells)\s?\b(N\.?|S\.?|E\.?|W\.?|NE\.?|NW\.?|SE\.?|SW\.?|North|South|East|West|NorthEast|NorthWest|SouthEast|SouthWest)?\b\s?(#?[0-9a-zA-Z\s\.\-\']{1,6})?$/i;
+				/^([0-9\s\.\-\/]{1,9})\s(N\.?\s|S\.?\s|E\.?\s|W\.?\s|NE\.?\s|NW\.?\s|SE\.?\s|SW\.?|North\s|South\s|East\s|West\s|NorthEast\s|NorthWest\s|SouthEast\s|SouthWest\s)?([0-9a-zA-Z\s\.\-\'\/]+)\s(ALLEE\.?|ALLEY|ALLY\.?|ALY\.?|ANEX\.?|ANNEX|ANNX\.?|ANX\.?|ARC\.?|ARCADE|AV\.?|AVE\.?|AVEN\.?|AVENU\.?|AVENUE|AVN\.?|AVNUE\.?|BAYOO\.?|BAYOU|BCH\.?|BEACH|BEND|BND\.?|BLF\.?|BLUF\.?|BLUFF|BLUFFS|BOT\.?|BTM\.?|BOTTM\.?|BOTTOM|BLVD\.?|BOUL\.?|BOULEVARD|BOULV\.?|BR\.?|BRNCH\.?|BRANCH|BRDGE\.?|BRG\.?|BRIDGE|BRK\.?|BROOK|BROOKS|BURG|BURGS|BYP\.?|BYPA\.?|BYPAS\.?|BYPASS|BYPS\.?|CAMP|CP\.?|CMP\.?|CANYN\.?|CANYON|CNYN\.?|CAPE\.?|CPE\.?|CAUSEWAY|CAUSWA\.?|CSWY\.?|CEN\.?|CENT\.?|CENTER|CENTR\.?|CENTRE\.?|CNTER\.?|CNTR\.?|CTR\.?|CENTERS|CIR\.?|CIRC\.?|CIRCL\.?|CIRCLE|CRCL\.?|CRCLE\.?|CIRCLES|CLF\.?|CLIFF|CLFS\.?|CLIFFS|CLB\.?|CLUB|COMMON|COMMONS|COR\.?|CORNER|CORNERS|CORS\.?|COURSE|CRSE\.?|COURT\.?|CT\.?|COURTS|CTS\.?|COVE|CV\.?|COVES|CREEK|CRK\.?|CRESCENT|CRES\.?|CRSENT\.?|CRSNT\.?|CREST|CROSSING|CRSSNG\.?|XING\.?|CROSSROAD|CROSSROADS|CURVE|DALE|DL\.?|DAM\.?|DM\.?|DIV\.?|DIVIDE|DV\.?|DVD\.?|DR\.?|DRIV\.?|DRIVE|DRV\.?|DRIVES|EST\.?|ESTATE|ESTATES|ESTS\.?|EXP\.?|EXPR\.?|EXPRESS\.?|EXPRESSWAY|EXPW\.?|EXPY\.?|EXT\.?|EXTENSION|EXTN\.?|EXTNSN\.?|EXTS\.?|FALL\.?|FALLS|FLS\.?|FERRY|FRRY\.?|FRY\.?|FIELD|FLD\.?|FIELDS|FLDS\.?|FLAT|FLT\.?|FLATS|FLTS\.?|FORD|FRD\.?|FORDS|FOREST|FORESTS|FRST\.?|FORG\.?|FORGE|FRG\.?|FORGES|FORK|FRK\.?|FORKS|FRKS\.?|FORT|FRT\.?|FT\.?|FREEWAY|FREEWY\.?|FRWAY\.?|FRWY\.?|FWY\.?|GARDEN|GARDN\.?|GRDEN\.?|GRDN\.?|GARDENS|GDNS\.?|GRDNS\.?|GATEWAY|GATEWY\.?|GATWAY\.?|GTWAY\.?|GTWY\.?|GLEN|GLN\.?|GLENS|GREEN\.?|GRN\.?|GREENS|GROV\.?|GROVE|GRV\.?|GROVES|HARB\.?|HARBOR|HARBR\.?|HBR\.?|HRBOR\.?|HARBORS|HAVEN|HVN\.?|HT\.?|HTS\.?|HIGHWAY|HIGHWY\.?|HIWAY\.?|HIWY\.?|HWAY\.?|HWY\.?|HILL|HL\.?|HILLS|HLS\.?|HLLW\.?|HOLLOW\.?|HOLLOWS|HOLW\.?|HOLWS\.?|INLT\.?|IS\.?|ISLAND|ISLND\.?|ISLANDS|ISLNDS\.?|ISS\.?|ISLE\.?|ISLES|JCT\.?|JCTION\.?|JCTN\.?|JUNCTION|JUNCTN\.?|JUNCTON\.?|JCTNS\.?|JCTS\.?|JUNCTIONS|KEY|KY\.?|KEYS|KYS\.?|KNL\.?|KNOL\.?|KNOLL|KNLS\.?|KNOLLS|LK\.?|LAKE|LKS\.?|LAKES|LAND\.?|LANDING|LNDG\.?|LNDNG\.?|LANE|LN\.?|LGT\.?|LIGHT|LIGHTS|LF\.?|LOAF|LCK\.?|LOCK|LCKS\.?|LOCKS|LDG\.?|LDGE\.?|LODG\.?|LODGE|LOOP|LOOPS|MALL|MNR\.?|MANOR|MANORS|MNRS\.?|MEADOW|MDW\.?|MDWS\.?|MEADOWS|MEDOWS|MEWS|MILL|MILLS|MISSN\.?|MSSN\.?|MOTORWAY|MNT\.?|MT\.?|MOUNT|MNTAIN\.?|MNTN\.?|MOUNTAIN|MOUNTIN\.?|MTIN\.?|MTN\.?|MNTNS\.?|MOUNTAINS|NCK\.?|NECK|ORCH\.?|ORCHARD|ORCHRD|OVAL|OVL\.?|OVERPASS|PARK|PRK\.?|PARKS|PARKWAY|PARKWY\.?|PKWAY\.?|PKWY\.?|PKY\.?|PARKWAYS|PKWYS\.?|PASS|PASSAGE|PATH|PATHS|PIKE|PIKES|PINE|PINES|PNES\.?|PL\.?|PLAIN|PLN\.?|PLAINS|PLNS\.?|PLAZA|PLZ\.?|PLZA\.?|POINT|PT\.?|POINTS|PTS\.?|PORT|PRT\.?|PORTS|PRTS\.?|PR\.?|PRAIRIE|PRR\.?|RAD\.?|RADIAL|RADIEL\.?|RADL\.?|RAMP|RANCH|RANCHES|RNCH\.?|RNCHS\.?|RAPID|RPD\.?|RAPIDS|RPDS\.?|REST|RST\.?|RDG\.?|RDGE\.?|RIDGE|RDGS\.?|RIDGES|RIV\.?|RIVER|RVR\.?|RIVR\.?|RD\.?|ROAD|ROADS|RDS\.?|ROUTE|ROW|RUE\.?|RUN\.?|SHL\.?|SHOAL|SHLS\.?|SHOALS|SHOAR\.?|SHORE|SHR\.?|SHOARS\.?|SHORES|SHRS\.?|SKYWAY|SPG\.?|SPNG\.?|SPRING|SPRNG\.?|SPGS\.?|SPNGS\.?|SPRINGS|SPRNGS\.?|SPUR|SPURS|SQ\.?|SQR\.?|SQRE\.?|SQU\.?|SQUARE|SQRS\.?|SQUARES|STA\.?|STATION|STATN\.?|STN\.?|STRA\.?|STRAV\.?|STRAVEN\.?|STRAVENUE|STRAVN\.?|STRVN\.?|STRVNUE\.?|STREAM|STREME\.?|STRM\.?|STREET|STRT\.?|ST\.?|STR\.?|STREETS|SMT\.?|SUMIT\.?|SUMITT\.?|SUMMIT|TER\.?|TERR\.?|TERRACE|THROUGHWAY|TRACE\TRACES|TRCE\.?|TRACK|TRACKS|TRAK\.?|TRK\.?|TRKS\.?|TRAFFICWAY|TRAIL|TRAILS|TRL\.?|TRLS\.?|TRAILER|TRLR\.?|TRLRS\.?|TUNEL\.?|TUNL\.?|TUNLS\.?|TUNNEL|TUNNELS|TUNNL\.?|TRNPK\.?|TURNPIKE|TURNPK\.?|UNDERPASS|UN\.?|UNION|UNIONS|VALLEY|VALLY|VLLY\.?|VLY\.?|VALLEYS|VLYS\.?|VDCT\.?|VIA\.?|VIADCT\.?|VIADUCT|VIEW|VW\.?|VIEWS|VWS\.?|VILL\.?|VILLAG\.?|VILLAGE|VILLG\.?|VILLIAGE|VLG\.?|VILLAGES|VLGS\.?|VILLE\.?|VL\.?|VIS\.?|VIST\.?|VISTA|VST\.?|VSTA\.?|WALK|WALKS|WALL|WY\.?|WAY|WAYS|WELL|WELLS|WLS\.?)\,?\s?\b(N\.?|S\.?|E\.?|W\.?|NE\.?|NW\.?|SE\.?|SW\.?|North|South|East|West|NorthEast|NorthWest|SouthEast|SouthWest)?\b\,?\s?(\#?[0-9a-zA-Z\s\.\-\']{1,6})?$/i;
 			const regex2 = /^(PO BOX|RR|HC|Unit)\s([a-z,0-9,A-Z]{1,9})\s?(#?[0-9a-zA-Z\s\.\-\']{1,6})?\s?$/i;
 			const regex3 =
-				/^([0-9a-zA-Z\s\.\-\']+)\s\b(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]|Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming))\b[,]?\s([0-9]{1,5}[ -]?[0-9]{4}?)$/i;
+				/^([0-9a-zA-Z\s\.\-\']+)\,?\s\b(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]|Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming))\b\,?\s([0-9]{5,5}|[0-9]{5,5}[-]?\s?[0-9]{4,4}?)$/i;
 			const addr1 = document.getElementById("Addr_1");
 			const addr3 = document.getElementById("Addr_3");
 			const lnOneAlert = document.querySelector(".ln1-input-invalid-alert");
@@ -488,8 +508,16 @@
 					const [fullMatch, city, state, zip] = oneSpacedInput.match(regex3);
 					addCity.textContent = city;
 					addState.textContent = state;
-					addZip.textContent = zip;
+					// return zip in either 12345 or 12345-1234 format
+					zip.length === 5
+						? (addZip.textContent = zip)
+						: (addZip.textContent = zip.replace(/[ -]/g, "").substring(0, 5) + "-" + zip.replace(/[ -]/g, "").substring(5));
 					addCountry.textContent = "USA";
+				} else if (oneSpacedInput.length === 0) {
+					addCity.textContent = "";
+					addState.textContent = "";
+					addZip.textContent = "";
+					addCountry.textContent = "";
 				} else {
 					lnThreeAlert.style.display = "flex";
 				}
