@@ -90,6 +90,13 @@
 				font-weight: 300;
 				cursor: pointer !important;
 			}
+
+			div.indiv-outputs li {
+				min-width: 200px;
+				width: fit-content;
+				display: flex;
+				flex-direction: row;
+			}
 			div.indiv-outputs li {
 				width: 100%;
 				display: flex;
@@ -102,7 +109,7 @@
 			div.indiv-outputs span {
 				display: flex;
 				width: max-content;
-				margin-left: auto;
+				margin-left: 20px;
 				font-size: larger;
 				margin-top: 2px;
 				color: #999999;
@@ -278,26 +285,21 @@
 										background-color: transparent;
 									">
 									<option value="" disabled selected="selected">-- SELECT --</option>
-									<option value="MOB">Medical Office Building</option>
-									<option value="POB">Proffessional Office Building</option>
-									<option value="Plaza">Plaza</option>
-									<option value="Physician's Building">Physician's Building</option>
-									<option value="Pavilian">Pavilian</option>
-									<option value="Medical Pavilian">Medical Pavilian</option>
-									<option value="Office Pavilian">Office Pavilian</option>
-									<option value="DEPT">Department</option>
-									<option value="APT">Apartment</option>
-									<option value="RM">Room</option>
-									<option value="Unit">Unit</option>
+									<option value="Building" data-label-abr="Bldg " data-label-mail="BLDG" default>Building</option>
+									<option value="MOB" data-label-abr="MOB " data-label-mail="MOB">Medical Office Building</option>
+									<option value="POB" data-label-abr="POB" data-label-mail="POB">Proffessional Office Building</option>
+									<option value="Plaza" data-label-abr="Plz" data-label-mail="PLZ">Plaza</option>
+									<option value="Physician's Building" data-label-abr="P.B." data-label-mail="PB">
+										Physician's Building
+									</option>
+									<option value="Pavilian" data-label-abr="Pav." data-label-mail="PAV">Pavilian</option>
+									<option value="Medical Pavilian" data-label-abr="M.P." data-label-mail="MP">Medical Pavilian</option>
+									<option value="Office Pavilian" data-label-abr="O.P." data-label-mail="OP">Office Pavilian</option>
+									<option value="Dept" data-label-abr="Dep." data-label-mail="DEP">Department</option>
+									<option value="Apt" data-label-abr="Apt." data-label-mail="APT">Apartment</option>
+									<option value="Rm" data-label-abr="Room" data-label-mail="ROOM">Room</option>
+									<option value="Unit" data-label-abr="Unit" data-label-mail="Unit">Unit</option>
 								</select>
-								<script defer>
-									const thisSelect = document.getElementById("bld_type_select");
-									thisSelect.addEventListener("change", (e) => {
-										const selectedValue = thisSelect[thisSelect.selectedIndex].value;
-										thisSelect.setAttribute("value", selectedValue);
-										thisSelect.style.color = "black";
-									});
-								</script>
 							</div>
 						</div>
 						<div
@@ -309,8 +311,14 @@
 								margin: 0 10px 0 25px;
 								width: max(50%, 102px);
 							">
-							<label for="bld_type_select" style="margin: 0px; white-space: nowrap">Bldg #</label>
-							<input type="text" placeholder="#" id="Addr_Ln_2_Bld_Num" style="width: max(80px, 75%); margin: 0 0 9px 0px" />
+							<label for="bld_type_select" style="margin: 0px; white-space: nowrap"
+								><span id="variable_Bld_Lbl">Bldg</span> #</label
+							>
+							<input
+								type="text"
+								placeholder="Bldg #"
+								id="Addr_Ln_2_Bld_Num"
+								style="width: max(80px, 75%); margin: 0 0 9px 0px" />
 						</div>
 						<div id="Addr_2_Input_Options_Container" style="display: flex; flex-direction: row; margin-inline: auto">
 							<div id="floor-container" style="flex-direction: column; margin-inline: auto">
@@ -426,7 +434,7 @@
 			<script defer></script>
 		</form>
 		<div id="outputs" style="flex-direction: column; display: flex">
-			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: 200px">
+			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: fit-content">
 				<ul style="display: flex; flex-direction: column">
 					<li><label for="addNum">AddNum:</label> <span id="addNum"></span></li>
 					<li><label for="addPrefix">Prefix:</label> <span id="addPrefix"></span></li>
@@ -437,10 +445,6 @@
 					<hr />
 					<li><label for="addBldgType">BldgType:</label> <span id="addBldgType"></span></li>
 					<li><label for="addBldgNum">BldgNum:</label> <span id="addBldgNum"></span></li>
-					<li><label for="addFlrNum">FloorNum:</label> <span id="addFlrNum"></span></li>
-					<li><label for="addFloorLbl">"Floor":</label> <span id="addFloorLbl"></span></li>
-					<li><label for="addSuiteLbl">"Suite":</label> <span id="addSuiteLbl"></span></li>
-					<li><label for="addSuiteNum">SuiteNum:</label> <span id="addSuiteNum"></span></li>
 					<li><label for="addMailstop">Mailstop:</label> <span id="addMailstop"></span></li>
 					<hr />
 					<li><label for="addCIty">City:</label> <span id="addCIty"></span></li>
@@ -472,6 +476,7 @@
 			const regex3 =
 				/^([0-9a-zA-Z\s\.\-\']+)\,?\s\b(?:(A[KLRZ]|C[AOT]|D[CE]|FL|GA|HI|I[ADLN]|K[SY]|LA|M[ADEINOST]|N[CDEHJMVY]|O[HKR]|P[AR]|RI|S[CD]|T[NX]|UT|V[AIT]|W[AIVY]|Alabama|Alaska|Arizona|Arkansas|California|Colorado|Connecticut|Delaware|Florida|Georgia|Hawaii|Idaho|Illinois|Indiana|Iowa|Kansas|Kentucky|Louisiana|Maine|Maryland|Massachusetts|Michigan|Minnesota|Mississippi|Missouri|Montana|Nebraska|Nevada|New Hampshire|New Jersey|New Mexico|New York|North Carolina|North Dakota|Ohio|Oklahoma|Oregon|Pennsylvania|Rhode Island|South Carolina|South Dakota|Tennessee|Texas|Utah|Vermont|Virginia|Washington|West Virginia|Wisconsin|Wyoming))\b\,?\s([0-9]{5,5}|[0-9]{5,5}[-]?\s?[0-9]{4,4}?)$/i;
 			const addr1 = document.getElementById("Addr_1");
+			const addr2rNone = document.getElementById("Addr_Ln_2_None");
 			const addr3 = document.getElementById("Addr_3");
 			const lnOneAlert = document.querySelector(".ln1-input-invalid-alert");
 			const lnThreeAlert = document.querySelector(".ln3-input-invalid-alert");
@@ -482,10 +487,106 @@
 			const addSuf = document.querySelector("#addSuffix");
 			const addApt = document.querySelector("#addAppNum");
 			//===============================================
+			const addBldType = document.querySelector("#addBldgType");
+			const addBldNum = document.querySelector("#addBldgNum");
+			//===============================================
+
 			const addCity = document.querySelector("#addCIty");
 			const addState = document.querySelector("#addState");
 			const addZip = document.querySelector("#addZip");
 			const addCountry = document.querySelector("#addCountry");
+
+			const thisSelect = document.getElementById("bld_type_select");
+			const varLabel = document.querySelector("#variable_Bld_Lbl");
+			const varInput = document.querySelector("#Addr_Ln_2_Bld_Num");
+			var selectedBldType = varInput;
+
+			addr2rNone.addEventListener("click", (e) => {
+				//check the value of addr 1 to determine if adderss or unit is described
+				const oneSpacedInput = addr1.value.replace(/^\s+|\s+$|\s{2,}/g, function (match) {
+					if (/^\s+|\s+$/.test(match)) {
+						return ""; // Remove leading/trailing spaces
+					} else {
+						return " "; // Replace multiple spaces with a single space
+					}
+				});
+				if (oneSpacedInput.match(regex)) {
+					const [fullMatch, streetNumber, streetPrefix, streetName, streetType, streetSuffix, apmtNum] =
+						oneSpacedInput.match(regex);
+					if (apmtNum.length > 0 && apmtNum !== " " && apmtNum !== undefined) {
+						addApt.textContent = apmtNum;
+						addBldType.textContent = "";
+						addBldNum.textContent = "";
+						varInput.setAttribute("placeholder", apmtNum);
+						console.log(selectedBldType);
+						if (selectedBldType === "apt") {
+							thisSelect.value = "apt";
+							varInput.value = apmtNum;
+						} else {
+							varInput.value = "";
+						}
+					}
+				} else if (addr2rNone.checked) {
+					varInput.setAttribute("placeholder", "Bldg #");
+					varInput.value = "";
+					varLabel.textContent = "Bldg";
+					thisSelect.setAttribute("value", "");
+					thisSelect.style.color = "gray";
+					addBldType.textContent = "";
+					addBldNum.textContent = "";
+				}
+			});
+
+			thisSelect.addEventListener("change", (e) => {
+				const selectedValue = thisSelect[thisSelect.selectedIndex].value;
+				thisSelect.setAttribute("value", selectedValue);
+				thisSelect.style.color = "black";
+				varLabel.textContent = thisSelect[thisSelect.selectedIndex].getAttribute("data-label-abr");
+				varInput.setAttribute("placeholder", thisSelect[thisSelect.selectedIndex].getAttribute("data-label-abr") + " #");
+				switch (selectedValue) {
+					case "Apt":
+						addBldType.textContent = "";
+						break;
+					case "Rm":
+						addBldType.textContent = "";
+						break;
+					default:
+						selectedBldType = selectedValue;
+						addBldType.textContent = selectedBldType;
+						break;
+				}
+			});
+
+			varInput.addEventListener("keyup", (e) => {
+				const selectedValue = thisSelect[thisSelect.selectedIndex].value;
+				const input = e.target.value;
+				const oneSpacedInput = input.replace(/^\s+|\s+$|\s{2,}/g, function (match) {
+					if (/^\s+|\s+$/.test(match)) {
+						return ""; // Remove leading/trailing spaces
+					} else {
+						return " "; // Replace multiple spaces with a single space
+					}
+				});
+				varInput.addEventListener("blur", (e) => {
+					if (input.length === 0 || regex2.test(oneSpacedInput)) {
+						addBldNum.textContent = "";
+					} else if (input.length > 0 && !regex2.test(oneSpacedInput)) {
+						switch (selectedValue) {
+							case "Apt":
+								addApt.textContent = oneSpacedInput;
+								addBldNum.textContent = "";
+								break;
+							case "Rm":
+								addBldType.textContent = "";
+								break;
+							default:
+								selectedBldType = selectedValue;
+								addBldType.textContent = selectedBldType;
+								break;
+						}
+					}
+				});
+			});
 
 			addr3.addEventListener("keyup", (e) => {
 				const input = e.target.value;
@@ -532,7 +633,7 @@
 						return " "; // Replace multiple spaces with a single space
 					}
 				});
-				if (regex.test(oneSpacedInput)) {
+				if (regex.test(oneSpacedInput) || regex2.test(oneSpacedInput)) {
 					lnOneAlert.style.display = "none";
 				} else {
 					lnOneAlert.style.display = "flex";
@@ -546,8 +647,16 @@
 						addStType.textContent = "";
 						addSuf.textContent = "";
 						addApt.textContent = "";
-					} else if (oneSpacedInput.length > 0 && regex.test(oneSpacedInput) == false) {
-						lnOneAlert.style.display = "flex";
+					} else if (oneSpacedInput.length > 0 && regex.test(oneSpacedInput) == false && regex2.test(oneSpacedInput) == true) {
+						if (oneSpacedInput.match(regex2)) {
+							const [fullMatch, poName, poNum] = oneSpacedInput.match(regex2);
+							addNum.textContent = "";
+							addPre.textContent = "";
+							addName.textContent = poName;
+							addStType.textContent = "";
+							addSuf.textContent = "";
+							addApt.textContent = poNum;
+						}
 					} else if (oneSpacedInput.length > 0 && regex.test(oneSpacedInput) == true) {
 						lnOneAlert.style.display = "none";
 						if (oneSpacedInput.match(regex)) {
@@ -559,8 +668,7 @@
 							addStType.textContent = streetType;
 							addSuf.textContent = streetSuffix;
 							addApt.textContent = apmtNum;
-						} else if (oneSpacedInput.match(regex2)) {
-							const [fullMatch, poName, poNum] = oneSpacedInput.match(regex2);
+						} else {
 							addNum.textContent = "";
 							addPre.textContent = "";
 							addName.textContent = poName;
