@@ -43,9 +43,37 @@ const addBldDscrNum = document.querySelector("#addBldgDiscrNum");
 const buildDiscInputs = document.querySelectorAll(".bldDscrInput");
 const line2label = document.querySelector("#Addr_Ln_2_Lbl");
 const line3label = document.querySelector("#Addr_Ln_3_Lbl");
+const outputBtn = document.querySelector("#output_Btn");
 const finalLn1 = document.querySelector("#address-ln-1-out");
 const finalLn2 = document.querySelector("#address-ln-2-out");
 const finalLn3 = document.querySelector("#address-ln-3-out");
+
+const outputFinalResults = (e) => {
+	e.preventDefault();
+
+	//ouput variables as it relates to rexeg1
+	if (regex.test(addr1.value)) {
+		finalLn1.value =
+			addNum.textContent +
+			" " +
+			`${addPre.textContent ? addPre.textContent + " " : ""}` +
+			addName.textContent +
+			" " +
+			addStType.textContent +
+			" " +
+			`${addSuf.textContent ? addSuf.textContent + " " : ""}` +
+			`${addApt.textContent ? addApt.textContent + " " : ""}`;
+	} //ouput variables as it relates to rexeg2
+	else if (regex2.test(addr1.value)) {
+		finalLn1.value = addName.textContent + " " + `${addApt.textContent ? addApt.textContent + " " : ""}`;
+	} else if (ruralRegex.test(addr1.value)) {
+	} else {
+		finalLn1.value = "Invalid Address";
+	}
+	console.log("yay");
+};
+
+outputBtn.addEventListener("click", outputFinalResults);
 
 var selectedBldType = varInput;
 /// GET  VALS FUNCTION
@@ -484,7 +512,7 @@ addrLn2RadioBtns.forEach((btn) =>
 
 		if (addrLn2RadioBtnSelected.value === "floor") {
 			line2label.style.display = "flex";
-			line3label.textContent = "ADDR_3:";
+			line3label.textContent = "Addr_3:";
 			floorQ.style.display = "flex";
 			suiteQ.style.display = "none";
 			mailstopQ.style.display = "none";
@@ -516,6 +544,8 @@ addrLn2RadioBtns.forEach((btn) =>
 			floorQ.querySelector('input[name="Addr_Ln_2"]').value = "";
 			suiteQ.querySelector('input[name="Addr_Ln_2"]').value = "";
 		} else if (addrLn2RadioBtnSelected.value === "none") {
+			varInput.setAttribute("placeholder", "Bldg #");
+			varLabel.textContent = "Bldg";
 			line2label.style.display = "none";
 			line3label.textContent = "Addr_2:";
 			addrLn2InputOptionsContainer.style.display = "none";
@@ -536,6 +566,8 @@ addrLn2RadioBtns.forEach((btn) =>
 			thisSelect.style.color = "#999";
 		} else {
 			// other is selected.
+			line2label.style.display = "flex";
+			line3label.textContent = "Addr_3:";
 			addrLn2InputOptionsContainer.style.display = "none";
 			floorQ.querySelector('input[name="Addr_Ln_2"]').value = "";
 			suiteQ.querySelector('input[name="Addr_Ln_2"]').value = "";

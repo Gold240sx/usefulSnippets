@@ -17,13 +17,15 @@
 				border: 1px solid rgb(203, 203, 203);
 			}
 			label {
-				font-size: larger;
-				font-weight: 500;
+				font-size: 1.5rem;
+				font-weight: 300;
 				margin: 20px 0 5px 0px;
 				color: rgb(122, 122, 122);
 			}
 			.title {
 				color: black !important;
+				font-weight: 500;
+				font-size: 1.7rem;
 			}
 			button {
 				font-size: large;
@@ -112,14 +114,16 @@
 			div.indiv-outputs label {
 				font-weight: 600;
 				margin: 0;
+				color: #999999;
 			}
 			div.indiv-outputs span {
 				display: flex;
 				width: max-content;
-				margin-left: 20px;
+				margin-left: auto;
 				font-size: larger;
 				margin-top: 2px;
-				color: #999999;
+				text-align: right;
+				color: black;
 			}
 			select:invalid,
 			select[value=""] {
@@ -223,7 +227,10 @@
 									border: 1px solid rgb(213, 213, 213);
 									border-radius: 50px;
 								">
-								<label for="" style="font-size: small; font-weight: 600; text-align: start; margin: 0px 0px 0 5px"
+								<label
+									for=""
+									style="font-size: small; font-weight: 600; text-align: start; margin: 0px 0px 0 5px"
+									class="title"
 									>Options:</label
 								>
 								<li>
@@ -390,7 +397,7 @@
 					style="font-size: medium; margin-top: 4px; color: red; text-align: right"
 					>The address provided is invalid!</label
 				>
-				<button type="submit">Format</button><br /><br />
+				<button type="button" id="output_Btn">Format</button><br /><br />
 			</div>
 		</form>
 		<div id="outputs" style="flex-direction: column; display: flex">
