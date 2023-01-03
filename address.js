@@ -16,6 +16,7 @@ const addNum = document.querySelector("#addNum");
 const addPre = document.querySelector("#addPrefix");
 const addName = document.querySelector("#addStreet");
 const addStType = document.querySelector("#addStType");
+const addrPostStType = document.querySelector("#addPostStType");
 const addSuf = document.querySelector("#addSuffix");
 const addApt = document.querySelector("#addAppNum");
 const addrLn2RadioBtns = document.querySelectorAll('input[name="Addr_Ln_2"]');
@@ -119,9 +120,231 @@ const formatStreetName = (name) => {
 };
 
 const formatStreetType = (name) => {
-	return name.replace(/\w\S*/g, function (txt) {
+	const condensedArrayFull = {
+		alley: { full: "ALLEY", abbr: ["ALLEE", "ALY", "ALLY"], postal: "ALY" },
+		anex: { full: "ANEX", abbr: ["ANNEX", "ANNX", "ANX"], postal: "ANX" },
+		arcade: { full: "ARCADE", abbr: ["ARC"], postal: "ARC" },
+		avenue: { full: "AVENUE", abbr: ["AVE", "AV", "AVEN", "AVENU", "AVN", "AVNU"], postal: "AVE" },
+		bayou: { full: "BAYOU", abbr: ["BAYOO", "BYU"], postal: "BYU" },
+		beach: { full: "BEACH", abbr: ["BCH"], postal: "BCH" },
+		bend: { full: "BEND", abbr: ["BND"], postal: "BND" },
+		bluff: { full: "BLUFF", abbr: ["BLF", "BLUF"], postal: "BLF" },
+		bluffs: { full: "BLUFFS", abbr: ["BLFS", "BLUFS"], postal: "BLFS" },
+		bottom: { full: "BOTTOM", abbr: ["BTM", "BOTTM", "BOT"], postal: "BTM" },
+		boulevard: { full: "BOULEVARD", abbr: ["BLVD", "BOUL", "BOULV"], postal: "BLVD" },
+		branch: { full: "BRANCH", abbr: ["BR", "BRNCH"], postal: "BR" },
+		bridge: { full: "BRDGE", abbr: ["BRG", "BRDGE", "BRDG"], postal: "BRG" },
+		brook: { full: "BROOK", abbr: ["BRK"], postal: "BRK" },
+		brooks: { full: "BROOKS", abbr: ["BRKS"], postal: "BRKS" },
+		burg: { full: "BURG", abbr: ["BG"], postal: "BG" },
+		burgs: { full: "BURGS", abbr: ["BGS"], postal: "BGS" },
+		bypass: { full: "BYPASS", abbr: ["BYPA", "BYPAS", "BYP", "BYPS"], postal: "BYP" },
+		camp: { full: "CAMP", abbr: ["CP", "CMP"], postal: "CP" },
+		canyon: { full: "CANYON", abbr: ["CANYN", "CNYN"], postal: "CYN" },
+		cape: { full: "CAPE", abbr: ["CPE"], postal: "CPE" },
+		causeway: { full: "CAUSEWAY", abbr: ["CAUSWA", "CSWY"], postal: "CSWY" },
+		center: { full: "CENTER", abbr: ["CEN", "CENT", "CENTR", "CENTRE", "CNTER", "CNTR", "CTR"], postal: "CTR" },
+		centers: { full: "CENTERS", abbr: ["CENS", "CENTS", "CENTRS", "CENTRES", "CNTERS", "CNTRS", "CTRS"], postal: "CTRS" },
+		circle: { full: "CIRCLE", abbr: ["CIR", "CIRC", "CIRCL", "CIRCLE", "CRCL", "CRCLE"], postal: "CIR" },
+		circles: { full: "CIRCLES", abbr: ["CIRS", "CIRCS", "CIRCLS", "CRCLS", "CRCLES"], postal: "CIRS" },
+		cliff: { full: "CLIFF", abbr: ["CLF", "CLFF"], postal: "CLF" },
+		cliffs: { full: "CLIFFS", abbr: ["CLFS"], postal: "CLFS" },
+		club: { full: "CLUB", abbr: ["CLB"], postal: "CLB" },
+		common: { full: "COMMON", abbr: ["CMN", "CMMN"], postal: "CMN" },
+		commons: { full: "COMMONS", abbr: ["CMNS", "CMMNS"], postal: "CMNS" },
+		corner: { full: "CORNER", abbr: ["COR"], postal: "COR" },
+		corners: { full: "CORNERS", abbr: ["CORS"], postal: "CORS" },
+		course: { full: "COURSE", abbr: ["CRSE"], postal: "CRSE" },
+		court: { full: "COURT", abbr: ["CT"], postal: "CT" },
+		courts: { full: "COURTS", abbr: ["CTS"], postal: "CTS" },
+		cove: { full: "COVE", abbr: ["CV"], postal: "CV" },
+		coves: { full: "COVES", abbr: ["CVS"], postal: "CVS" },
+		creek: { full: "CREEK", abbr: ["CRK"], postal: "CRK" },
+		crescent: { full: "CRESCENT", abbr: ["CRES", "CRSENT", "CRSNT"], postal: "CRES" },
+		crest: { full: "CREST", abbr: ["CRST"], postal: "CRST" },
+		crossing: { full: "CROSSING", abbr: ["CRSSNG", "CRSNG", "XING"], postal: "XING" },
+		crossroad: { full: "CROSSROAD", abbr: ["XRD", "CRSRD"], postal: "XRD" },
+		crossroads: { full: "CROSSROADS", abbr: ["XRDS", "CRSRDS"], postal: "XRDS" },
+		curve: { full: "CURVE", abbr: ["CURV"], postal: "CURV" },
+		dale: { full: "DALE", abbr: ["DL"], postal: "DL" },
+		dam: { full: "DAM", abbr: ["DM"], postal: "DM" },
+		divide: { full: "DIVIDE", abbr: ["DIV", "DV", "DVD"], postal: "DV" },
+		drive: { full: "DRIVE", abbr: ["DR", "DRIV", "DRV"], postal: "DR" },
+		drives: { full: "DRIVES", abbr: ["DRS", "DRIVS", "DRVS"], postal: "DRS" },
+		estate: { full: "ESTATE", abbr: ["EST", "ESTAT"], postal: "EST" },
+		estates: { full: "ESTATES", abbr: ["ESTS", "ESTATS"], postal: "ESTS" },
+		expressway: { full: "EXPRESSWAY", abbr: ["EXP", "EXPR", "EXPW", "EXPY", "EXPRESS"], postal: "EXPY" },
+		extension: { full: "EXTENSION", abbr: ["EXT", "EXTN", "EXTNSN", "EXTSN"], postal: "EXT" },
+		extensions: { full: "EXTENSIONS", abbr: ["EXTS", "EXTNS", "EXTNSNS", "EXTSNS"], postal: "EXTS" },
+		fall: { full: "FALL", abbr: ["FALL"], postal: "FALL" },
+		falls: { full: "FALLS", abbr: ["FALLS", "FLS"], postal: "FLS" },
+		ferry: { full: "FERRY", abbr: ["FRY", "FRRY"], postal: "FRY" },
+		field: { full: "FIELD", abbr: ["FLD"], postal: "FLD" },
+		fields: { full: "FIELDS", abbr: ["FLDS"], postal: "FLDS" },
+		flat: { full: "FLAT", abbr: ["FLT"], postal: "FLT" },
+		flats: { full: "FLATS", abbr: ["FLTS"], postal: "FLTS" },
+		ford: { full: "FORD", abbr: ["FRD"], postal: "FRD" },
+		fords: { full: "FORDS", abbr: ["FRDS"], postal: "FRDS" },
+		forest: { full: "FOREST", abbr: ["FRST", "FORESTS"], postal: "FRST" },
+		forge: { full: "FORGE", abbr: ["FRG", "FORG"], postal: "FRG" },
+		forges: { full: "FORGES", abbr: ["FRGS"], postal: "FRGS" },
+		fork: { full: "FORK", abbr: ["FRK"], postal: "FRK" },
+		forks: { full: "FORKS", abbr: ["FRKS"], postal: "FRKS" },
+		fort: { full: "FORT", abbr: ["FT", "FRT"], postal: "FT" },
+		freeway: { full: "FREEWAY", abbr: ["FWY", "FRWY", "FRWY", "FRWAY", "FREEWY"], postal: "FWY" },
+		garden: { full: "GARDEN", abbr: ["GARDN", "GRDN", "GRDEN"], postal: "GDN" },
+		gardens: { full: "GARDENS", abbr: ["GARDNS", "GRDNS", "GRDENS"], postal: "GDNS" },
+		gateway: { full: "GATEWAY", abbr: [" GTWY", "GTWAY", "GATWAY", "GATEWY"], postal: "GTWY" },
+		glen: { full: "GLEN", abbr: ["GLN"], postal: "GLN" },
+		glens: { full: "GLENS", abbr: ["GLNS"], postal: "GLNS" },
+		green: { full: "GREEN", abbr: ["GRN"], postal: "GRN" },
+		greens: { full: "GREENS", abbr: ["GRNS"], postal: "GRNS" },
+		grove: { full: "GROVE", abbr: ["GRV", "GROV"], postal: "GRV" },
+		groves: { full: "GROVES", abbr: ["GRVS"], postal: "GRVS" },
+		harbor: { full: "HARBOR", abbr: ["HARB", "HARBR", "HBR", "HRBR", "HRBOR"], postal: "HBR" },
+		harbors: { full: "HARBORS", abbr: ["HARBS", "HARBRS", "HBRS", "HRBRS", "HRBORS"], postal: "HBRS" },
+		haven: { full: "HAVEN", abbr: ["HVN"], postal: "HVN" },
+		heights: { full: "HEIGHTS", abbr: ["HTS", "HT"], postal: "HTS" },
+		highway: { full: "HIGHWAY", abbr: ["HIGHWY", "HWY", "HWAY", "HIWY", "HWAY"], postal: "HWY" },
+		hill: { full: "HILL", abbr: ["HL"], postal: "HL" },
+		hills: { full: "HILLS", abbr: ["HLS"], postal: "HLS" },
+		hollow: { full: "HOLLOW", abbr: ["HOLW", "HOLLOWS", "HLLW", "HOLWS"], postal: "HOLW" },
+		inlet: { full: "INLET", abbr: ["INLT"], postal: "INLT" },
+		island: { full: "ISLAND", abbr: ["ISLND", "IS"], postal: "IS" },
+		islands: { full: "ISLANDS", abbr: ["ISS", "ISLNDS"], postal: "ISS" },
+		isle: { full: "ISLE", abbr: ["ISLES"], postal: "ISLE" },
+		junction: { full: "JUNCTION", abbr: ["JCT", "JCTION", "JCTN", "JUNCTN", "JUNCTON"], postal: "JCT" },
+		junctions: { full: "JUNCTIONS", abbr: ["JCTNS", "JCTS", "JCTIONS", "JUNCTNS", "JUNCTONS"], postal: "JCTS" },
+		key: { full: "KEY", abbr: ["KY"], postal: "KY" },
+		keys: { full: "KEYS", abbr: ["KYS"], postal: "KYS" },
+		knoll: { full: "KNOLL", abbr: ["KNL", "KNOL"], postal: "KNL" },
+		knolls: { full: "KNOLLS", abbr: ["KNLS"], postal: "KNLS" },
+		lake: { full: "LAKE", abbr: ["LK"], postal: "LK" },
+		lakes: { full: "LAKES", abbr: ["LKS"], postal: "LKS" },
+		land: { full: "LAND", abbr: ["LAND", "LD"], postal: "LAND" },
+		landing: { full: "LANDING", abbr: ["LNDG", "LNDNG"], postal: "LNDG" },
+		lane: { full: "LANE", abbr: ["LN"], postal: "LN" },
+		light: { full: "LIGHT", abbr: ["LGT"], postal: "LGT" },
+		lights: { full: "LIGHTS", abbr: ["LGTS"], postal: "LGTS" },
+		loaf: { full: "LOAF", abbr: ["LF"], postal: "LOAF" },
+		lock: { full: "LOCK", abbr: ["LCK"], postal: "LCK" },
+		locks: { full: "LOCKS", abbr: ["LCKS"], postal: "LCKS" },
+		lodge: { full: "LODGE", abbr: ["LDG"], postal: "LDG" },
+		loop: { full: "LOOP", abbr: ["LOOPS"], postal: "LOOP" },
+		mall: { full: "MALL", abbr: ["MALL"], postal: "MALL" },
+		manor: { full: "MANOR", abbr: ["MNR"], postal: "MNR" },
+		manors: { full: "MANORS", abbr: ["MNRS"], postal: "MNRS" },
+		meadow: { full: "MEADOW", abbr: ["MEDOW", "MDW"], postal: "MDW" },
+		meadows: { full: "MEADOWS", abbr: ["MEDOWS", "MDWS"], postal: "MDWS" },
+		mews: { full: "MEWS", abbr: ["MWS"], postal: "MEWS" },
+		mill: { full: "MILL", abbr: ["ML"], postal: "ML" },
+		mills: { full: "MILLS", abbr: ["MLS"], postal: "MLS" },
+		mission: { full: "MISSION", abbr: ["MSN", "MISSN", "MSSN"], postal: "MSN" },
+		mountain: { full: "MOUNTAIN", abbr: ["MTN", "MNTAIN", "MNTN", "MOUNTIN", "MTAIN", "MTIN"], postal: "MTN" },
+		mountains: { full: "MOUNTAINS", abbr: ["MTNS", "MNTAINS", "MNTNS", "MOUNTINS", "MTAINS", "MTINS"], postal: "MTNS" },
+		neck: { full: "NECK", abbr: ["NCK"], postal: "NCK" },
+		orchard: { full: "ORCHARD", abbr: ["ORCH", "ORCHRD"], postal: "ORCH" },
+		oval: { full: "OVAL", abbr: ["OVL"], postal: "OVAL" },
+		overpass: { full: "OVERPASS", abbr: ["OPAS"], postal: "OPAS" },
+		park: { full: "PARK", abbr: ["PRK"], postal: "PARK" },
+		parks: { full: "PARKS", abbr: ["PRKS"], postal: "PARK" },
+		parkway: { full: "PARKWAY", abbr: ["PARKWY", "PKWAY", "PKWY", "PKY"], postal: "PARKS" },
+		parkways: { full: "PARKWAYS", abbr: ["PARKWYS", "PKWAYS", "PKWYS", "PKYS"], postal: "PKWY" },
+		pass: { full: "PASS", abbr: ["PASS"], postal: "PASS" },
+		passage: { full: "PASSAGE", abbr: ["PSSG", "PSGE", "PASSG", "PASSGE", "PSSGE"], postal: "PSGE" },
+		path: { full: "PATH", abbr: ["PATHS"], postal: "PATH" },
+		pike: { full: "PIKE", abbr: ["PIKES"], postal: "PIKE" },
+		pine: { full: "PINE", abbr: ["PNE"], postal: "PNE" },
+		pines: { full: "PINES", abbr: ["PNES"], postal: "PNES" },
+		place: { full: "PLACE", abbr: ["PL"], postal: "PL" },
+		plain: { full: "PLAIN", abbr: ["PLN"], postal: "PLN" },
+		plains: { full: "PLAINS", abbr: ["PLNS"], postal: "PLNS" },
+		plaza: { full: "PLAZA", abbr: ["PLZ", "PLZA"], postal: "PLZ" },
+		point: { full: "POINT", abbr: ["PT"], postal: "PT" },
+		points: { full: "POINTS", abbr: ["PTS"], postal: "PTS" },
+		port: { full: "PORT", abbr: ["PRT"], postal: "PRT" },
+		ports: { full: "PORTS", abbr: ["PRTS"], postal: "PRTS" },
+		prairie: { full: "PRAIRIE", abbr: ["PRAIRIE", "PRR", "PR"], postal: "PR" },
+		radial: { full: "RADIAL", abbr: ["RADIEL", "RADL", "RAD"], postal: "RADL" },
+		ramp: { full: "RAMP", abbr: ["RAMP"], postal: "RAMP" },
+		ranch: { full: "RANCH", abbr: ["RANCHES", "RNCH", "RNCHS"], postal: "RNCH" },
+		rapid: { full: "RAPID", abbr: ["RPD"], postal: "RPD" },
+		rapids: { full: "RAPIDS", abbr: ["RPDS"], postal: "RPDS" },
+		rest: { full: "REST", abbr: ["RST"], postal: "RST" },
+		ridge: { full: "RIDGE", abbr: ["RDGE", "RDG"], postal: "RDG" },
+		ridges: { full: "RIDGES", abbr: ["RDGS"], postal: "RDGS" },
+		river: { full: "RIVER", abbr: ["RIV", "RVR", "RIVR"], postal: "RIV" },
+		road: { full: "ROAD", abbr: ["RD"], postal: "RD" },
+		roads: { full: "ROADS", abbr: ["RDS"], postal: "RDS" },
+		route: { full: "ROUTE", abbr: ["RTE"], postal: "RTE" },
+		row: { full: "ROW", abbr: ["ROW"], postal: "ROW" },
+		rue: { full: "RUE", abbr: ["RUE"], postal: "RUE" },
+		run: { full: "RUN", abbr: ["RUN"], postal: "RUN" },
+		shoal: { full: "SHOAL", abbr: ["SHL", "SHOL"], postal: "SHL" },
+		shoals: { full: "SHOALS", abbr: ["SHLS", "SHOLS"], postal: "SHLS" },
+		shore: { full: "SHORS", abbr: ["SHOAR", "SHR"], postal: "SHR" },
+		shores: { full: "SHORES", abbr: ["SHOARS", "SHRS"], postal: "SHRS" },
+		skyway: { full: "SKYWAY", abbr: ["SKYWY"], postal: "SKWY" },
+		spring: { full: "SPRING", abbr: ["SPNG", "SPRNG", "SPG", "SPRG"], postal: "SPG" },
+		springs: { full: "SPRINGS", abbr: ["SPNGS", "SPRNGS", "SPGS", "SPRGS"], postal: "SPRGS" },
+		spur: { full: "SPUR", abbr: ["SPUR"], postal: "SPUR" },
+		spurs: { full: "SPURS", abbr: ["SPURS"], postal: "SPURS" },
+		square: { full: "SQUARE", abbr: ["SQ", "SQR", "SQRE", "SQU"], postal: "SQ" },
+		squares: { full: "SQRS", abbr: ["SQS", "SQRS", "SQRES", "SQUS"], postal: "SQS" },
+		station: { full: "STATION", abbr: ["STA", "STATN", "STN"], postal: "STA" },
+		stravenue: { full: "STRAVENUE", abbr: ["STRA", "STRAV", "STRAVEN", "STRAVN", "STRVN", "STRVNUE"], postal: "STRA" },
+		stream: { full: "STREAM", abbr: ["STREME", "STRM"], postal: "STRM" },
+		street: { full: "STREET", abbr: ["STRT", "ST", "STR"], postal: "ST" },
+		streets: { full: "STREETS", abbr: ["STS", "STRTS", "STRS"], postal: "STS" },
+		summit: { full: "SUMMIT", abbr: ["SUMIT", "SUMITT", "SMT"], postal: "SMT" },
+		terrace: { full: "TERRACE", abbr: ["TER", "TERR"], postal: "TER" },
+		throughway: { full: "THROUGHWAY", abbr: ["THRUWAY", "THWAY", "TRWY"], postal: "TRWY" },
+		trace: { full: "TRACE", abbr: ["TRACES", "TRCE"], postal: "TRCE" },
+		track: { full: "TRACK", abbr: ["TRACKS", "TRAK", "TRK", "TRKS"], postal: "TRAK" },
+		trafficway: { full: "TRAFFICWAY", abbr: ["TRFY", "TRFFCWY", "TRAFFWY", "TRAFWAY", "TRFWAY"], postal: "TRFY" },
+		trail: { full: "TRAIL", abbr: ["TRAILS", "TRL", "TRLS"], postal: "TRL" },
+		trailer: { full: "TRAILER", abbr: ["TRAILERS", "TRLR", "TRLRS"], postal: "TRLR" },
+		tunnel: { full: "TUNNEL", abbr: ["TUNL", "TUNLS", "TUNEL", "TUNNELS", "TUNNL"], postal: "TUNL" },
+		turnpike: { full: "TURNPIKE", abbr: ["TPKE", "TRNPKE", "TURNPK", "TRNPK"], postal: "TPKE" },
+		underpass: { full: "UNDERPASS", abbr: ["UPAS"], postal: "UPAS" },
+		union: { full: "UNION", abbr: ["UN"], postal: "UN" },
+		unions: { full: "UNIONS", abbr: ["UNS"], postal: "UNS" },
+		valley: { full: "VALLEY", abbr: ["VALLY", "VLLY", "VLY"], postal: "VLY" },
+		valleys: { full: "VALLEYS", abbr: ["VLYS"], postal: "VLYS" },
+		viaduct: { full: "VIADUCT", abbr: ["VIA", "VIADCT", "VDCT", "VDUCT"], postal: "VIA" },
+		view: { full: "VIEW", abbr: ["VW"], postal: "VW" },
+		views: { full: "VIEWS", abbr: ["VWS"], postal: "VWS" },
+		village: { full: "VILLAGE", abbr: ["VILLAG", "VILL", "VILLG", "VILLIAGE", "VLG", "VILG"], postal: "VLG" },
+		villages: { full: "VILLAGES", abbr: ["VILLAGS", "VILLS", "VILLGS", "VILLIAGES", "VLGS", "VILGS"], postal: "VLGS" },
+		ville: { full: "VILLE", abbr: ["VL"], postal: "VL" },
+		vista: { full: "VISTA", abbr: ["VIST", "VIS", "VST", "VSTA"], postal: "VIS" },
+		walk: { full: "WALK", abbr: ["WALK"], postal: "WALK" },
+		walks: { full: "WALKS", abbr: ["WALKS"], postal: "WALKS" },
+		wall: { full: "WALL", abbr: ["WALL"], postal: "WALL" },
+		way: { full: "WAY", abbr: ["WY"], postal: "WAY" },
+		ways: { full: "WAYS", abbr: ["WYS"], postal: "WAYS" },
+		well: { full: "WELL", abbr: ["WL"], postal: "WL" },
+		wells: { full: "WELLS", abbr: ["WLS"], postal: "WLS" },
+	};
+
+	function getFullStreetType(str) {
+		for (const streetType in condensedArrayFull) {
+			const { full, abbr, postal } = condensedArrayFull[streetType];
+			if (abbr.includes(str) || full === str) {
+				return { full, postal };
+			}
+		}
+		return null;
+	}
+
+	//Assign full street name to variable
+	const fullStreetType = getFullStreetType(name.toUpperCase()).full;
+	const postal = getFullStreetType(name.toUpperCase()).postal;
+	// Format street name
+	const fullStTypeFormatted = fullStreetType.replace(/\w\S*/g, function (txt) {
 		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase().replace(/[. ]/g, "");
 	});
+	return { fullStTypeFormatted, postal };
 };
 
 const formattedStreetSuffix = (suffix) => {
@@ -477,7 +700,8 @@ addr1.addEventListener("keyup", (e) => {
 				addNum.textContent = streetNumber;
 				addPre.textContent = formattedStreetPrefix(streetPrefix ? streetPrefix : "");
 				addName.textContent = formatStreetName(streetName);
-				addStType.textContent = formatStreetType(streetType);
+				addStType.textContent = formatStreetType(streetType).fullStTypeFormatted;
+				addrPostStType.textContent = formatStreetType(streetType).postal;
 				addSuf.textContent = formattedStreetSuffix(streetSuffix ? streetSuffix : "");
 				addApt.textContent = formatttedAptNum(apmtNum);
 			} else {
@@ -583,6 +807,3 @@ addrLn2RadioBtns.forEach((btn) =>
 		}
 	})
 );
-//=================================================================================
-//Address Ln 3//
-//=================================================================================
