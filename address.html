@@ -401,6 +401,13 @@
 				<button type="button" id="output_Btn">Format</button><br /><br />
 			</div>
 		</form>
+        <div id="row-count-container" style="flex-direction: column; display: flex">
+			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 10px; width: fit-content; margin-bottom: 20px;">
+				<ul style="display: flex; flex-direction: column">
+					<li><label for="addRowCount">TOTAL RowCount:</label><span id="addRowCount">0</span></li>
+                    </ul>
+			</div>
+
 		<div id="outputs" style="flex-direction: column; display: flex">
 			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: fit-content">
 				<ul style="display: flex; flex-direction: column">
@@ -434,10 +441,6 @@
 				<input type="text" id="address-ln-1-out" placeholder="address Ln 1 " disabled />
 				<input type="text" id="address-ln-2-out" placeholder="address Ln 2 " disabled />
 				<input type="text" id="address-ln-3-out" placeholder="address Ln 3" disabled />
-				<input type="text" id="addr-city-out" placeholder="City" disabled />
-				<input type="text" id="addr-state-out" placeholder="State" disabled />
-				<input type="text" id="addr-zip-out" placeholder="Zip" disabled />
-				<input type="text" id="addr-country-out" placeholder="Country" disabled />
 				<select name="" id="">
 					<option value="">opt 1</option>
 					<option value="">opt 2</option>

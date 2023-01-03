@@ -12,6 +12,7 @@ const regex3 =
 const addr1 = document.getElementById("Addr_1");
 const addr2rNone = document.getElementById("Addr_Ln_2_None");
 const lnOneAlert = document.querySelector(".ln1-input-invalid-alert");
+const addRowCount = document.querySelector("#addRowCount");
 const addNum = document.querySelector("#addNum");
 const addPre = document.querySelector("#addPrefix");
 const addName = document.querySelector("#addStreet");
@@ -49,6 +50,29 @@ const finalLn1 = document.querySelector("#address-ln-1-out");
 const finalLn2 = document.querySelector("#address-ln-2-out");
 const finalLn3 = document.querySelector("#address-ln-3-out");
 
+const getRowCount = (number) => {
+	let RowCount = number;
+	//add a row if street name is filled
+	if (addName.textContent.length) {
+		console.log("addr1", addName.textContent.length ? true : false);
+		RowCount = RowCount + 1;
+	}
+	//add a row if any of the row 2 inputs are filled
+	if (addBldType.textContent.length) {
+		console.log(addBldType.textContent.length ? true : false);
+		RowCount = RowCount + 1;
+	} else if (addBldDscr.textContent.length || addBldDscrNum.textContent.length) {
+		RowCount = RowCount + 1;
+	}
+	//add a row if the city is filled (ln 3)
+	if (addCity.textContent.length) {
+		console.log("addr3", addCity.textContent.length ? true : false);
+		RowCount = RowCount + 1;
+	}
+	console.log("row count", RowCount);
+	return RowCount;
+};
+
 const outputFinalResults = (e) => {
 	e.preventDefault();
 
@@ -72,7 +96,26 @@ const outputFinalResults = (e) => {
 	} else {
 		finalLn1.value = "Invalid Address";
 	}
-	console.log("yay");
+
+	if (getRowCount(0) === 2) {
+		finalLn2.value = `${
+			addCity.textContent.length
+				? addCity.textContent + ", " + addState.textContent + " " + addZip.textContent
+				: addBldDscr && addBldNum
+				? addBldType.textContent + " " + addBldNum.textContent + " " + addBldDscr.textContent + " " + addBldDscrNum.textContent
+				: addBldType.textContent + " " + addBldNum.textContent + " "
+		}`.trim();
+		finalLn3.value = "";
+		finalLn3.placeholder = "";
+	} else if (getRowCount(0) === 3) {
+		finalLn2.value =
+			addBldType.textContent +
+			" " +
+			addBldNum.textContent +
+			" " +
+			`${addBldDscr && addBldNum ? addBldDscr.textContent + " " + addBldDscrNum.textContent : ""}`.trim();
+		finalLn3.value = addCity.textContent + ", " + addState.textContent + " " + addZip.textContent;
+	}
 };
 
 outputBtn.addEventListener("click", outputFinalResults);
@@ -476,7 +519,6 @@ addr2rNone.addEventListener("click", (e) => {
 	// precheck to verify if address passes  one of the regex before override
 	if (oneSpacedInput.match(regex)) {
 		const [fullMatch, streetNumber, streetPrefix, streetName, streetType, streetSuffix, apmtNum] = oneSpacedInput.match(regex);
-		console.log("ln 87");
 
 		// check if appatment building has value, if so, set the value of the select to the value of the apartment number
 		if (addr2rNone.checked) {
@@ -488,12 +530,14 @@ addr2rNone.addEventListener("click", (e) => {
 			addBldType.textContent = "";
 			addBldNum.textContent = "";
 			addBldDscr.textContent = "";
+			addRowCount.textContent = getRowCount(0);
 		} else if (apmtNum !== undefined) {
 			addApt.textContent = formatttedAptNum(apmtNum);
 			addBldType.textContent = "";
 			addBldNum.textContent = "";
 			varInput.setAttribute("placeholder", apmtNum);
 			console.log(selectedBldType);
+			addRowCount.textContent = getRowCount(0);
 			if (selectedBldType === "apt") {
 				thisSelect.value = "apt";
 				varInput.value = apmtNum;
@@ -505,7 +549,7 @@ addr2rNone.addEventListener("click", (e) => {
 			}
 		}
 	} else if (oneSpacedInput.match(regex2)) {
-		console.log("ln 116");
+		addRowCount.textContent = getRowCount(0);
 		const [fullMatch, poName, poNum] = oneSpacedInput.match(regex2);
 		const formattedPoName = poName
 			.replace(/PO|P\.O\.|P\.O|P\.O\./g, "PO Box")
@@ -524,6 +568,7 @@ addr2rNone.addEventListener("click", (e) => {
 		//
 	} else if (oneSpacedInput.match(ruralRegex)) {
 		console.log("rural");
+		addRowCount.textContent = getRowCount(0);
 		const [fullMatch, StreetName, SteetNumber] = oneSpacedInput.match(ruralRegex);
 		addName.textContent = formatStreetName(StreetName);
 		addApt.textContent = SteetNumber;
@@ -534,6 +579,7 @@ addr2rNone.addEventListener("click", (e) => {
 		console.log("no math");
 		return;
 	}
+	addRowCount.textContent = getRowCount(0);
 });
 
 thisSelect.addEventListener("change", (e) => {
@@ -554,6 +600,7 @@ thisSelect.addEventListener("change", (e) => {
 			addBldType.textContent = selectedBldType;
 			break;
 	}
+	addRowCount.textContent = getRowCount(0);
 });
 
 varInput.addEventListener("keyup", (e) => {
@@ -586,12 +633,14 @@ varInput.addEventListener("keyup", (e) => {
 			}
 		}
 	});
+	addRowCount.textContent = getRowCount(0);
 });
 
 buildDiscInputs.forEach((input) => {
 	input.addEventListener("keyup", (e) => {
 		const value = e.target.value;
 		addBldDscrNum.textContent = value;
+		addRowCount.textContent = getRowCount(0);
 	});
 });
 
@@ -610,6 +659,7 @@ addr3.addEventListener("keyup", (e) => {
 		} else if (input.length > 0 && !regex3.test(oneSpacedInput)) {
 			lnThreeAlert.style.display = "flex";
 		}
+		addRowCount.textContent = getRowCount(0);
 	});
 	if (regex3.test(oneSpacedInput)) {
 		lnThreeAlert.style.display = "none";
@@ -629,10 +679,12 @@ addr3.addEventListener("keyup", (e) => {
 	} else {
 		lnThreeAlert.style.display = "flex";
 	}
+	addRowCount.textContent = getRowCount(0);
 });
 
 addr1.addEventListener("keyup", (e) => {
 	const input = e.target.value;
+	addRowCount.textContent = getRowCount(0);
 
 	const oneSpacedInput = input.replace(/^\s+|\s+$|\s{2,}/g, function (match) {
 		if (/^\s+|\s+$/.test(match)) {
@@ -643,6 +695,7 @@ addr1.addEventListener("keyup", (e) => {
 	});
 	if (regex.test(oneSpacedInput) || regex2.test(oneSpacedInput) || ruralRegex.test(oneSpacedInput)) {
 		lnOneAlert.style.display = "none";
+		addRowCount.textContent = getRowCount(0);
 	} else {
 		lnOneAlert.style.display = "flex";
 	}
@@ -655,6 +708,8 @@ addr1.addEventListener("keyup", (e) => {
 			addStType.textContent = "";
 			addSuf.textContent = "";
 			addApt.textContent = "";
+			addrPostStType.textContent = "";
+			addRowCount.textContent = getRowCount(0);
 		} else if (oneSpacedInput.length > 0 && regex.test(oneSpacedInput) == false && regex2.test(oneSpacedInput) == true) {
 			if (oneSpacedInput.match(regex2)) {
 				const [fullMatch, poName, poNum] = oneSpacedInput.match(regex2);
@@ -671,6 +726,7 @@ addr1.addEventListener("keyup", (e) => {
 				addSuf.textContent = "";
 				addApt.textContent = poNum;
 			}
+			addRowCount.textContent = getRowCount(0);
 		} else if (oneSpacedInput.length > 0 && regex.test(oneSpacedInput) == true) {
 			lnOneAlert.style.display = "none";
 			if (oneSpacedInput.match(regex)) {
@@ -716,13 +772,16 @@ addr1.addEventListener("keyup", (e) => {
 				addSuf.textContent = "";
 				addApt.textContent = poNum;
 			}
+			addRowCount.textContent = getRowCount(0);
 		} else if (oneSpacedInput.length > 0 && ruralRegex.test(oneSpacedInput) == true) {
 			// console.log("rural");
 			const [fullMatch, StreetName, StreetNumber, HWNum] = oneSpacedInput.match(ruralRegex);
 			addName.textContent = StreetName;
 			addApt.textContent = StreetNumber + "-" + HWNum;
+			addRowCount.textContent = getRowCount(0);
 		}
 	});
+	addRowCount.textContent = getRowCount(0);
 });
 
 // Line 2 Option Show / Hide
@@ -774,6 +833,7 @@ addrLn2RadioBtns.forEach((btn) =>
 			floorQ.querySelector('input[name="Addr_Ln_2"]').value = "";
 			suiteQ.querySelector('input[name="Addr_Ln_2"]').value = "";
 		} else if (addrLn2RadioBtnSelected.value === "none") {
+			addRowCount.textContent = getRowCount(0);
 			varInput.setAttribute("placeholder", "Bldg #");
 			varLabel.textContent = "Bldg";
 			line2label.style.display = "none";
@@ -805,5 +865,6 @@ addrLn2RadioBtns.forEach((btn) =>
 			addBldDscr.textContent = "";
 			addBldDscrNum.textContent = "";
 		}
+		addRowCount.textContent = getRowCount(0);
 	})
 );
