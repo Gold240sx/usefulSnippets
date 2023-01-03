@@ -20,6 +20,10 @@
 				font-size: larger;
 				font-weight: 500;
 				margin: 20px 0 5px 0px;
+				color: rgb(122, 122, 122);
+			}
+			.title {
+				color: black !important;
 			}
 			button {
 				font-size: large;
@@ -70,6 +74,7 @@
 				font-size: medium;
 				cursor: pointer;
 				font-weight: unset;
+				color: black;
 			}
 			input[type="radio"] {
 				/* margin: auto 10px; */
@@ -77,12 +82,14 @@
 				display: none;
 				justify-self: auto;
 			}
-			li:has(input[type="radio"]:hover) {
+			li:has(input[type="radio"]:hover),
+			li:has(input[type="radio"]:hover) label {
 				background-color: rgb(183, 203, 162);
 			}
-			li:has(input[type="radio"]:checked) {
+			li:has(input[type="radio"]:checked),
+			li:has(input[type="radio"]:checked) label {
 				background-color: rgb(86, 158, 13);
-				color: white;
+				color: white !important;
 				cursor: pointer;
 			}
 			option {
@@ -159,6 +166,7 @@
 				font-size: 20px;
 				position: relative;
 				box-sizing: border-box;
+				height: fit-content;
 			">
 			<h1 style="margin: 20px 0 10px 0">Address Input</h1>
 
@@ -184,7 +192,7 @@
 			</div>
 
 			<div id="US-address" style="display: flex; flex-direction: column; width: 100%; height: auto">
-				<label for="address"><span class="asterisk" style="color: red; font-weight: 600">* </span>Addr_1:</label>
+				<label for="address" class="title"><span class="asterisk" style="color: red; font-weight: 600">* </span>Addr_1:</label>
 				<input type="text" id="Addr_1" placeholder="# W. Sandy Rd" required />
 				<label
 					for="Addr_1"
@@ -198,6 +206,7 @@
 						<label
 							for="Addr_2_Options_Container"
 							style="display: none; line-height: 100%; margin-block: auto"
+							class="title"
 							id="Addr_Ln_2_Lbl"
 							>Addr_2:</label
 						>
@@ -210,7 +219,7 @@
 									flex-direction: row;
 									align-items: center;
 									margin-left: auto;
-									padding: 3px 0 3px 5px;
+									padding-inline: 3px;
 									border: 1px solid rgb(213, 213, 213);
 									border-radius: 50px;
 								">
@@ -241,7 +250,7 @@
 						</div>
 					</div>
 
-					<div id="Addr_2_Inputs_Container" style="flex-direction: row; margin-top: 10px; margin-bottom: 20px">
+					<div id="Addr_2_Inputs_Container" style="flex-direction: row; margin-top: 20px; margin-bottom: 30px">
 						<div
 							style="
 								display: flex;
@@ -370,9 +379,10 @@
 					</div>
 				</div>
 
-				<label for="address"
-					><span class="asterisk" style="color: red; font-weight: 600">* </span><span id="Addr_Ln_3_Lbl">Addr_2:</span></label
-				>
+				<label for="address">
+					<span class="asterisk" style="color: red; font-weight: 600">* </span>
+					<span id="Addr_Ln_3_Lbl" class="title">Addr_2:</span>
+				</label>
 				<input type="text" id="Addr_3" placeholder="city, state, zip/postal" required />
 				<label
 					for="Addr_3"
@@ -382,10 +392,6 @@
 				>
 				<button type="submit">Format</button><br /><br />
 			</div>
-			<select name="" id="">
-				<option value="">opt 1</option>
-				<option value="">opt 2</option>
-			</select>
 		</form>
 		<div id="outputs" style="flex-direction: column; display: flex">
 			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: fit-content">
@@ -423,6 +429,10 @@
 				<input type="text" id="addr-state-out" placeholder="State" disabled />
 				<input type="text" id="addr-zip-out" placeholder="Zip" disabled />
 				<input type="text" id="addr-country-out" placeholder="Country" disabled />
+				<select name="" id="">
+					<option value="">opt 1</option>
+					<option value="">opt 2</option>
+				</select>
 			</form>
 		</div>
 	</body>

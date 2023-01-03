@@ -43,6 +43,10 @@ const addBldDscrNum = document.querySelector("#addBldgDiscrNum");
 const buildDiscInputs = document.querySelectorAll(".bldDscrInput");
 const line2label = document.querySelector("#Addr_Ln_2_Lbl");
 const line3label = document.querySelector("#Addr_Ln_3_Lbl");
+const finalLn1 = document.querySelector("#address-ln-1-out");
+const finalLn2 = document.querySelector("#address-ln-2-out");
+const finalLn3 = document.querySelector("#address-ln-3-out");
+
 var selectedBldType = varInput;
 /// GET  VALS FUNCTION
 const oneSpacedInput = (input) => {
