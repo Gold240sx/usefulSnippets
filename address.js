@@ -54,22 +54,18 @@ const getRowCount = (number) => {
 	let RowCount = number;
 	//add a row if street name is filled
 	if (addName.textContent.length) {
-		console.log("addr1", addName.textContent.length ? true : false);
 		RowCount = RowCount + 1;
 	}
 	//add a row if any of the row 2 inputs are filled
 	if (addBldType.textContent.length) {
-		console.log(addBldType.textContent.length ? true : false);
 		RowCount = RowCount + 1;
 	} else if (addBldDscr.textContent.length || addBldDscrNum.textContent.length) {
 		RowCount = RowCount + 1;
 	}
 	//add a row if the city is filled (ln 3)
 	if (addCity.textContent.length) {
-		console.log("addr3", addCity.textContent.length ? true : false);
 		RowCount = RowCount + 1;
 	}
-	console.log("row count", RowCount);
 	return RowCount;
 };
 
@@ -84,8 +80,7 @@ const outputFinalResults = (e) => {
 			`${addPre.textContent ? addPre.textContent + " " : ""}` +
 			addName.textContent +
 			" " +
-			addStType.textContent +
-			" " +
+			`${addStType.textContent ? addStType.textContent + " " : ""}` +
 			`${addSuf.textContent ? addSuf.textContent + " " : ""}` +
 			`${addApt.textContent ? addApt.textContent + " " : ""}`;
 	} //ouput variables as it relates to rexeg2
@@ -94,19 +89,53 @@ const outputFinalResults = (e) => {
 	} else if (ruralRegex.test(addr1.value)) {
 		finalLn1.value = addr1.value;
 	} else {
-		finalLn1.value = "Invalid Address";
+		// finalLn1.value = "Invalid Address";
 	}
 
-	if (getRowCount(0) === 2) {
-		finalLn2.value = `${
-			addCity.textContent.length
-				? addCity.textContent + ", " + addState.textContent + " " + addZip.textContent
-				: addBldDscr && addBldNum
-				? addBldType.textContent + " " + addBldNum.textContent + " " + addBldDscr.textContent + " " + addBldDscrNum.textContent
-				: addBldType.textContent + " " + addBldNum.textContent + " "
-		}`.trim();
+	if (getRowCount(0) === 0) {
+		finalLn1.value = "Invalid Address";
+		finalLn2.value = "Invalid Address";
+		finalLn3.value = "Invalid Address";
+	} else if (getRowCount(0) === 1) {
+		if (addName.textContent) {
+			return;
+		} else if (addCity.textContent.length) {
+			console.log("line 3");
+			finalLn2.value = addCity.textContent + ", " + addState.textContent + " " + addZip.textContent;
+		} else if (addBldType.textContent) {
+			console.log("line 3");
+			addBldDscr && addBldNum
+				? (finalLn2.value =
+						addBldType.textContent +
+						" " +
+						addBldNum.textContent +
+						", " +
+						addBldDscr.textContent +
+						" " +
+						addBldDscrNum.textContent)
+				: (finalLn2.value = addBldType.textContent + " " + addBldNum.textContent + " ");
+		}
 		finalLn3.value = "";
-		finalLn3.placeholder = "";
+		// finalLn3.placeholder = "";
+	} else if (getRowCount(0) === 2) {
+		if (addName.textContent) {
+			finalLn2.value = `${
+				addCity.textContent.length
+					? addCity.textContent + ", " + addState.textContent + " " + addZip.textContent
+					: addBldDscr && addBldNum
+					? addBldType.textContent + " " + addBldNum.textContent + ", " + addBldDscr.textContent + " " + addBldDscrNum.textContent
+					: addBldType.textContent + " " + addBldNum.textContent
+			}`.trim();
+			finalLn3.value = "";
+		} else if (addCity.textContent.length) {
+			finalLn2.value =
+				addBldType.textContent +
+				" " +
+				addBldNum.textContent +
+				", " +
+				`${addBldDscr && addBldNum ? addBldDscr.textContent + " " + addBldDscrNum.textContent : ""}`.trim();
+			finalLn3.value = addCity.textContent + ", " + addState.textContent + " " + addZip.textContent;
+		}
 	} else if (getRowCount(0) === 3) {
 		finalLn2.value =
 			addBldType.textContent +
@@ -115,6 +144,7 @@ const outputFinalResults = (e) => {
 			" " +
 			`${addBldDscr && addBldNum ? addBldDscr.textContent + " " + addBldDscrNum.textContent : ""}`.trim();
 		finalLn3.value = addCity.textContent + ", " + addState.textContent + " " + addZip.textContent;
+		// THIS IS WHERE ENABLING THE SUBMIT BUTTON WOULD BE
 	}
 };
 
@@ -136,22 +166,23 @@ const formattedStreetPrefix = (prefix) => {
 	const formatted = prefix
 		.replace(/[. ]/g, "")
 		.toLowerCase()
-		.replace(/^ne|northeast/, "NE")
-		.replace(/^nw|northwest/, "NW")
-		.replace(/^se|southeast/, "SE")
-		.replace(/^sw|southwest/, "SW")
-		.replace(/^north/, "N")
-		.replace(/^south/, "S")
-		.replace(/^east/, "E")
-		.replace(/^west/, "W")
-		.replace(/^n\.?/, "N")
-		.replace(/^s\.?/, "S")
-		.replace(/^e\.?/, "E")
-		.replace(/^w\.?/, "W");
+		.replace(/^ne|northeast/, "N.E.")
+		.replace(/^nw|northwest/, "N.W.")
+		.replace(/^se|southeast/, "S.E.")
+		.replace(/^sw|southwest/, "S.W.")
+		.replace(/^north/, "N.")
+		.replace(/^south/, "S.")
+		.replace(/^east/, "E.")
+		.replace(/^west/, "W.")
+		.replace(/^n\.?/, "N.")
+		.replace(/^s\.?/, "S.")
+		.replace(/^e\.?/, "E.")
+		.replace(/^w\.?/, "W.");
 	return formatted;
 };
 const formatStreetName = (name) => {
 	return name
+		.toLowerCase()
 		.replace(/\b[a-z]/gi, function (letter) {
 			return letter.toUpperCase();
 		})
@@ -394,10 +425,10 @@ const formattedStreetSuffix = (suffix) => {
 	const formatted = suffix
 		.replace(/[. ]/g, "")
 		.toLowerCase()
-		.replace(/^ne|northeast/, "NorthEast")
-		.replace(/^nw|northwest/, "NorthWest")
-		.replace(/^se|southeast/, "SouthEast")
-		.replace(/^sw|southwest/, "SouthWest")
+		.replace(/^ne|northeast/, "North East")
+		.replace(/^nw|northwest/, "North West")
+		.replace(/^se|southeast/, "South East")
+		.replace(/^sw|southwest/, "South West")
 		.replace(/^north/, "North")
 		.replace(/^south/, "South")
 		.replace(/^east/, "East")
@@ -420,8 +451,77 @@ const formatttedAptNum = (aptNum) => {
 	return formatted;
 };
 
+function convertToRoman(input) {
+	// Convert the input string to a number
+	const num = Number(input);
+	console.log(num);
+
+	// Check if the input is a number and is below 50
+	if (isNaN(num) || num >= 50) {
+		console.log(num);
+		return input;
+	}
+
+	// Create an array of Roman numerals for the digits below 50
+	const romanNumerals = [
+		"I",
+		"II",
+		"III",
+		"IV",
+		"V",
+		"VI",
+		"VII",
+		"VIII",
+		"IX",
+		"X",
+		"XI",
+		"XII",
+		"XIII",
+		"XIV",
+		"XV",
+		"XVI",
+		"XVII",
+		"XVIII",
+		"XIX",
+		"XX",
+		"XXI",
+		"XXII",
+		"XXIII",
+		"XXIV",
+		"XXV",
+		"XXVI",
+		"XXVII",
+		"XXVIII",
+		"XXIX",
+		"XXX",
+		"XXXI",
+		"XXXII",
+		"XXXIII",
+		"XXXIV",
+		"XXXV",
+		"XXXVI",
+		"XXXVII",
+		"XXXVIII",
+		"XXXIX",
+		"XL",
+		"XLI",
+		"XLII",
+		"XLIII",
+		"XLIV",
+		"XLV",
+		"XLVI",
+		"XLVII",
+		"XLVIII",
+		"XLIX",
+	];
+
+	// Return the Roman numeral equivalent of the number
+	return romanNumerals[num - 1];
+}
+
 const formatCItyNAme = (city) => {
 	return city
+		.toLowerCase()
 		.replace(/\b[a-z]/gi, function (letter) {
 			return letter.toUpperCase();
 		})
@@ -552,7 +652,7 @@ addr2rNone.addEventListener("click", (e) => {
 		addRowCount.textContent = getRowCount(0);
 		const [fullMatch, poName, poNum] = oneSpacedInput.match(regex2);
 		const formattedPoName = poName
-			.replace(/PO|P\.O\.|P\.O|P\.O\./g, "PO Box")
+			.replace(/PO|P\.O\.|P\.O|P\.O\./g, "P.O. Box")
 			.replace(/unit\.?/gi, "Unit")
 			.replace(/fm\.?/gi, "FM")
 			.replace(/hc|h\.c\.|H\.c|h\.C\./g, "HC");
@@ -628,7 +728,7 @@ varInput.addEventListener("keyup", (e) => {
 				default:
 					selectedBldType = selectedValue;
 					addBldType.textContent = selectedBldType;
-					addBldNum.textContent = input;
+					addBldNum.textContent = convertToRoman(input);
 					break;
 			}
 		}

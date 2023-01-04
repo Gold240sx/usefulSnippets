@@ -401,51 +401,54 @@
 				<button type="button" id="output_Btn">Format</button><br /><br />
 			</div>
 		</form>
-        <div id="row-count-container" style="flex-direction: column; display: flex">
-			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 10px; width: fit-content; margin-bottom: 20px;">
+		<div id="row-count-container" style="flex-direction: column; display: flex">
+			<div
+				class="indiv-outputs"
+				style="border: 2px solid green; border-radius: 20px; padding: 10px; width: fit-content; margin-bottom: 20px">
 				<ul style="display: flex; flex-direction: column">
 					<li><label for="addRowCount">TOTAL RowCount:</label><span id="addRowCount">0</span></li>
-                    </ul>
-			</div>
-
-		<div id="outputs" style="flex-direction: column; display: flex">
-			<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: fit-content">
-				<ul style="display: flex; flex-direction: column">
-					<li><label for="addNum">AddNum:</label> <span id="addNum"></span></li>
-					<li><label for="addPrefix">Prefix:</label> <span id="addPrefix"></span></li>
-					<li><label for="addStreet">Street:</label> <span id="addStreet"></span></li>
-					<li><label for="addType">StreetType:</label> <span id="addStType"></span></li>
-					<li><label for="addPostStType">PostalStreetType:</label><span id="addPostStType"></span></li>
-					<li><label for="addSuffix">Suffix:</label> <span id="addSuffix"></span></li>
-					<li><label for="addApptNum">ApptNum:</label> <span id="addAppNum"></span></li>
-					<hr />
-					<li><label for="addBldgType">BldgType:</label> <span id="addBldgType"></span></li>
-					<li><label for="addBldgNum">BldgNum:</label> <span id="addBldgNum"></span></li>
-					<li><label for="addBldgDiscr">BldgDescr:</label> <span id="addBldgDiscr"></span></li>
-					<li><label for="addBldgDiscrNum">BldgDescrNum:</label> <span id="addBldgDiscrNum"></span></li>
-					<hr />
-					<li><label for="addCIty">City:</label> <span id="addCIty"></span></li>
-					<li><label for="addState">State:</label> <span id="addState"></span></li>
-					<li><label for="addZip">Zip:</label> <span id="addZip"></span></li>
-					<li><label for="addCountry">Country:</label> <span id="addCountry"></span></li>
 				</ul>
 			</div>
 
-			<!-- 
+			<div id="outputs" style="flex-direction: column; display: flex">
+				<div class="indiv-outputs" style="border: 2px solid green; border-radius: 20px; padding: 20px; width: fit-content">
+					<ul style="display: flex; flex-direction: column">
+						<li><label for="addNum">AddNum:</label> <span id="addNum"></span></li>
+						<li><label for="addPrefix">Prefix:</label> <span id="addPrefix"></span></li>
+						<li><label for="addStreet">Street:</label> <span id="addStreet"></span></li>
+						<li><label for="addType">StreetType:</label> <span id="addStType"></span></li>
+						<li><label for="addPostStType">PostalStreetType:</label><span id="addPostStType"></span></li>
+						<li><label for="addSuffix">Suffix:</label> <span id="addSuffix"></span></li>
+						<li><label for="addApptNum">ApptNum:</label> <span id="addAppNum"></span></li>
+						<hr />
+						<li><label for="addBldgType">BldgType:</label> <span id="addBldgType"></span></li>
+						<li><label for="addBldgNum">BldgNum:</label> <span id="addBldgNum"></span></li>
+						<li><label for="addBldgDiscr">BldgDescr:</label> <span id="addBldgDiscr"></span></li>
+						<li><label for="addBldgDiscrNum">BldgDescrNum:</label> <span id="addBldgDiscrNum"></span></li>
+						<hr />
+						<li><label for="addCIty">City:</label> <span id="addCIty"></span></li>
+						<li><label for="addState">State:</label> <span id="addState"></span></li>
+						<li><label for="addZip">Zip:</label> <span id="addZip"></span></li>
+						<li><label for="addCountry">Country:</label> <span id="addCountry"></span></li>
+					</ul>
+				</div>
+
+				<!-- 
             Move the required labels to match the non required labels 
             Add a custom alert if all required fields are not filled out
         -->
 
-			<form class="output" style="display: flex; flex-direction: column; width: 400px; margin-top: 5px; font-size: 14px">
-				<h2>Formatted into existing website</h2>
-				<input type="text" id="address-ln-1-out" placeholder="address Ln 1 " disabled />
-				<input type="text" id="address-ln-2-out" placeholder="address Ln 2 " disabled />
-				<input type="text" id="address-ln-3-out" placeholder="address Ln 3" disabled />
-				<select name="" id="">
-					<option value="">opt 1</option>
-					<option value="">opt 2</option>
-				</select>
-			</form>
+				<form class="output" style="display: flex; flex-direction: column; width: 400px; margin-top: 5px; font-size: 14px">
+					<h2>Formatted into existing website</h2>
+					<input type="text" id="address-ln-1-out" placeholder="address Ln 1 " disabled />
+					<input type="text" id="address-ln-2-out" placeholder="address Ln 2 " disabled />
+					<input type="text" id="address-ln-3-out" placeholder="address Ln 3" disabled />
+					<select name="" id="">
+						<option value="">opt 1</option>
+						<option value="">opt 2</option>
+					</select>
+				</form>
+			</div>
 		</div>
 	</body>
 </html>
