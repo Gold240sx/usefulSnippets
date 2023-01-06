@@ -48,7 +48,12 @@
                 * {transition: all 0.3s ease-in-out !important;}
                 .sidebar-nav {margin-bottom: 10px !important; border-radius: 10px !important; border-bottom: none;} 
                 .sidebar-right {padding: 10px !important;}
-            `;
+                #ELEMENT_276937, #ELEMENT_1621110, #ELEMENT_348464, #ELEMENT_347929 {margin-bottom: 20px !important;}
+                .custom-warning {white-space: nowrap !important; margin: 5px !important; color: red !important; }
+                .custom-button {background-color: #0076D4 !important; color: white !important; border: none !important; border-radius: 0 999px 999px 0 !important; height: 25px !important; padding: 0px 10px 0 5px !important; margin: 0px !important; font-size: 15px !important; cursor: pointer !important;}
+                #productscontainer li .productfloat.fullsize input[type=text], #productscontainer li .productfloat textarea { width: 74%; margin-right: 0 !important; margin-bottom: 5px;}
+                .custom-Preview {color: gray; margin: 5px !important; font-size: 17px !important}
+                `;
 
 			var JS = document.createElement("script");
 			JS.innerText = `
@@ -249,6 +254,41 @@
                     backPhoneCont.style.display = "none";
                 } 
             });
+
+            const nameCont = document.querySelector('li#ELEMENT_1622166 div.productfloat.fullsize.form_builder_container');
+            const nameInput = document.querySelector('li#ELEMENT_1622166 div.productfloat.fullsize.form_builder_container input#E_Name');
+            const credCont = document.querySelector('li#ELEMENT_1621123 div.productfloat.fullsize.form_builder_container');
+            const credInput = document.querySelector('#E_Credentials');
+            const nameAndCred = document.querySelector('textarea#E_NameandCredentials');
+
+            const nameFixButton = document.createElement("button");
+            nameFixButton.classList.add("custom-button");
+            nameFixButton.textContent = "Format";
+            nameFixButton.setAttribute("type", "button");
+            nameCont.appendChild(nameFixButton);
+            const nameInputAlert = document.createElement("span");
+            nameInputAlert.classList.add("custom-warning");
+            nameInputAlert.textContent = "Invalid Name Formatting. Please click 'Format' to fix.";
+            nameCont.appendChild(nameInputAlert);
+
+            namePreview = document.createElement("label");
+            namePreviewVal = document.createElement("span");
+            namePreview.classList.add("custom-Preview");
+            namePreview.textContent = "Preview: ";
+            namePreviewVal.textContent = "...";
+            nameCont.prepend(namePreview);
+            namePreview.appendChild(namePreviewVal);
+
+            credPreview = document.createElement("label");
+            credPreviewVal = document.createElement("span");
+            credPreview.classList.add("custom-Preview");
+            credPreview.textContent = "Preview: ";
+            credPreviewVal.textContent = "...";
+            credCont.prepend(credPreview);
+            credPreview.appendChild(credPreviewVal);
+
+            nameInput.addEventListener("keyup", (e) => {nameAndCred.value = e.target.value + ", " + credInput.value; namePreviewVal.textContent = e.target.value;});
+            credInput.addEventListener("keyup", (e) => {nameAndCred.value = nameInput.value + ", " + e.target.value; credPreviewVal.textContent = e.target.value;});
             `;
 			document.body.appendChild(JS);
 		</script>
