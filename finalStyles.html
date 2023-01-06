@@ -39,11 +39,15 @@
                 input[type="text"]:focus-within {outline: none !important; border-color: none !important}
                 input[type="text"]:focus {border: none !important; box-shadow: 1px 0px 5px 1px rgb(226, 226, 226) !important;}
                 textarea {background-color: rgb(241, 241, 241) !important; background: rgb(241, 241, 241) !important; border: none;padding: 7px; margin: 5px; padding: 15px !important; font-size: 15px; border-radius: 7px;}
-                table.sidebar-products tbody tr td { background-color: #FFD46A !important;}
+                table.sidebar-products tbody tr td { background-color: #FCB746 !important; border-radius: 10px !important;}
                 #productscontainer li h3 span.subtitle { display: none !important;}
                 #ELEMENT_276937 {margin-top: 20px !important;}
                 #ELEMENT_1621089 {display: none !important;}
                 #ELEMENT_1621118, #ELEMENT_1621117, #ELEMENT_1621116 {border-top: none !important;}
+                #ELEMENT_1621111 h3 {width: 290px !important;}
+                * {transition: all 0.3s ease-in-out !important;}
+                .sidebar-nav {margin-bottom: 10px !important; border-radius: 10px !important; border-bottom: none;} 
+                .sidebar-right {padding: 10px !important;}
             `;
 
 			var JS = document.createElement("script");
@@ -61,20 +65,11 @@
 
             const backSelect = document.getElementById("E_PleaseSelectYourBusinessCardBackerbswh");
             const backPhoneCont = document.getElementById("ELEMENT_1621111");
+            const backPhoneInput = document.getElementById("E_PhoneNumberDisplayedonBackerBacksideofthecard");
             const backCont = document.getElementById("ELEMENT_1226753");
             const backerNo = document.getElementById("E_WouldYouLikeABackerOnYourCards0");
             const backerYes = document.getElementById("E_WouldYouLikeABackerOnYourCards1");
             backerNo.checked = true;
-
-            backerNo.addEventListener("change", () => {
-                if (backerNo.checked) {
-                    backCont.style.display = "block";
-                    backPhoneCont.style.display = "block";
-                } else {
-                    backCont.style.display = "none";
-                    backPhoneCont.style.display = "none";
-                }
-            });
 
             function removeClassFromDescendants(element, className) {
             element.classList.remove(className);
@@ -105,23 +100,34 @@
             const Hours1Label = document.getElementById('L_OfficeHoursHours1');
             const Hours2Label = document.getElementById('L_OfficeHoursHours2');
             const Hours3Label = document.getElementById('L_OfficeHoursHours3');
+            const BackerSelectLabel = document.querySelector('span#L_PleaseSelectYourBusinessCardBackerbswh');
+            const BackerPhoneLabel = document.querySelector('span#L_PhoneNumberDisplayedonBackerBacksideofthecard');
+            BackerSelectLabel.textContent = "Select a Card-Backside";
             var ast = document.createElement("span");
-            var astItems = [ Days1Label, Hours1Label, Days2Label, Hours2Label, Days3Label, Hours3Label ];
+            var astItems = [ Days1Label, Hours1Label, Days2Label, Hours2Label, Days3Label, Hours3Label, BackerSelectLabel, BackerPhoneLabel ];
             ast.innerText = "*";
             ast.setAttribute("class", "warning");
+
+            console.log("made it up to the asterixs");
             var addAsterixs = (items) => {
             items.forEach(item => {
             var clone = ast.cloneNode(true);
             item.parentNode.insertBefore(clone,item);
-            const container = item.parentNode.parentNode.parentNode;
+            const container = item.parentNode.parentNode.parentNode ;
+            console.log(item);
             container.style.width = "50%";
             });
             };
             addAsterixs(astItems);
+            backCont.style.width = "auto";
+            backPhoneCont.style.width = "auto";
 
+            console.log("made it up to the function");
             backSelect.addEventListener("change", () => {
+                console.log("fired the function");
             HoursBreak.style.display = "block";
             if (backSelect.selectedIndex == 2) {
+                   console.log("2 selected");
             Days1.style.display = "block";
             Hours1.style.display = "block";
             Days1.setAttribute("required", "required");
@@ -135,6 +141,7 @@
             Days3.removeAttribute("required");
             Hours3.removeAttribute("required");
             } else if (backSelect.selectedIndex == 3) {
+                 console.log("3 selected");
             Days1.style.display = "block";
             Hours1.style.display = "block";
             Days2.style.display = "block";
@@ -148,6 +155,7 @@
             Days3.removeAttribute("required");
             Hours3.removeAttribute("required");
             } else if (backSelect.selectedIndex == 4) {
+                 console.log("4 selected");
             Days1.style.display = "block";
             Hours1.style.display = "block";
             Days2.style.display = "block";
@@ -161,6 +169,7 @@
             Days3.setAttribute("required", "required");
             Hours3.setAttribute("required", "required");
             } else {
+                 console.log("else selected");
             Days1.style.display = "none";
             Hours1.style.display = "none";
             Days2.style.display = "none";
@@ -190,6 +199,7 @@
             largeDiv.style.width = "100%";
             largeDiv.style.margin = "0 auto";
             largeDiv.style.padding = "0 0 0 40px";
+            largeDiv.id = "largeDiv";
             const elementToInsertAfter = document.getElementById("ELEMENT_1621089");
 
             Days.forEach((pair) => {
@@ -212,7 +222,33 @@
             largeDiv.appendChild(group);
             });
             elementToInsertAfter.parentNode.insertBefore(largeDiv, elementToInsertAfter.nextSibling);
-            document.querySelector("#ELEMENT_1226753 h3").textContent = "Select A Business Card Backer ";
+
+            backerYes.addEventListener("change", () => {
+                if (backerYes.checked) {
+                    backCont.style.display = "block";
+                    backPhoneCont.style.display = "block";
+                    backSelect.setAttribute("required", "required");
+                    backPhoneInput.setAttribute("required", "required");
+                } else {
+                    backCont.style.display = "none";
+                    backPhoneCont.style.display = "none";
+                    backSelect.removeAttribute("required");
+                    backPhoneInput.removeAttribute("required");
+                    const LargeDiv = document.querySelector("div#largeDiv") ?  document.querySelector("div#largeDiv") : null;
+                    console.log("made it up to end of the else");
+                }
+            });
+            backerNo.addEventListener("click", () => {
+                if (backerNo.checked) {
+                    Days1.style.display = "none";
+                    Hours1.style.display = "none";
+                    Days2.style.display = "none";
+                    Hours2.style.display = "none";
+                    Days3.style.display = "none";
+                    Hours3.style.display = "none";
+                    backPhoneCont.style.display = "none";
+                } 
+            });
             `;
 			document.body.appendChild(JS);
 		</script>
@@ -220,4 +256,4 @@
 	<body></body>
 </html>
 
-//Line 70: look at what exactly is being shown at any point.
+//Line 70: look at what exactly is being shown at any point. BackerSelectLabel.textContent = "Please Select Your Business Card Backer";
