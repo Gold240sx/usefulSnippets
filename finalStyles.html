@@ -6,172 +6,218 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Baylor JS Insertion</title>
 		<script>
-			var styles = `          
-                body{background: #C5DAE8 !important;}          
-                input{background:white !important; padding: 5px !important; border-radius: 3px !important;}          
-                .print-center-container{ margin:auto !important;}           
-                .print-center-container tbody {background: white;}         
-                .print-center-container tbody tr td.top_links p{background: #C5DAE8 !important; }           
-                td.main-header h1{margin: 50px 0px 0px 574px !important; border-radius: 0 15px 0 0;}         
-                td.main-header{border-radius: 30px 0 0 0 !important; background-position-y: -5px;}         
-                #docLibItem, #opc_content , div#quote > td {background: white;}         
-                .print-center-container:first-of-type tbody:first-of-type tr:last-of-type td:first div:first-of-type {border-left: 55px solid #0076D4 !important;}          
-                .print-center-container:first tbody tr[3] {background:  #C5DAE8 !important;}
-                .sidebar-nav gray{margin-top: -4px !important;}           
-                .sidebar-right > tr td[2] {margin-top: -4px !important;}           
-                .description table tbody tr td {background: white !important;}           
-                table.sidebar-products tbody tr td {background: white !important;}           
-                div#quote td {background: white !important;}           
-                .print-center-container:first-of-type tbody:first-of-type tr:first-of-type td:first-of-type .user.product_image.padding-box + table tbody tr td {background: white !important;}           
+			var styles = `
+                body{background: #C5DAE8 !important;}
+                input{background:white !important; padding: 5px !important; border-radius: 3px !important;}
+                .print-center-container{ margin:auto !important;}
+                .print-center-container tbody {background: white;}
+                .print-center-container tbody tr td.top_links p{background: #C5DAE8 !important; }
+                td.main-header h1{margin: 50px 0px 0px 574px !important; border-radius: 0 15px 0 0;}
+                td.main-header{border-radius: 30px 0 0 0 !important; background-position-y: -5px;}
+                #docLibItem, #opc_content , div#quote > td {background: white;}
+                .print-center-container:first-of-type tbody:first-of-type tr:last-of-type td:first div:first-of-type {border-left: 55px solid #0076D4 !important;}
+                .print-center-container:first tbody tr[3] {background: #C5DAE8 !important;}
+                .sidebar-nav gray{margin-top: -4px !important;}
+                .sidebar-right > tr td[2] {margin-top: -4px !important;}
+                .description table tbody tr td {background: white !important;}
+                table.sidebar-products tbody tr td {background: white !important;}
+                div#quote td {background: white !important;}
+                .print-center-container:first-of-type tbody:first-of-type tr:first-of-type td:first-of-type .user.product_image.padding-box + table tbody tr td {background: white !important;}
                 table.sidebar-products tbody {background: #FEB53D !important;}
-                #ELEMENT_1621112, #ELEMENT_1621114, #ELEMENT_1621115, #ELEMENT_1621116, #ELEMENT_1621117, #ELEMENT_1621118, #ELEMENT_1621106 { display: none}
+                #ELEMENT_1621112, #ELEMENT_1621114, #ELEMENT_1621115, #ELEMENT_1621116, #ELEMENT_1621117, #ELEMENT_1621118, #ELEMENT_1621106, #ELEMENT_1621089, #ELEMENT_1621111 { display: none}
                 #ELEMENT_297318 div.productfloat.fullsize.form_builder_container {float: unset !important; margin: 50px 20px 20px !important;}
+                #ELEMENT_1226753 { height: 60px;}
+                #ELEMENT_744853 h3 {width: unset}
+                h3:has(#L_WouldYouLikeABackerOnYourCards) { width: 500px !important; margin-bottom: 10px !important;}
+                #OPTION_4057484 { margin-bottom: 0 !important; padding-bottom: 0 !important;}
+                #ELEMENT_1621108 div { margin-bottom: 0 !important; padding-bottom !important; margin-top: 10px !important;}
+                input[type="text"] {background-color: rgb(241, 241, 241)!important; border: none !important; padding: 4px !important; margin: 5px; padding-left: 15px !important; font-size: 15px;}
+                input[type="text"]:hover {outline: none !important; border-color: none !important}
+                input[type="text"]:active {outline: none !important; border-color: none !important}
+                input[type="text"]:visited {outline: none !important; border-color: none !important}
+                input[type="text"]:focus-visited {outline: none !important; border-color: none !important};
+                input[type="text"]:focus-within {outline: none !important; border-color: none !important}
+                input[type="text"]:focus {border: none !important; box-shadow: 1px 0px 5px 1px rgb(226, 226, 226) !important;}
+                textarea {background-color: rgb(241, 241, 241) !important; background: rgb(241, 241, 241) !important; border: none;padding: 7px; margin: 5px; padding: 15px !important; font-size: 15px; border-radius: 7px;}
+                table.sidebar-products tbody tr td { background-color: #FFD46A !important;}
+                #productscontainer li h3 span.subtitle { display: none !important;}
+                #ELEMENT_276937 {margin-top: 20px !important;}
+                #ELEMENT_1621089 {display: none !important;}
+                #ELEMENT_1621118, #ELEMENT_1621117, #ELEMENT_1621116 {border-top: none !important;}
             `;
 
 			var JS = document.createElement("script");
 			JS.innerText = `
-                var styleSheet = document.createElement("style");
-                styleSheet.innerText = styles;
-                document.head.appendChild(styleSheet);
-                console.log("this script functions correctly 3");
-                var leftTd = document.querySelector('td[rowspan="4"][width="35"]');
-                var topTdLeft = document.querySelector('td[rowspan="0"][width="35"]');
-                var topTdRight = document.querySelector('td[colspan="3"][class="top_links"]');
-                leftTd.setAttribute("rowspan", 0);
-                leftTd.style.backgroundColor = "#C5DAE8";
-                topTdRight.style.backgroundColor = "#C5DAE8";
+            var styleSheet = document.createElement("style");
+            styleSheet.innerText = styles;
+            document.head.appendChild(styleSheet);
+            console.log("this script functions correctly 3");
+            var leftTd = document.querySelector('td[rowspan="4"][width="35"]');
+            var topTdLeft = document.querySelector('td[rowspan="0"][width="35"]');
+            var topTdRight = document.querySelector('td[colspan="3"][class="top_links"]');
+            leftTd.setAttribute("rowspan", 0);
+            leftTd.style.backgroundColor = "#C5DAE8";
+            topTdRight.style.backgroundColor = "#C5DAE8";
 
-                const backSelect = document.getElementById("E_PleaseSelectYourBusinessCardBackerbswh");
+            const backSelect = document.getElementById("E_PleaseSelectYourBusinessCardBackerbswh");
+            const backPhoneCont = document.getElementById("ELEMENT_1621111");
+            const backCont = document.getElementById("ELEMENT_1226753");
+            const backerNo = document.getElementById("E_WouldYouLikeABackerOnYourCards0");
+            const backerYes = document.getElementById("E_WouldYouLikeABackerOnYourCards1");
+            backerNo.checked = true;
 
-                const Days1 = document.getElementById("ELEMENT_1621112");
-                const Days2 = document.getElementById("ELEMENT_1621114");
-                const Days3 = document.getElementById("ELEMENT_1621115");
-                const Hours1 = document.getElementById("ELEMENT_1621116");
-                const Hours2 = document.getElementById("ELEMENT_1621117");
-                const Hours3 = document.getElementById("ELEMENT_1621118");
-                const HoursBreak = document.getElementById("ELEMENT_1621106");
-                HoursBreak.style.display = "none";
-                Days1.style.display = "none";
-                Hours1.style.display = "none";
-                Days2.style.display = "none";
-                Hours2.style.display = "none";
-                Days3.style.display = "none";
-                Hours3.style.display = "none";
+            backerNo.addEventListener("change", () => {
+                if (backerNo.checked) {
+                    backCont.style.display = "block";
+                    backPhoneCont.style.display = "block";
+                } else {
+                    backCont.style.display = "none";
+                    backPhoneCont.style.display = "none";
+                }
+            });
 
-                const Days1Label = document.getElementById('L_OfficeHoursDays1');
-                const Days2Label = document.getElementById('L_OfficeHoursDays2');
-                const Days3Label = document.getElementById('L_OfficeHoursDays3');
-                const Hours1Label = document.getElementById('L_OfficeHoursHours1');
-                const Hours2Label = document.getElementById('L_OfficeHoursHours2');
-                const Hours3Label = document.getElementById('L_OfficeHoursHours3');
-                var ast = document.createElement("span");
-                var astItems = [ Days1Label, Hours1Label, Days2Label, Hours2Label, Days3Label, Hours3Label ]; 
-                ast.innerText = "*";
-                ast.setAttribute("class", "warning"); 
-                var addAsterixs = (items) => { 
-                    items.forEach(item => {
-                                            var clone = ast.cloneNode(true); 
-                        item.parentNode.insertBefore(clone,item); 
-                        const container = item.parentNode.parentNode.parentNode;
-                        container.style.width = "50%";
-                    }); 
-                    };
-                addAsterixs(astItems);
+            function removeClassFromDescendants(element, className) {
+            element.classList.remove(className);
+            const children = element.children;
+            for (let i = 0; i < children.length; i++) {
+            removeClassFromDescendants(children[i], className);
+            }
+            };
 
-                backSelect.addEventListener("change", () => {
-                    HoursBreak.style.display = "block";
-                    if (backSelect.selectedIndex == 2) {
-                        Days1.style.display = "block";
-                        Hours1.style.display = "block";
-                        Days1.setAttribute("required", "required");
-                        Hours1.setAttribute("required", "required");
-                        Days2.style.display = "none";
-                        Hours2.style.display = "none";
-                        Days3.style.display = "none";
-                        Hours3.style.display = "none";
-                        Days2.removeAttribute("required");
-                        Hours2.removeAttribute("required");
-                        Days3.removeAttribute("required");
-                        Hours3.removeAttribute("required");
-                    } else if (backSelect.selectedIndex == 3) {
-                        Days1.style.display = "block";
-                        Hours1.style.display = "block";
-                        Days2.style.display = "block";
-                        Hours2.style.display = "block";
-                        Days1.setAttribute("required", "required");
-                        Hours1.setAttribute("required", "required");
-                        Days2.setAttribute("required", "required");
-                        Hours2.setAttribute("required", "required");
-                        Days3.style.display = "none";
-                        Hours3.style.display = "none";
-                        Days3.removeAttribute("required");
-                        Hours3.removeAttribute("required");
-                    } else if (backSelect.selectedIndex == 4) {
-                        Days1.style.display = "block";
-                        Hours1.style.display = "block";
-                        Days2.style.display = "block";
-                        Hours2.style.display = "block";
-                        Days3.style.display = "block";
-                        Hours3.style.display = "block";
-                        Days1.setAttribute("required", "required");
-                        Hours1.setAttribute("required", "required");
-                        Days2.setAttribute("required", "required");
-                        Hours2.setAttribute("required", "required");
-                        Days3.setAttribute("required", "required");
-                        Hours3.setAttribute("required", "required");
-                    } else {
-                        Days1.style.display = "none";
-                        Hours1.style.display = "none";
-                        Days2.style.display = "none";
-                        Hours2.style.display = "none";
-                        Days3.style.display = "none";
-                        Hours3.style.display = "none";
-                        HoursBreak.style.display = "none";
-                        Days1.removeAttribute("required");
-                        Hours1.removeAttribute("required");
-                        Days2.removeAttribute("required");
-                        Hours2.removeAttribute("required");
-                        Days3.removeAttribute("required");
-                        Hours3.removeAttribute("required");
-                    }
-                });
+            const Days1 = document.getElementById("ELEMENT_1621112");
+            const Days2 = document.getElementById("ELEMENT_1621114");
+            const Days3 = document.getElementById("ELEMENT_1621115");
+            const Hours1 = document.getElementById("ELEMENT_1621116");
+            const Hours2 = document.getElementById("ELEMENT_1621117");
+            const Hours3 = document.getElementById("ELEMENT_1621118");
+            const HoursBreak = document.getElementById("ELEMENT_1621106");
+            HoursBreak.style.display = "none";
+            Days1.style.display = "none";
+            Hours1.style.display = "none";
+            Days2.style.display = "none";
+            Hours2.style.display = "none";
+            Days3.style.display = "none";
+            Hours3.style.display = "none";
+
+            const Days1Label = document.getElementById('L_OfficeHoursDays1');
+            const Days2Label = document.getElementById('L_OfficeHoursDays2');
+            const Days3Label = document.getElementById('L_OfficeHoursDays3');
+            const Hours1Label = document.getElementById('L_OfficeHoursHours1');
+            const Hours2Label = document.getElementById('L_OfficeHoursHours2');
+            const Hours3Label = document.getElementById('L_OfficeHoursHours3');
+            var ast = document.createElement("span");
+            var astItems = [ Days1Label, Hours1Label, Days2Label, Hours2Label, Days3Label, Hours3Label ];
+            ast.innerText = "*";
+            ast.setAttribute("class", "warning");
+            var addAsterixs = (items) => {
+            items.forEach(item => {
+            var clone = ast.cloneNode(true);
+            item.parentNode.insertBefore(clone,item);
+            const container = item.parentNode.parentNode.parentNode;
+            container.style.width = "50%";
+            });
+            };
+            addAsterixs(astItems);
+
+            backSelect.addEventListener("change", () => {
+            HoursBreak.style.display = "block";
+            if (backSelect.selectedIndex == 2) {
+            Days1.style.display = "block";
+            Hours1.style.display = "block";
+            Days1.setAttribute("required", "required");
+            Hours1.setAttribute("required", "required");
+            Days2.style.display = "none";
+            Hours2.style.display = "none";
+            Days3.style.display = "none";
+            Hours3.style.display = "none";
+            Days2.removeAttribute("required");
+            Hours2.removeAttribute("required");
+            Days3.removeAttribute("required");
+            Hours3.removeAttribute("required");
+            } else if (backSelect.selectedIndex == 3) {
+            Days1.style.display = "block";
+            Hours1.style.display = "block";
+            Days2.style.display = "block";
+            Hours2.style.display = "block";
+            Days1.setAttribute("required", "required");
+            Hours1.setAttribute("required", "required");
+            Days2.setAttribute("required", "required");
+            Hours2.setAttribute("required", "required");
+            Days3.style.display = "none";
+            Hours3.style.display = "none";
+            Days3.removeAttribute("required");
+            Hours3.removeAttribute("required");
+            } else if (backSelect.selectedIndex == 4) {
+            Days1.style.display = "block";
+            Hours1.style.display = "block";
+            Days2.style.display = "block";
+            Hours2.style.display = "block";
+            Days3.style.display = "block";
+            Hours3.style.display = "block";
+            Days1.setAttribute("required", "required");
+            Hours1.setAttribute("required", "required");
+            Days2.setAttribute("required", "required");
+            Hours2.setAttribute("required", "required");
+            Days3.setAttribute("required", "required");
+            Hours3.setAttribute("required", "required");
+            } else {
+            Days1.style.display = "none";
+            Hours1.style.display = "none";
+            Days2.style.display = "none";
+            Hours2.style.display = "none";
+            Days3.style.display = "none";
+            Hours3.style.display = "none";
+            HoursBreak.style.display = "none";
+            Days1.removeAttribute("required");
+            Hours1.removeAttribute("required");
+            Days2.removeAttribute("required");
+            Hours2.removeAttribute("required");
+            Days3.removeAttribute("required");
+            Hours3.removeAttribute("required");
+            }
+            });
+            const Days = [
+            [Days3, Hours3],
+            [Days2, Hours2],
+            [Days1, Hours1],
+            ];
+            const containingDiv = document.createElement("div");
+            const largeDiv = document.createElement("div");
+            largeDiv.style.display = "flex";
+            largeDiv.style.flexDirection = "column";
+            largeDiv.style.alignItems = "center";
+            largeDiv.style.justifyContent = "center";
+            largeDiv.style.width = "100%";
+            largeDiv.style.margin = "0 auto";
+            largeDiv.style.padding = "0 0 0 40px";
+            const elementToInsertAfter = document.getElementById("ELEMENT_1621089");
+
+            Days.forEach((pair) => {
+            const count = Days.indexOf(pair);
+            const group = containingDiv.cloneNode(true);
+            group.id = "containingDiv" + (count + 1);
+            group.setAttribute("class", "row-group");
+            group.style.display = "flex";
+            group.style.flexDirection = "row";
+            group.style.alignItems = "center";
+            group.style.justifyContent = "center";
+            group.style.width = "100%";
+            group.style.margin = "0 auto";
+            group.style.padding = "0 20px";
+            group.style.boxSizing = "border-box";
+            pair.forEach((item) => {
+            group.appendChild(item);
+            item.style.borderTop = "none !important";
+            });
+            largeDiv.appendChild(group);
+            });
+            elementToInsertAfter.parentNode.insertBefore(largeDiv, elementToInsertAfter.nextSibling);
+            document.querySelector("#ELEMENT_1226753 h3").textContent = "Select A Business Card Backer ";
             `;
 			document.body.appendChild(JS);
-
-			const Days = [
-				[Days1, Hours1],
-				[Days2, Hours2],
-				[Days3, Hours3],
-			];
-			const containingDiv = document.createElement("div");
-			const elementToInsertAfter = document.getElementById("ELEMENT_1621089");
-
-			Days.forEach((pair) => {
-				const count = Days.indexOf(pair);
-				const group = pair.forEach((item) => {
-					var clone = containingDiv.cloneNode(true);
-					clone.appendChild(item);
-					clone.id = "containingDiv" + (count + 1);
-					clone.setAttribute("class", "row-group");
-					clone.style.display = "flex";
-					clone.style.flexDirection = "row";
-					clone.style.alignItems = "center";
-					clone.style.justifyContent = "center";
-					clone.style.width = "100%";
-					clone.style.margin = "0 auto";
-					clone.style.padding = "0 20px";
-					clone.style.boxSizing = "border-box";
-				});
-				elementToInsertAfter.parentNode.insertBefore(group, elementToInsertAfter.nextSibling);
-			});
 		</script>
 	</head>
 	<body></body>
 </html>
 
-const Days = [[Days1,Hours1],[Days2,Hours2],[Days3,Hours3]]; const containingDiv = document.createElement("div"); Days.forEach(pair => {
-const count = Days.indexOf(pair); pair.forEach(item => { var clone = containingDiv.cloneNode(true); clone.appendChild(item); clone.id =
-"containingDiv" + (count + 1); }); }); const groups = [containingDiv1, containingDiv2, containingDiv3]; groups.forEach(group => {
-group.setAttribute("class", "row-group"); group.style.display = "flex"; group.style.flexDirection = "row"; group.style.alignItems =
-"center"; group.style.justifyContent = "center"; group.style.width = "100%"; group.style.margin = "0 auto"; group.style.padding = "0 20px";
-group.style.boxSizing = "border-box"; });
+//Line 70: look at what exactly is being shown at any point.
