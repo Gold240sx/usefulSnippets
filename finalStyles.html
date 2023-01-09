@@ -336,11 +336,11 @@
                     
                     for (const word of words) {
                         if (word.length === 2) {
-                        newStr += word[0] + '.' + word[1] + '. ';
+                        newStr += word[0].toUpperCase() + '.' + word[1] + '. ';
                         } else if (word.length === 1) {
-                            newStr += word + '. ' + ' ';
+                            newStr += word.toUpperCase() + '. ' + ' ';
                         }else {
-                            newStr += word + ' ';
+                            newStr += word[0].toUpperCase() +  word.substring(1).toLowerCase() + ' ';
                         };
                     };
                     return newStr;
