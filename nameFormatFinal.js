@@ -8,7 +8,7 @@ var regex_lowercase_last_letter = /(\w)(\W*)$/;
 var regex_is_letter = /^[a-z]/i;
 var regex_is_letter_or_space = /^[a-zA-Z\s]+$/i;
 var regex_extra_space_check = /^[A-Za-z]+( [A-Za-z]+)*$/;
-var regex_remove_consec_spaces = /\s+/g;
+var regex_remove_consec_spaces = / +/g;
 var regex_remove_beginning_and_end_spaces = /^\s+|\s+$/;
 const isUpperCase = (string) => /^[A-Z]*$/.test(string);
 var regex_remove_periods_from_dash_words = /\b[^-\s]+-.+[^-\s]+\b/g;
@@ -72,11 +72,24 @@ const nameProcess = (array) => {
 		//remove all periods and commas
 		var firstStr = noTitle.replaceAll(".", "").replaceAll(",", "");
 		//add periods to all 2 letter words
-		var secndStr = firstStr.replace(regex_all_two_letter_words, "$1.");
-		//add periods to all 1 letter words
-		var thirdStr = secndStr.replace(regex_all_one_letter_words, "$1.");
-		//add periods between all 2 letter words that are not the last word
-		var fourthStr = thirdStr.replace(regex_isolate_2lett, "$1.$2");
+
+		// var secndStr = firstStr.replace(regex_all_two_letter_words, "$1.");
+		// //add periods to all 1 letter words
+		// var thirdStr = secndStr.replace(regex_all_one_letter_words, "$1.");
+		// //add periods between all 2 letter words that are not the last word
+		// var fourthStr = thirdStr.replace(regex_isolate_2lett, "$1.$2");
+
+		function addPeriodAfterWord(match, p1, p2) {
+			console.log({ match });
+			if (p2) {
+				console.log({ p1, p2 });
+				return p1 + "." + p2;
+			} else {
+				console.log({ p1 });
+				return p1 + ".";
+			}
+		}
+		const fourthStr = firstStr.replace(/(\b\w{2}\b)|(\b\w{1}\b)|(\b([a-zA-Z])([a-zA-Z])\b)/g, addPeriodAfterWord);
 		// create exceptions for jr and sr
 		var fifthStr = fourthStr.replaceAll("j.r.", ", jr.").replaceAll("s.r.", ", sr.");
 
@@ -177,25 +190,25 @@ console.log(
 	nameProcess(testString)
 );
 
-const newData = nameProcess(testString);
-const oldData = testString;
-var newList = document.getElementById("new");
-var oldList = document.getElementById("old");
+// const newData = nameProcess(testString);
+// const oldData = testString;
+// var newList = document.getElementById("new");
+// var oldList = document.getElementById("old");
 var testInput = document.getElementById("testInput");
 var output = document.getElementById("output");
 var formatBtn = document.getElementById("formatBtn");
 
-oldData.forEach((item) => {
-	let li = document.createElement("li");
-	li.innerText = item;
-	oldList.appendChild(li);
-});
+// oldData.forEach((item) => {
+// 	let li = document.createElement("li");
+// 	li.innerText = item;
+// 	oldList.appendChild(li);
+// });
 
-newData.forEach((item) => {
-	let li = document.createElement("li");
-	li.innerText = item;
-	newList.appendChild(li);
-});
+// newData.forEach((item) => {
+// 	let li = document.createElement("li");
+// 	li.innerText = item;
+// 	newList.appendChild(li);
+// });
 
 testInput.addEventListener("keyup", (e) => {
 	const input = e.target.value;

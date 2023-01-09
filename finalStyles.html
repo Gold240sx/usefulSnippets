@@ -287,13 +287,107 @@
             credCont.prepend(credPreview);
             credPreview.appendChild(credPreviewVal);
 
-            nameInput.addEventListener("keyup", (e) => {nameAndCred.value = e.target.value + ", " + credInput.value; namePreviewVal.textContent = e.target.value;});
-            credInput.addEventListener("keyup", (e) => {nameAndCred.value = nameInput.value + ", " + e.target.value; credPreviewVal.textContent = e.target.value;});
+            var regex_No_Periods = /"\\.+", ";"/g;
+            var regex_period_first_letter = (/^([a-zA-Z])([ ])/, (letter) => letter.toUpperCase());
+            var regex_all_two_letter_words = /(\b\w{2}\b)/g;
+            var regex_all_one_letter_words = /(\b\w{1}\b)/g;
+            var regex_isolate_2lett = /\b([a-zA-Z])([a-zA-Z])\b/g;
+            var regexCapitalize = /[A-Z]+/g;
+            var regex_lowercase_last_letter = /(\w)(\W*)$/;
+            var regex_is_letter = /^[a-z]/i;
+            var regex_is_letter_or_space = /^[a-zA-Z\s]+$/i;
+            var regex_extra_space_check = /^[A-Za-z]+( [A-Za-z]+)*$/;
+            var regex_remove_consec_spaces = / +/g;
+            var regex_remove_beginning_and_end_spaces = /^\ +|\ +$/g;
+            const isUpperCase = (string) => /^[A-Z]*$/.test(string);
+            var regex_remove_periods_from_dash_words = /\b[^-\s]+-.+[^-\s]+\b/g;
+
+            const nameProcess = (str) => {
+                const consecSpaceChecked = str.replace(regex_remove_consec_spaces, " ");
+                const spaceChecked = consecSpaceChecked.replace(regex_remove_beginning_and_end_spaces, "");
+
+                const initStr = spaceChecked
+                    .trim()
+                    .split(" ")
+                    .map((i) => (i.replaceAll(/[^a-z]/gi, "").length === 2 ? i.toUpperCase() : i))
+                    .join(" ")
+                    .replace(regex_lowercase_last_letter, function (match, capture1, capture2) {
+                    return capture1.toLowerCase() + capture2;
+                    });
+
+                const noTitleFunct = (initStr) => {
+                    if (initStr.toLowerCase().slice(0, 3) === "dr.")  {
+                    return initStr.replace(/dr./gi, "");
+                    } else if (initStr.toLowerCase().slice(0, 2) === "dr") {
+                    return initStr.slice(2, initStr.length);
+                    } else {
+                    return initStr;
+                    }
+                };
+                const noTitle = noTitleFunct(initStr);
+                var firstStr = noTitle.replaceAll(".", "").replaceAll(",", "");
+
+                var secndStr = firstStr.replace(regex_all_two_letter_words, "$1.");
+                var thirdStr = secndStr[0].toUpperCase() + secndStr.substring(1);
+
+                function addPeriods(str) {
+                    const words = str.split(' ');
+                    let newStr = '';
+                    
+                    for (const word of words) {
+                        if (word.length === 2) {
+                        newStr += word[0] + '.' + word[1] + '. ';
+                        } else if (word.length === 1) {
+                            newStr += word + '. ' + ' ';
+                        }else {
+                            newStr += word + ' ';
+                        };
+                    };
+                    return newStr;
+                };
+                const fourthStr = addPeriods(thirdStr);
+
+                var fifthStr = fourthStr.replaceAll("j.r.", ", jr.").replaceAll("s.r.", ", sr.");
+
+                const sixthStringFunct = (string) => {
+                    if (string[string.length - 3] === ".") {
+                        const partOne = string.slice(0, -3);
+                        const partTwo = string.slice(-2, -1);
+                        string = partOne + partTwo;
+                        return string;
+                    }
+                    return string;
+                };
+                const sixthStr = sixthStringFunct(fifthStr).replaceAll(" ,", ",");
+
+                return sixthStr;
+            };
+
+            nameInput.addEventListener("keyup", (e) => {
+                const input = e.target.value;
+                nameAndCred.value = input + ", " + credInput.value; 
+                namePreviewVal.textContent = nameProcess(input);
+            });
+            credInput.addEventListener("keyup", (e) => {
+                const input = e.target.value;
+                nameAndCred.value = nameInput.value + ", " + input; 
+                namePreviewVal.textContent = nameProcess(input);
+                credPreviewVal.textContent = input;
+            });
+
+            nameFixButton.addEventListener("click", (e) => {
+                console.log("nameFixButton clicked");
+	            nameInput.value = nameProcess(input);
+                nameAndCred.value = nameInput.value + ", " + credInput.value;
+            });
+
+            const funnyStr = "my favorite color is blue";
+            console.log(funnyStr.replace(regex_all_two_letter_words, "$1."));
             `;
 			document.body.appendChild(JS);
 		</script>
 	</head>
-	<body></body>
+	<body>
+		<script></script>
+	</body>
 </html>
-
-//Line 70: look at what exactly is being shown at any point. BackerSelectLabel.textContent = "Please Select Your Business Card Backer";
