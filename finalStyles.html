@@ -7,383 +7,601 @@
 		<title>Baylor JS Insertion</title>
 		<script>
 			var styles = `
-                body{background: #C5DAE8 !important;}
-                input{background:white !important; padding: 5px !important; border-radius: 3px !important;}
-                .print-center-container{ margin:auto !important;}
-                .print-center-container tbody {background: white;}
-                .print-center-container tbody tr td.top_links p{background: #C5DAE8 !important; }
-                td.main-header h1{margin: 50px 0px 0px 574px !important; border-radius: 0 15px 0 0;}
-                td.main-header{border-radius: 30px 0 0 0 !important; background-position-y: -5px;}
-                #docLibItem, #opc_content , div#quote > td {background: white;}
-                .print-center-container:first-of-type tbody:first-of-type tr:last-of-type td:first div:first-of-type {border-left: 55px solid #0076D4 !important;}
-                .print-center-container:first tbody tr[3] {background: #C5DAE8 !important;}
-                .sidebar-nav gray{margin-top: -4px !important;}
-                .sidebar-right > tr td[2] {margin-top: -4px !important;}
-                .description table tbody tr td {background: white !important;}
-                table.sidebar-products tbody tr td {background: white !important;}
-                div#quote td {background: white !important;}
-                .print-center-container:first-of-type tbody:first-of-type tr:first-of-type td:first-of-type .user.product_image.padding-box + table tbody tr td {background: white !important;}
-                table.sidebar-products tbody {background: #FEB53D !important;}
-                #ELEMENT_1621112, #ELEMENT_1621114, #ELEMENT_1621115, #ELEMENT_1621116, #ELEMENT_1621117, #ELEMENT_1621118, #ELEMENT_1621106, #ELEMENT_1621089, #ELEMENT_1621111 { display: none}
-                #ELEMENT_297318 div.productfloat.fullsize.form_builder_container {float: unset !important; margin: 50px 20px 20px !important;}
-                #ELEMENT_1226753 { height: 60px;}
-                #ELEMENT_744853 h3 {width: unset}
-                h3:has(#L_WouldYouLikeABackerOnYourCards) { width: 500px !important; margin-bottom: 10px !important;}
-                #OPTION_4057484 { margin-bottom: 0 !important; padding-bottom: 0 !important;}
-                #ELEMENT_1621108 div { margin-bottom: 0 !important; padding-bottom !important; margin-top: 10px !important;}
-                input[type="text"] {background-color: rgb(241, 241, 241)!important; border: none !important; padding: 4px !important; margin: 5px; padding-left: 15px !important; font-size: 15px;}
-                input[type="text"]:hover {outline: none !important; border-color: none !important}
-                input[type="text"]:active {outline: none !important; border-color: none !important}
-                input[type="text"]:visited {outline: none !important; border-color: none !important}
-                input[type="text"]:focus-visited {outline: none !important; border-color: none !important};
-                input[type="text"]:focus-within {outline: none !important; border-color: none !important}
-                input[type="text"]:focus {border: none !important; box-shadow: 1px 0px 5px 1px rgb(226, 226, 226) !important;}
-                textarea {background-color: rgb(241, 241, 241) !important; background: rgb(241, 241, 241) !important; border: none;padding: 7px; margin: 5px; padding: 15px !important; font-size: 15px; border-radius: 7px;}
-                table.sidebar-products tbody tr td { background-color: #FCB746 !important; border-radius: 10px !important;}
-                #productscontainer li h3 span.subtitle { display: none !important;}
-                #ELEMENT_276937 {margin-top: 20px !important;}
-                #ELEMENT_1621089 {display: none !important;}
-                #ELEMENT_1621118, #ELEMENT_1621117, #ELEMENT_1621116 {border-top: none !important;}
-                #ELEMENT_1621111 h3 {width: 290px !important;}
-                * {transition: all 0.3s ease-in-out !important;}
-                .sidebar-nav {margin-bottom: 10px !important; border-radius: 10px !important; border-bottom: none;} 
-                .sidebar-right {padding: 10px !important;}
-                #ELEMENT_276937, #ELEMENT_1621110, #ELEMENT_348464, #ELEMENT_347929 {margin-bottom: 20px !important;}
-                .custom-warning {white-space: nowrap !important; margin: 5px !important; color: red !important; }
-                .custom-button {background-color: #0076D4 !important; color: white !important; border: none !important; border-radius: 0 999px 999px 0 !important; height: 25px !important; padding: 0px 10px 0 5px !important; margin: 0px !important; font-size: 15px !important; cursor: pointer !important;}
-                #productscontainer li .productfloat.fullsize input[type=text], #productscontainer li .productfloat textarea { width: 74%; margin-right: 0 !important; margin-bottom: 5px;}
-                .custom-Preview {color: gray; margin: 5px !important; font-size: 17px !important}
-                `;
+			         body{background: #C5DAE8 !important;}
+			         input{background:white !important; padding: 5px !important; border-radius: 3px !important;}
+			         .print-center-container{ margin:auto !important;}
+			         .print-center-container tbody {background: white;}
+			         .print-center-container tbody tr td.top_links p{background: #C5DAE8 !important; }
+			         td.main-header h1{margin: 50px 0px 0px 574px !important; border-radius: 0 15px 0 0;}
+			         td.main-header{border-radius: 30px 0 0 0 !important; background-position-y: -5px;}
+			         #docLibItem, #opc_content , div#quote > td {background: white;}
+			         .print-center-container:first-of-type tbody:first-of-type tr:last-of-type td:first div:first-of-type {border-left: 55px solid #0076D4 !important;}
+			         .print-center-container:first tbody tr[3] {background: #C5DAE8 !important;}
+			         .sidebar-nav gray{margin-top: -4px !important;}
+			         .sidebar-right > tr td[2] {margin-top: -4px !important;}
+			         .description table tbody tr td {background: white !important;}
+			         table.sidebar-products tbody tr td {background: white !important;}
+			         div#quote td {background: white !important;}
+			         .print-center-container:first-of-type tbody:first-of-type tr:first-of-type td:first-of-type .user.product_image.padding-box + table tbody tr td {background: white !important;}
+			         table.sidebar-products tbody {background: #FEB53D !important;}
+			         #ELEMENT_1621112, #ELEMENT_1621114, #ELEMENT_1621115, #ELEMENT_1621116, #ELEMENT_1621117, #ELEMENT_1621118, #ELEMENT_1621106, #ELEMENT_1621089, #ELEMENT_1621111 { display: none}
+			         #ELEMENT_297318 div.productfloat.fullsize.form_builder_container {float: unset !important; margin: 50px 20px 20px !important;}
+			         #ELEMENT_1226753 { height: 60px;}
+			         #ELEMENT_744853 h3 {width: unset}
+			         h3:has(#L_WouldYouLikeABackerOnYourCards) { width: 500px !important; margin-bottom: 10px !important;}
+			         #OPTION_4057484 { margin-bottom: 0 !important; padding-bottom: 0 !important;}
+			         #ELEMENT_1621108 div { margin-bottom: 0 !important; padding-bottom !important; margin-top: 10px !important;}
+			         input[type="text"] {background-color: rgb(241, 241, 241)!important; border: none !important; padding: 4px !important; margin: 5px; padding-left: 15px !important; font-size: 15px;}
+			         input[type="text"]:hover {outline: none !important; border-color: none !important}
+			         input[type="text"]:active {outline: none !important; border-color: none !important}
+			         input[type="text"]:visited {outline: none !important; border-color: none !important}
+			         input[type="text"]:focus-visited {outline: none !important; border-color: none !important};
+			         input[type="text"]:focus-within {outline: none !important; border-color: none !important}
+			         input[type="text"]:focus {border: none !important; box-shadow: 1px 0px 5px 1px rgb(226, 226, 226) !important;}
+			         textarea {background-color: rgb(241, 241, 241) !important; background: rgb(241, 241, 241) !important; border: none;padding: 7px; margin: 5px; padding: 15px !important; font-size: 15px; border-radius: 7px;}
+			         table.sidebar-products tbody tr td { background-color: #FCB746 !important; border-radius: 10px !important;}
+			         #productscontainer li h3 span.subtitle { display: none !important;}
+			         #ELEMENT_276937 {margin-top: 20px !important;}
+			         #ELEMENT_1621089 {display: none !important;}
+			         #ELEMENT_1621118, #ELEMENT_1621117, #ELEMENT_1621116 {border-top: none !important;}
+			         #ELEMENT_1621111 h3 {width: 290px !important;}
+			         * {transition: all 0.3s ease-in-out !important;}
+			         .sidebar-nav {margin-bottom: 10px !important; border-radius: 10px !important; border-bottom: none;}
+			         .sidebar-right {padding: 10px !important;}
+			         #ELEMENT_276937, #ELEMENT_1621110, #ELEMENT_348464, #ELEMENT_347929 {margin-bottom: 20px !important;}
+			         .custom-warning {white-space: nowrap !important; margin: 5px !important; color: red !important; }
+			         .custom-button {background-color: #0076D4 !important; color: white !important; border: none !important; border-radius: 0 999px 999px 0 !important; height: 25px !important; padding: 0px 10px 0 5px !important; margin: 0px !important; font-size: 15px !important; cursor: pointer !important;}
+			         #productscontainer li .productfloat.fullsize input[type=text], #productscontainer li .productfloat textarea { width: 74%; margin-right: 0 !important; margin-bottom: 5px;}
+			         .custom-Preview {color: gray; margin: 5px !important; font-size: 17px !important;}
+			         body div#viewCont {display: flex; justify-content: center; position: fixed !important; min-width: 250px; height: 450px; min-height: fit-content; z-index: 99999999;
+			             background-color: rgba(255,255,255,0.8); border-radius: 5px; padding: 5px; margin: 5px; right: 5px; top: 5px;
+			         }
+			         #viewLayout {position: relative !important; display: flex !important; flex-direction: column; justify-content: center;
+			             width: 100%; height: 100%;
+			         }
+			         #statsCont {border: 1px solid black; border-radius: 5px; padding: 5px; margin: 5px; width: auto; height: 65%; display: flex !important; flex-direction: column; align-items: center; max-width: 267px;}
+			         #previewBox {border: 1px solid white; margin: 5px; padding: 5px; border-radius: 5px; width: fit-content; background-color: rgba(0, 0, 0, 0.02); display: flex; flex-direction: column; color: gray;}
+			         #statsLineCont { height: fit-content; width: auto; align-items: center; display: flex !important; flex-direction: column; }
+			         #statsCont h3 {margin-bottom: 5px;}
+			         #statsLineCont div {padding: 5px; }
+			         #statsCont div label, statsCont label {padding: 5px; font-weight: bold; }
+                     #myCanvas {width: 255px; height: 144px; border-radius: 3px; background-color: rgba(255,255,255,.9); margin-top: 5px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);}
+                     #addImgUrl {overflow: hidden; whitespace: nowrap; text-overflow: ellipsis; }
+
+			         `;
 
 			var JS = document.createElement("script");
 			JS.innerText = `
-            var styleSheet = document.createElement("style");
-            styleSheet.innerText = styles;
-            document.head.appendChild(styleSheet);
-            console.log("this script functions correctly 3");
-            var leftTd = document.querySelector('td[rowspan="4"][width="35"]');
-            var topTdLeft = document.querySelector('td[rowspan="0"][width="35"]');
-            var topTdRight = document.querySelector('td[colspan="3"][class="top_links"]');
-            leftTd.setAttribute("rowspan", 0);
-            leftTd.style.backgroundColor = "#C5DAE8";
-            topTdRight.style.backgroundColor = "#C5DAE8";
+			     var styleSheet = document.createElement("style");
+			     styleSheet.innerText = styles;
+			     document.head.appendChild(styleSheet);
+			     var leftTd = document.querySelector('td[rowspan="4"][width="35"]');
+			     var topTdLeft = document.querySelector('td[rowspan="0"][width="35"]');
+			     var topTdRight = document.querySelector('td[colspan="3"][class="top_links"]');
+			     leftTd.setAttribute("rowspan", 0);
+			     leftTd.style.backgroundColor = "#C5DAE8";
+			     topTdRight.style.backgroundColor = "#C5DAE8";
 
-            const backSelect = document.getElementById("E_PleaseSelectYourBusinessCardBackerbswh");
-            const backPhoneCont = document.getElementById("ELEMENT_1621111");
-            const backPhoneInput = document.getElementById("E_PhoneNumberDisplayedonBackerBacksideofthecard");
-            const backCont = document.getElementById("ELEMENT_1226753");
-            const backerNo = document.getElementById("E_WouldYouLikeABackerOnYourCards0");
-            const backerYes = document.getElementById("E_WouldYouLikeABackerOnYourCards1");
-            backerNo.checked = true;
+			     const body = document.querySelector("body");
+			     const viewCont = document.createElement("div");
+			     const viewLayout = document.createElement("div");
+			     const statsCont = document.createElement("div");
+			     const previewBox = document.createElement("div");
+			     const statsLineCont = document.createElement("div");
+			     const statsLn1LabelCont = document.createElement("div");
+			     const statsLn2LabelCont = document.createElement("div");
+			     const statsLn3LabelCont = document.createElement("div");
+			     const statsLn4LabelCont = document.createElement("div");
+			     const statsLn1Label = document.createElement("label");
+			     const statsLn2Label = document.createElement("label");
+			     const statsLn3Label = document.createElement("label");
+			     const statsLn4Label = document.createElement("label");
+			     const totalLeftRowCount = document.createElement("span");
+			     const totalRightRowCount = document.createElement("span");
+			     const totalLeftColWidth = document.createElement("span");
+			     const totalRightColWidth = document.createElement("span");
+                 const imgLabelCont = document.createElement("div");
+                const imgLabel = document.createElement("label");
+                const imgUrlSelect = document.querySelector('#E_PleaseChooseYourLogobsw');
+                const addImgUrl = document.createElement("a");
+			    const  addRowCount = document.createElement("span");
 
-            function removeClassFromDescendants(element, className) {
-            element.classList.remove(className);
-            const children = element.children;
-            for (let i = 0; i < children.length; i++) {
-            removeClassFromDescendants(children[i], className);
-            }
-            };
+                 imgUrlSelect.addEventListener("change", () => { 
+                    const imgUrlSrcElement = document.querySelector('#pfmainpreview_1621101');
+                    console.log(imgUrlSrcElement.src); 
+                    addImgUrl.textContent = "link"; 
+                    addImgUrl.href = imgUrlSrcElement.src;
+                });
 
-            const Days1 = document.getElementById("ELEMENT_1621112");
-            const Days2 = document.getElementById("ELEMENT_1621114");
-            const Days3 = document.getElementById("ELEMENT_1621115");
-            const Hours1 = document.getElementById("ELEMENT_1621116");
-            const Hours2 = document.getElementById("ELEMENT_1621117");
-            const Hours3 = document.getElementById("ELEMENT_1621118");
-            const HoursBreak = document.getElementById("ELEMENT_1621106");
-            HoursBreak.style.display = "none";
-            Days1.style.display = "none";
-            Hours1.style.display = "none";
-            Days2.style.display = "none";
-            Hours2.style.display = "none";
-            Days3.style.display = "none";
-            Hours3.style.display = "none";
+			     viewCont.id = "viewCont";
+			     viewLayout.id = "viewLayout";
+			     statsCont.id = "statsCont";
+			     previewBox.id = "previewBox";
+			     statsLineCont.id = "statsLineCont";
+			     totalLeftRowCount.id = "TL_rCount";
+			     totalRightRowCount.id = "TR_rCount";
+			     addRowCount.id = "addRowCount";
+                 addImgUrl.id = "addImgUrl";
 
-            const Days1Label = document.getElementById('L_OfficeHoursDays1');
-            const Days2Label = document.getElementById('L_OfficeHoursDays2');
-            const Days3Label = document.getElementById('L_OfficeHoursDays3');
-            const Hours1Label = document.getElementById('L_OfficeHoursHours1');
-            const Hours2Label = document.getElementById('L_OfficeHoursHours2');
-            const Hours3Label = document.getElementById('L_OfficeHoursHours3');
-            const BackerSelectLabel = document.querySelector('span#L_PleaseSelectYourBusinessCardBackerbswh');
-            const BackerPhoneLabel = document.querySelector('span#L_PhoneNumberDisplayedonBackerBacksideofthecard');
-            BackerSelectLabel.textContent = "Select a Card-Backside";
-            var ast = document.createElement("span");
-            var astItems = [ Days1Label, Hours1Label, Days2Label, Hours2Label, Days3Label, Hours3Label, BackerSelectLabel, BackerPhoneLabel ];
-            ast.innerText = "*";
-            ast.setAttribute("class", "warning");
+			     totalLeftRowCount.innerText = "0";
+			     totalRightRowCount.innerText = "0";
+			     totalLeftColWidth.innerText = "0";
+			     totalRightColWidth.innerText = "0";
+                 addImgUrl.innerText = "NA";
 
-            console.log("made it up to the asterixs");
-            var addAsterixs = (items) => {
-            items.forEach(item => {
-            var clone = ast.cloneNode(true);
-            item.parentNode.insertBefore(clone,item);
-            const container = item.parentNode.parentNode.parentNode ;
-            console.log(item);
-            container.style.width = "50%";
-            });
-            };
-            addAsterixs(astItems);
-            backCont.style.width = "auto";
-            backPhoneCont.style.width = "auto";
+			    body.prepend(viewCont);
+			    viewCont.appendChild(viewLayout);
+			    viewLayout.prepend(statsCont);
+			    viewLayout.appendChild(previewBox);
+			    const statsContTitle = document.createElement("h3");
+			     statsContTitle.textContent = "Stats:";
+			     statsCont.appendChild(statsContTitle);
+			     statsCont.appendChild(statsLineCont);
+			     statsLineCont.appendChild(statsLn1LabelCont);
+			     statsLineCont.appendChild(statsLn2LabelCont);
+			     statsLineCont.appendChild(statsLn3LabelCont);
+			     statsLineCont.appendChild(statsLn4LabelCont);
+			     statsLn1LabelCont.appendChild(statsLn1Label);
+			     statsLn2LabelCont.appendChild(statsLn2Label);
+			     statsLn3LabelCont.appendChild(statsLn3Label);
+			     statsLn4LabelCont.appendChild(statsLn4Label);
+			     statsLn1Label.textContent = "Total Left Row Count: ";
+			     statsLn2Label.textContent = "Total Right Row Count: ";
+			     statsLn3Label.textContent = "Total Left Column Width: ";
+			     statsLn4Label.textContent = "Total Right Column Width: ";
+			     statsLn1LabelCont.appendChild(totalLeftRowCount);
+			     statsLn2LabelCont.appendChild(totalRightRowCount);
+			     statsLn3LabelCont.appendChild(totalLeftColWidth);
+			     statsLn4LabelCont.appendChild(totalRightColWidth);
+			     statsCont.appendChild(document.createElement("hr"));
+                statsCont.appendChild(imgLabelCont);
+                imgLabel.textContent = "Image URL: ";
+                imgLabelCont.appendChild(imgLabel);
+                imgLabel.textContent = "Add Image URL: ";
+                imgLabelCont.appendChild(addImgUrl);
 
-            console.log("made it up to the function");
-            backSelect.addEventListener("change", () => {
-                console.log("fired the function");
-            HoursBreak.style.display = "block";
-            if (backSelect.selectedIndex == 2) {
-                   console.log("2 selected");
-            Days1.style.display = "block";
-            Hours1.style.display = "block";
-            Days1.setAttribute("required", "required");
-            Hours1.setAttribute("required", "required");
-            Days2.style.display = "none";
-            Hours2.style.display = "none";
-            Days3.style.display = "none";
-            Hours3.style.display = "none";
-            Days2.removeAttribute("required");
-            Hours2.removeAttribute("required");
-            Days3.removeAttribute("required");
-            Hours3.removeAttribute("required");
-            } else if (backSelect.selectedIndex == 3) {
-                 console.log("3 selected");
-            Days1.style.display = "block";
-            Hours1.style.display = "block";
-            Days2.style.display = "block";
-            Hours2.style.display = "block";
-            Days1.setAttribute("required", "required");
-            Hours1.setAttribute("required", "required");
-            Days2.setAttribute("required", "required");
-            Hours2.setAttribute("required", "required");
-            Days3.style.display = "none";
-            Hours3.style.display = "none";
-            Days3.removeAttribute("required");
-            Hours3.removeAttribute("required");
-            } else if (backSelect.selectedIndex == 4) {
-                 console.log("4 selected");
-            Days1.style.display = "block";
-            Hours1.style.display = "block";
-            Days2.style.display = "block";
-            Hours2.style.display = "block";
-            Days3.style.display = "block";
-            Hours3.style.display = "block";
-            Days1.setAttribute("required", "required");
-            Hours1.setAttribute("required", "required");
-            Days2.setAttribute("required", "required");
-            Hours2.setAttribute("required", "required");
-            Days3.setAttribute("required", "required");
-            Hours3.setAttribute("required", "required");
-            } else {
-                 console.log("else selected");
-            Days1.style.display = "none";
-            Hours1.style.display = "none";
-            Days2.style.display = "none";
-            Hours2.style.display = "none";
-            Days3.style.display = "none";
-            Hours3.style.display = "none";
-            HoursBreak.style.display = "none";
-            Days1.removeAttribute("required");
-            Hours1.removeAttribute("required");
-            Days2.removeAttribute("required");
-            Hours2.removeAttribute("required");
-            Days3.removeAttribute("required");
-            Hours3.removeAttribute("required");
-            }
-            });
-            const Days = [
-            [Days3, Hours3],
-            [Days2, Hours2],
-            [Days1, Hours1],
-            ];
-            const containingDiv = document.createElement("div");
-            const largeDiv = document.createElement("div");
-            largeDiv.style.display = "flex";
-            largeDiv.style.flexDirection = "column";
-            largeDiv.style.alignItems = "center";
-            largeDiv.style.justifyContent = "center";
-            largeDiv.style.width = "100%";
-            largeDiv.style.margin = "0 auto";
-            largeDiv.style.padding = "0 0 0 40px";
-            largeDiv.id = "largeDiv";
-            const elementToInsertAfter = document.getElementById("ELEMENT_1621089");
 
-            Days.forEach((pair) => {
-            const count = Days.indexOf(pair);
-            const group = containingDiv.cloneNode(true);
-            group.id = "containingDiv" + (count + 1);
-            group.setAttribute("class", "row-group");
-            group.style.display = "flex";
-            group.style.flexDirection = "row";
-            group.style.alignItems = "center";
-            group.style.justifyContent = "center";
-            group.style.width = "100%";
-            group.style.margin = "0 auto";
-            group.style.padding = "0 20px";
-            group.style.boxSizing = "border-box";
-            pair.forEach((item) => {
-            group.appendChild(item);
-            item.style.borderTop = "none !important";
-            });
-            largeDiv.appendChild(group);
-            });
-            elementToInsertAfter.parentNode.insertBefore(largeDiv, elementToInsertAfter.nextSibling);
+                const canvas = document.createElement("canvas");
+			    const ctx = canvas.getContext("2d");
+			    ctx.font = "8px Arial";
+                canvas.setAttribute("width", 255);
+                canvas.setAttribute("height", 144);
+                canvas.style.width = "255px";
+                canvas.style.height = "144px";
+                canvas.style.border = "1px solid #d3d3d3";
+                canvas.id = "myCanvas";
+                previewBox.appendChild(canvas);
 
-            backerYes.addEventListener("change", () => {
-                if (backerYes.checked) {
-                    backCont.style.display = "block";
-                    backPhoneCont.style.display = "block";
-                    backSelect.setAttribute("required", "required");
-                    backPhoneInput.setAttribute("required", "required");
-                } else {
-                    backCont.style.display = "none";
-                    backPhoneCont.style.display = "none";
-                    backSelect.removeAttribute("required");
-                    backPhoneInput.removeAttribute("required");
-                    const LargeDiv = document.querySelector("div#largeDiv") ?  document.querySelector("div#largeDiv") : null;
-                    console.log("made it up to end of the else");
-                }
-            });
-            backerNo.addEventListener("click", () => {
-                if (backerNo.checked) {
-                    Days1.style.display = "none";
-                    Hours1.style.display = "none";
-                    Days2.style.display = "none";
-                    Hours2.style.display = "none";
-                    Days3.style.display = "none";
-                    Hours3.style.display = "none";
-                    backPhoneCont.style.display = "none";
-                } 
-            });
 
-            const nameCont = document.querySelector('li#ELEMENT_1622166 div.productfloat.fullsize.form_builder_container');
-            const nameInput = document.querySelector('li#ELEMENT_1622166 div.productfloat.fullsize.form_builder_container input#E_Name');
-            const credCont = document.querySelector('li#ELEMENT_1621123 div.productfloat.fullsize.form_builder_container');
-            const credInput = document.querySelector('#E_Credentials');
-            const nameAndCred = document.querySelector('textarea#E_NameandCredentials');
+			     const backSelect = document.getElementById("E_PleaseSelectYourBusinessCardBackerbswh");
+			     const backPhoneCont = document.getElementById("ELEMENT_1621111");
+			     const backPhoneInput = document.getElementById("E_PhoneNumberDisplayedonBackerBacksideofthecard");
+			     const backCont = document.getElementById("ELEMENT_1226753");
+			     const backerNo = document.getElementById("E_WouldYouLikeABackerOnYourCards0");
+			     const backerYes = document.getElementById("E_WouldYouLikeABackerOnYourCards1");
+			     backerNo.checked = true;
 
-            const nameFixButton = document.createElement("button");
-            nameFixButton.classList.add("custom-button");
-            nameFixButton.textContent = "Format";
-            nameFixButton.setAttribute("type", "button");
-            nameCont.appendChild(nameFixButton);
-            const nameInputAlert = document.createElement("span");
-            nameInputAlert.classList.add("custom-warning");
-            nameInputAlert.textContent = "Invalid Name Formatting. Please click 'Format' to fix.";
-            nameCont.appendChild(nameInputAlert);
+			     function removeClassFromDescendants(element, className) {
+			     element.classList.remove(className);
+			     const children = element.children;
+			     for (let i = 0; i < children.length; i++) {
+			     removeClassFromDescendants(children[i], className);
+			     }
+			     };
 
-            namePreview = document.createElement("label");
-            namePreviewVal = document.createElement("span");
-            namePreview.classList.add("custom-Preview");
-            namePreview.textContent = "Preview: ";
-            namePreviewVal.textContent = "...";
-            nameCont.prepend(namePreview);
-            namePreview.appendChild(namePreviewVal);
+			     const Days1 = document.getElementById("ELEMENT_1621112");
+			     const Days2 = document.getElementById("ELEMENT_1621114");
+			     const Days3 = document.getElementById("ELEMENT_1621115");
+			     const Hours1 = document.getElementById("ELEMENT_1621116");
+			     const Hours2 = document.getElementById("ELEMENT_1621117");
+			     const Hours3 = document.getElementById("ELEMENT_1621118");
+			     const HoursBreak = document.getElementById("ELEMENT_1621106");
+			     HoursBreak.style.display = "none";
+			     Days1.style.display = "none";
+			     Hours1.style.display = "none";
+			     Days2.style.display = "none";
+			     Hours2.style.display = "none";
+			     Days3.style.display = "none";
+			     Hours3.style.display = "none";
 
-            credPreview = document.createElement("label");
-            credPreviewVal = document.createElement("span");
-            credPreview.classList.add("custom-Preview");
-            credPreview.textContent = "Preview: ";
-            credPreviewVal.textContent = "...";
-            credCont.prepend(credPreview);
-            credPreview.appendChild(credPreviewVal);
+			     const Days1Label = document.getElementById('L_OfficeHoursDays1');
+			     const Days2Label = document.getElementById('L_OfficeHoursDays2');
+			     const Days3Label = document.getElementById('L_OfficeHoursDays3');
+			     const Hours1Label = document.getElementById('L_OfficeHoursHours1');
+			     const Hours2Label = document.getElementById('L_OfficeHoursHours2');
+			     const Hours3Label = document.getElementById('L_OfficeHoursHours3');
+			     const BackerSelectLabel = document.querySelector('span#L_PleaseSelectYourBusinessCardBackerbswh');
+			     const BackerPhoneLabel = document.querySelector('span#L_PhoneNumberDisplayedonBackerBacksideofthecard');
+			     BackerSelectLabel.textContent = "Select a Card-Backside";
+			     var ast = document.createElement("span");
+			     var astItems = [ Days1Label, Hours1Label, Days2Label, Hours2Label, Days3Label, Hours3Label, BackerSelectLabel, BackerPhoneLabel ];
+			     ast.innerText = "*";
+			     ast.setAttribute("class", "warning");
 
-            var regex_No_Periods = /"\\.+", ";"/g;
-            var regex_period_first_letter = (/^([a-zA-Z])([ ])/, (letter) => letter.toUpperCase());
-            var regex_all_two_letter_words = /(\b\w{2}\b)/g;
-            var regex_all_one_letter_words = /(\b\w{1}\b)/g;
-            var regex_isolate_2lett = /\b([a-zA-Z])([a-zA-Z])\b/g;
-            var regexCapitalize = /[A-Z]+/g;
-            var regex_lowercase_last_letter = /(\w)(\W*)$/;
-            var regex_is_letter = /^[a-z]/i;
-            var regex_is_letter_or_space = /^[a-zA-Z\s]+$/i;
-            var regex_extra_space_check = /^[A-Za-z]+( [A-Za-z]+)*$/;
-            var regex_remove_consec_spaces = / +/g;
-            var regex_remove_beginning_and_end_spaces = /^\ +|\ +$/g;
-            const isUpperCase = (string) => /^[A-Z]*$/.test(string);
-            var regex_remove_periods_from_dash_words = /\b[^-\s]+-.+[^-\s]+\b/g;
+			     var addAsterixs = (items) => {
+			     items.forEach(item => {
+			     var clone = ast.cloneNode(true);
+			     item.parentNode.insertBefore(clone,item);
+			     const container = item.parentNode.parentNode.parentNode ;
+			     container.style.width = "50%";
+			     });
+			     };
+			     addAsterixs(astItems);
+			     backCont.style.width = "auto";
+			     backPhoneCont.style.width = "auto";
 
-            const nameProcess = (str) => {
-                const consecSpaceChecked = str.replace(regex_remove_consec_spaces, " ");
-                const spaceChecked = consecSpaceChecked.replace(regex_remove_beginning_and_end_spaces, "");
+			     backSelect.addEventListener("change", () => {
+			     HoursBreak.style.display = "block";
+			     if (backSelect.selectedIndex == 2) {
+			     Days1.style.display = "block";
+			     Hours1.style.display = "block";
+			     Days1.setAttribute("required", "required");
+			     Hours1.setAttribute("required", "required");
+			     Days2.style.display = "none";
+			     Hours2.style.display = "none";
+			     Days3.style.display = "none";
+			     Hours3.style.display = "none";
+			     Days2.removeAttribute("required");
+			     Hours2.removeAttribute("required");
+			     Days3.removeAttribute("required");
+			     Hours3.removeAttribute("required");
+			     } else if (backSelect.selectedIndex == 3) {
+			     Days1.style.display = "block";
+			     Hours1.style.display = "block";
+			     Days2.style.display = "block";
+			     Hours2.style.display = "block";
+			     Days1.setAttribute("required", "required");
+			     Hours1.setAttribute("required", "required");
+			     Days2.setAttribute("required", "required");
+			     Hours2.setAttribute("required", "required");
+			     Days3.style.display = "none";
+			     Hours3.style.display = "none";
+			     Days3.removeAttribute("required");
+			     Hours3.removeAttribute("required");
+			     } else if (backSelect.selectedIndex == 4) {
+			     Days1.style.display = "block";
+			     Hours1.style.display = "block";
+			     Days2.style.display = "block";
+			     Hours2.style.display = "block";
+			     Days3.style.display = "block";
+			     Hours3.style.display = "block";
+			     Days1.setAttribute("required", "required");
+			     Hours1.setAttribute("required", "required");
+			     Days2.setAttribute("required", "required");
+			     Hours2.setAttribute("required", "required");
+			     Days3.setAttribute("required", "required");
+			     Hours3.setAttribute("required", "required");
+			     } else {
+			     Days1.style.display = "none";
+			     Hours1.style.display = "none";
+			     Days2.style.display = "none";
+			     Hours2.style.display = "none";
+			     Days3.style.display = "none";
+			     Hours3.style.display = "none";
+			     HoursBreak.style.display = "none";
+			     Days1.removeAttribute("required");
+			     Hours1.removeAttribute("required");
+			     Days2.removeAttribute("required");
+			     Hours2.removeAttribute("required");
+			     Days3.removeAttribute("required");
+			     Hours3.removeAttribute("required");
+			     }
+			     });
+			     const Days = [
+			     [Days3, Hours3],
+			     [Days2, Hours2],
+			     [Days1, Hours1],
+			     ];
+			     const containingDiv = document.createElement("div");
+			     const largeDiv = document.createElement("div");
+			     largeDiv.style.display = "flex";
+			     largeDiv.style.flexDirection = "column";
+			     largeDiv.style.alignItems = "center";
+			     largeDiv.style.justifyContent = "center";
+			     largeDiv.style.width = "100%";
+			     largeDiv.style.margin = "0 auto";
+			     largeDiv.style.padding = "0 0 0 40px";
+			     largeDiv.id = "largeDiv";
+			     const elementToInsertAfter = document.getElementById("ELEMENT_1621089");
 
-                const initStr = spaceChecked
-                    .trim()
-                    .split(" ")
-                    .map((i) => (i.replaceAll(/[^a-z]/gi, "").length === 2 ? i.toUpperCase() : i))
-                    .join(" ")
-                    .replace(regex_lowercase_last_letter, function (match, capture1, capture2) {
-                    return capture1.toLowerCase() + capture2;
-                    });
+			     Days.forEach((pair) => {
+			     const count = Days.indexOf(pair);
+			     const group = containingDiv.cloneNode(true);
+			     group.id = "containingDiv" + (count + 1);
+			     group.setAttribute("class", "row-group");
+			     group.style.display = "flex";
+			     group.style.flexDirection = "row";
+			     group.style.alignItems = "center";
+			     group.style.justifyContent = "center";
+			     group.style.width = "100%";
+			     group.style.margin = "0 auto";
+			     group.style.padding = "0 20px";
+			     group.style.boxSizing = "border-box";
+			     pair.forEach((item) => {
+			     group.appendChild(item);
+			     item.style.borderTop = "none !important";
+			     });
+			     largeDiv.appendChild(group);
+			     });
+			     elementToInsertAfter.parentNode.insertBefore(largeDiv, elementToInsertAfter.nextSibling);
 
-                const noTitleFunct = (initStr) => {
-                    if (initStr.toLowerCase().slice(0, 3) === "dr.")  {
-                    return initStr.replace(/dr./gi, "");
-                    } else if (initStr.toLowerCase().slice(0, 2) === "dr") {
-                    return initStr.slice(2, initStr.length);
-                    } else {
-                    return initStr;
-                    }
-                };
-                const noTitle = noTitleFunct(initStr);
-                var firstStr = noTitle.replaceAll(".", "").replaceAll(",", "");
+			     backerYes.addEventListener("change", () => {
+			         if (backerYes.checked) {
+			             backCont.style.display = "block";
+			             backPhoneCont.style.display = "block";
+			             backSelect.setAttribute("required", "required");
+			             backPhoneInput.setAttribute("required", "required");
+			         } else {
+			             backCont.style.display = "none";
+			             backPhoneCont.style.display = "none";
+			             backSelect.removeAttribute("required");
+			             backPhoneInput.removeAttribute("required");
+			             const LargeDiv = document.querySelector("div#largeDiv") ?  document.querySelector("div#largeDiv") : null;
+			         }
+			     });
+			     backerNo.addEventListener("click", () => {
+			         if (backerNo.checked) {
+			             Days1.style.display = "none";
+			             Hours1.style.display = "none";
+			             Days2.style.display = "none";
+			             Hours2.style.display = "none";
+			             Days3.style.display = "none";
+			             Hours3.style.display = "none";
+			             backPhoneCont.style.display = "none";
+			         }
+			     });
 
-                var secndStr = firstStr.replace(regex_all_two_letter_words, "$1.");
-                var thirdStr = secndStr[0].toUpperCase() + secndStr.substring(1);
+			     const nameCont = document.querySelector('li#ELEMENT_1622166 div.productfloat.fullsize.form_builder_container');
+			     const nameInput = document.querySelector('li#ELEMENT_1622166 div.productfloat.fullsize.form_builder_container input#E_Name');
+			     const credCont = document.querySelector('li#ELEMENT_1621123 div.productfloat.fullsize.form_builder_container');
+			     const credInput = document.querySelector('#E_Credentials');
+			     const nameAndCred = document.querySelector('textarea#E_NameandCredentials');
 
-                function addPeriods(str) {
-                    const words = str.split(' ');
-                    let newStr = '';
-                    
-                    for (const word of words) {
-                        if (word.length === 2) {
-                        newStr += word[0].toUpperCase() + '.' + word[1] + '. ';
-                        } else if (word.length === 1) {
-                            newStr += word.toUpperCase() + '. ' + ' ';
-                        }else {
-                            newStr += word[0].toUpperCase() +  word.substring(1).toLowerCase() + ' ';
-                        };
-                    };
-                    return newStr;
-                };
-                const fourthStr = addPeriods(thirdStr);
+			     const nameFixButton = document.createElement("button");
+			     nameFixButton.classList.add("custom-button");
+			     nameFixButton.textContent = "Format";
+			     nameFixButton.setAttribute("type", "button");
+			     nameCont.appendChild(nameFixButton);
+			     const nameInputAlert = document.createElement("span");
+			     nameInputAlert.classList.add("custom-warning");
+			     nameInputAlert.textContent = "Invalid Name Formatting. Please click 'Format' to fix.";
+			     nameCont.appendChild(nameInputAlert);
 
-                var fifthStr = fourthStr.replaceAll("j.r.", ", jr.").replaceAll("s.r.", ", sr.");
+			     namePreview = document.createElement("label");
+			     namePreviewVal = document.createElement("span");
+			     namePreview.classList.add("custom-Preview");
+			     namePreview.textContent = "Preview: ";
+			     namePreviewVal.textContent = "...";
+			     nameCont.prepend(namePreview);
+			     namePreview.appendChild(namePreviewVal);
 
-                const sixthStringFunct = (string) => {
-                    if (string[string.length - 3] === ".") {
-                        const partOne = string.slice(0, -3);
-                        const partTwo = string.slice(-2, -1);
-                        string = partOne + partTwo;
-                        return string;
-                    }
-                    return string;
-                };
-                const sixthStr = sixthStringFunct(fifthStr).replaceAll(" ,", ",");
+			     credPreview = document.createElement("label");
+			     credPreviewVal = document.createElement("span");
+			     credPreview.classList.add("custom-Preview");
+			     credPreview.textContent = "Preview: ";
+			     credPreviewVal.textContent = "...";
+			     credCont.prepend(credPreview);
+			     credPreview.appendChild(credPreviewVal);
 
-                return sixthStr;
-            };
+			     var regex_No_Periods = /"\\.+", ";"/g;
+			     var regex_period_first_letter = (/^([a-zA-Z])([ ])/, (letter) => letter.toUpperCase());
+			     var regex_all_two_letter_words = /(\b\w{2}\b)/g;
+			     var regex_all_one_letter_words = /(\b\w{1}\b)/g;
+			     var regex_isolate_2lett = /\b([a-zA-Z])([a-zA-Z])\b/g;
+			     var regexCapitalize = /[A-Z]+/g;
+			     var regex_lowercase_last_letter = /(\w)(\W*)$/;
+			     var regex_is_letter = /^[a-z]/i;
+			     var regex_is_letter_or_space = /^[a-zA-Z\s]+$/i;
+			     var regex_extra_space_check = /^[A-Za-z]+( [A-Za-z]+)*$/;
+			     var regex_remove_consec_spaces = / +/g;
+			     var regex_remove_beginning_and_end_spaces = /^\ +|\ +$/g;
+			     const isUpperCase = (string) => /^[A-Z]*$/.test(string);
+			     var regex_remove_periods_from_dash_words = /\b[^-\s]+-.+[^-\s]+\b/g;
 
-            nameInput.addEventListener("keyup", (e) => {
-                const input = e.target.value;
-                nameAndCred.value = input + ", " + credInput.value; 
-                namePreviewVal.textContent = nameProcess(input);
-            });
-            credInput.addEventListener("keyup", (e) => {
-                const input = e.target.value;
-                nameAndCred.value = nameInput.value + ", " + input; 
-                namePreviewVal.textContent = nameProcess(input);
-                credPreviewVal.textContent = input;
-            });
+			     const nameProcess = (str) => {
+			         const consecSpaceChecked = str.replace(regex_remove_consec_spaces, " ");
+			         const spaceChecked = consecSpaceChecked.replace(regex_remove_beginning_and_end_spaces, "");
 
-            nameFixButton.addEventListener("click", (e) => {
-                console.log("nameFixButton clicked");
-	            nameInput.value = nameProcess(input);
-                nameAndCred.value = nameInput.value + ", " + credInput.value;
-            });
+			         const initStr = spaceChecked
+			             .trim()
+			             .split(" ")
+			             .map((i) => (i.replaceAll(/[^a-z]/gi, "").length === 2 ? i.toUpperCase() : i))
+			             .join(" ")
+			             .replace(regex_lowercase_last_letter, function (match, capture1, capture2) {
+			             return capture1.toLowerCase() + capture2;
+			             });
 
-            const funnyStr = "my favorite color is blue";
-            console.log(funnyStr.replace(regex_all_two_letter_words, "$1."));
-            `;
+			         const noTitleFunct = (initStr) => {
+			             if (initStr.toLowerCase().slice(0, 3) === "dr.")  {
+			             return initStr.replace(/dr./gi, "");
+			             } else if (initStr.toLowerCase().slice(0, 2) === "dr") {
+			             return initStr.slice(2, initStr.length);
+			             } else {
+			             return initStr;
+			             }
+			         };
+			         const noTitle = noTitleFunct(initStr);
+			         var firstStr = noTitle.replaceAll(".", "").replaceAll(",", "");
+
+			         var secndStr = firstStr.replace(regex_all_two_letter_words, "$1.");
+			         var thirdStr = secndStr[0].toUpperCase() + secndStr.substring(1);
+
+			         function addPeriods(str) {
+			             const words = str.split(' ');
+			             let newStr = '';
+
+			             for (const word of words) {
+			                     if (word ===  "JR"  ) {
+			                     newStr += word[0].toUpperCase() + ' ' + word[1].toLowerCase() + ' ';
+			                 }  if (word ===  "SR"  ) {
+			                     newStr += word[0].toUpperCase() + ' ' + word[1].toLowerCase() + ' ';
+			                 } else if (word.length === 2  ) {
+			                     newStr += word[0].toUpperCase() + '.' + word[1] + '. ';
+			                 } else if (word.length === 1) {
+			                     newStr += word.toUpperCase() + '.' + ' ';
+			                 }else {
+			                     newStr += word[0].toUpperCase() +  word.substring(1).toLowerCase() + ' ';
+			                 };
+			             };
+			             return newStr;
+			         };
+			         const fourthStr = addPeriods(thirdStr);
+
+			         const sixthStringFunct = (string) => {
+			             if (string[string.length - 3] === ".") {
+			                 const partOne = string.slice(0, -3);
+			                 const partTwo = string.slice(-2, -1);
+			                 string = partOne + partTwo;
+			                 return string;
+			             }
+			             return string;
+			         };
+			         const sixthStr = sixthStringFunct(fourthStr).replaceAll(" ,", ",");
+
+			         const initCheck1 = noTitle[1] === "." ? true : false;
+			         const initCheck2 = noTitle[3] === "." ? true : false;
+			         const initCheckNone = !initCheck1 && !initCheck2 ? true : false;
+			         const initCheckAll = initCheck1 && initCheck2 ? true : false;
+			         const twoLettrWordBegin = noTitle[0] !== " " && noTitle[1] !== " " && noTitle[2] == " " ? true : false;
+
+			         const eighthStringFunct = (eighth_sttring) => {
+			             if (initCheckNone) {
+			                 var text = eighth_sttring;
+			                 if (twoLettrWordBegin) {
+			                     text = eighth_sttring.slice(0, 1) + eighth_sttring.substr(2);
+			                     text = text.slice(0, 2) + text.substr(3);
+			                     text = text[0] + text[1].toLowerCase() + text.slice(2);
+			                     return text;
+			                 } else {
+			                     var text = eighth_sttring;
+			                     return text;
+			                 };
+			             } else if (initCheckAll) {
+			                 var text = eighth_sttring;
+			                 return text;
+			             } else if (initCheck1) {
+			                 if (noTitle[2] !== " ") {
+			                     var text = eighth_sttring.slice(0, 2) + " " + eighth_sttring.substr(2);
+			                     return text;
+			                 } else {
+			                     var text = eighth_sttring;
+			                     return text;
+			                 };
+			             } else if (initCheck2) {
+			                 var text = eighth_sttring;
+			                 return text;
+			             } else {
+			                 return eighth_sttring;
+			             };
+			         };
+			         const eighthStr = eighthStringFunct(sixthStr);
+			         const ninthString = (text) => {
+			             text.replace(/\b[a-zA-Z]+-[a-zA-Z]+.[a-zA-Z]+.+\b/g, function (word) {
+			                 return word.replace(/\./g, "");
+			             });
+			             return text;
+			         };
+
+			         const tenthString = ninthString(eighthStr).replace(/ J.R.$/gi, ", Jr.").replace(/ S.R.$/gi, ", Sr.");
+
+			         const finalStr = tenthString.replace(regex_remove_beginning_and_end_spaces, "").trim();
+
+			         return tenthString;
+			     };
+
+			     nameInput.addEventListener("keyup", (e) => {
+			         const input = e.target.value;
+			         if (credInput.value.length > 0) {
+			             nameAndCred.value = nameInput.value + ", " + input;
+			         } else {
+			             credPreviewVal.textContent = " ";
+			             nameAndCred.value = nameInput.value;
+			         };
+			         namePreviewVal.textContent = nameProcess(input);
+			     });
+
+			     credInput.addEventListener("keyup", (e) => {
+			         const input = e.target.value;
+			         const formattedCred = input
+			             .replace(/[!@#$%^&*+=/'"}{\|]/g, "")
+			             .toUpperCase()
+			             .replace(/p\.?h\.?d\.?/gi, "PhD")
+			             .replace(/m\.?e\.?d\.?/gi, "M.Ed")
+			             .replace(/b\.?s\.?n\.?/gi, "BSN")
+			             .replace(/b\.?s\.?/gi, "BS")
+			             .replace(/b\.?a\.?/gi, "BA")
+			             .replace(/b\.?s\.?c\.?/gi, "BSC")
+			             .replace(/b\.?s\.?e\.?/gi, "BSE")
+			             .replace(/f\.?a\.?c\.?s\.?/gi, "FACS")
+			             .replace(/m\.?d\.?/gi, "MD")
+			             .replace(/m\.?a\.?/gi, "MA")
+			             .replace(/m\.?s\.?/gi, "MS")
+			             .replace(/m\.?e\.?/gi, "ME")
+			             .replace(/m\.?b\.?a\.?/gi, "MBA")
+			             .replace(/m\.?p\.?a\.?/gi, "MPA")
+			             .replace(/,,/gi, ",")
+			             .replace(/, ,/gi, ",")
+			             .replace(/c\.?n\.?\-?\b\.?a\.?/gi, "CN-BA");
+
+			         if (input.length > 0) {
+			             nameAndCred.value = nameInput.value + ", " + formattedCred;
+			         } else {
+			             credPreviewVal.textContent = " ";
+			             nameAndCred.value = nameInput.value;
+			         };
+			         credPreviewVal.textContent = formattedCred;
+			     });
+
+			     nameFixButton.addEventListener("click", (e) => {
+			         nameInput.value = nameProcess(nameInput.value);
+			         nameAndCred.value = nameInput.value + ", " + credInput.value;
+			     });
+
+			     const tilteInput = document.querySelector('#E_Title');
+			     const phoneInput = document.getElementById('#E_Phone');
+
+			     tilteInput.addEventListener("keyup", (e) => {
+			         const input = e.target.value;
+
+			         console.log("title input");
+			             function capitalize(str) {
+			             let words = str.split(' ');
+			             for (let i = 0; i < words.length; i++) {
+			                 words[i] = words[i][0].toUpperCase() + words[i].slice(1);
+			             };
+			             return words.join(' ');
+			         };
+
+			         const formattedTitle = capitalize(input)
+			             .replace(/[!@#$%^&*+=/'"}{\|]/g, "");
+			     });
+
+			     phoneInput.addEventListener("keyup", (e) => {
+			         const input = e.target.value;
+			         console.log("phone input");
+			         function preventSpecialChars(e) {
+			             let keyCode = e.keyCode || e.which;
+			             let keyValue = String.fromCharCode(keyCode);
+			             let regex = /[\s()-]/;
+			             if (regex.test(keyValue)) {
+			                 e.preventDefault();
+			                 return false;
+			             };
+			         };
+			         preventSpecialChars(e);
+			         function formatPhoneNumber(phoneNumber) {
+			             let cleaned = ('' + phoneNumber).replace(/\D/g, '');
+			             let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+			             if (match) {
+			             return match[1] + '.' + match[2] + '.' + match[3]
+			             };
+			             return null;
+			         };
+
+			         const formattedPhone = formatPhoneNumber(input);
+			         phoneInput.value = formattedPhone;
+			     });
+			     `;
 			document.body.appendChild(JS);
 		</script>
 	</head>
