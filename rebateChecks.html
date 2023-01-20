@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Baylor JS Insertion</title>
+		<script defer>
+			var styles = `
+			             input:focus{
+			                 border: #94c743 2px solid;
+			             }
+			             input:hover{
+			                 border: #99c999 2px solid;
+			             }
+                         input[type = "text"]: {
+                            outline: none !important;
+                            --webkit-appearance: none;
+                         }
+                         h3 label span {
+                            margin: 10px 3px 10px 0px;
+                            white-space: nowrap;
+                         }
+                         #content {
+                            border-radius: 20px;
+                         }
+                         #product-tabs .product .thumbnail {
+                            height: 68px;
+                         }
+                         .container-page {
+                                box-shadow: 0 0 25px #ccc;
+                                -webkit-box-shadow: 0 0 25px #ccc;
+                         }
+                         .desc {
+                            display: block !important;
+                         }
+                         .description {
+                            display: none !important;
+                         }
+                        #ELEMENT_1623947 .subtitle {
+                            color: transparent;
+                         }
+                         #productscontainer li:nth-child(n+10) h3 {
+                            width: 240px;
+                         }
+                         input[name = "step2Attribute_Value_Other_1623927"], #ELEMENT_1623849 h3, li#ELEMENT_1623849 h3 {
+                            display: none !important;
+                         }
+                         textArea#E_CouponMessage {
+                            max-width: 100% !important;
+                            margin-left: 20px;
+                            padding-top: 0px;
+                         }
+                         li#ELEMENT_1623849 div.productfloat {
+                            float-right: unset !important;
+                            width: 100% !important;
+                         }
+                          li#ELEMENT_1623849 {
+                            border-top: none !important;
+                            padding-top: 0px;
+                          }
+                          #productscontainer>li#ELEMENT_1623947>h3:before {
+                                content:"";
+                        }
+                        .warning {
+                            color: red;
+                        }
+            `;
+
+			var JS = document.createElement("script");
+			JS.innerText = `
+                            var styleSheet = document.createElement("style");
+			                styleSheet.innerText = styles;
+			                document.head.appendChild(styleSheet);
+			                const couponOverrideCont = document.querySelector("#ELEMENT_1623849");
+                             const couponOverrideMssg = document.querySelector("textarea#E_CouponMessage");
+                              const messDrop = document.querySelector("#E_CouponMessage");
+                              const MessDropOpOther = document.querySelector("#OTHER_1623927");
+                              const preview = document.querySelector("div#product a.read-toggle");
+                              const desc = document.querySelector("div#product div.desc");
+                              const description = document.querySelector("div#product div.description");
+                              const q10 = document.querySelector("#ELEMENT_1623947 h3");
+
+                              q10.textContent = "9. Shop Contact  Name";
+
+                              messDrop.firstElementChild.value = "";
+			                  couponOverrideCont.style.position = "absolute";
+                              couponOverrideCont.style.marginLeft = "99999999px";
+
+                              messDrop.addEventListener("change", function(){
+                                if(messDrop.value === "Other"){
+                                    couponOverrideCont.style.position = "relative";
+                                    couponOverrideCont.style.marginLeft = "unset";
+                                  } else {
+                                    couponOverrideCont.style.position = "absolute";
+                                    couponOverrideCont.style.marginLeft = "99999999px";
+                                     couponOverrideMssg.value = "";
+                                  };
+                              });
+
+                            desc.style.display = "block";
+                            description.style.display = "none";
+			     `;
+			document.body.appendChild(JS);
+		</script>
+	</head>
+	<body></body>
+</html>
