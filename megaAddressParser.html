@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Mass Address Parser</title>
+        <!-- I should add a copy to clipboard button for each row on btn click like here: -->
+        <!-- http://live.datatables.net/xezupobe/1/edit -->
+        <!-- https://datatables.net/forums/discussion/70739/add-copy-to-clipboard-button-to-each-row-->
+
+        <style type="text/css">
+            body {
+                font: 90%/1.45em "Helvetica Neue", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+                margin: 0;
+                padding: 0;
+                color: #333;
+                background-color: #fff;
+            }
+            #copy-button, #download-pdf, #download-csv {
+                background-color: hotpink;
+                color: white;
+                padding: 5px 10px;
+                width: fit-content;
+                margin-inline: 10%;
+                display: flex;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-bottom: 10px;
+                white-space: nowrap;
+            }
+            #copy-button:hover, #download-pdf:hover, #download-csv:hover {
+                background-color: rgb(250, 116, 183);
+                box-shadow: 0 0 5px 0 rgb(250, 116, 183);
+            }
+            #main-content {
+                width: 90vw;
+                margin: 0 auto;
+            }
+            .actions {
+                display: inline-flex;
+                justify-content: space-between;
+                align-items: center;
+                width: auto;
+            }
+            table tr, td, table, tbody, tfoot, #tableToExport {
+                border: 1px solid white !important;
+            }
+            table #tableToExport{
+                border-radius: 10px 10px 0 0;
+                overflow: hidden;
+                padding-inline: 10px;
+            }
+            textarea {
+                height: 38px !important;
+            }
+            
+        </style>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+            <script src="./massAddressParser.js" defer></script>
+        </head>
+	<body>
+		<h1 style="margin: 10px 20px">Mass Address Parser</h1>
+        <section id="main-content">
+            <div class="inputs">
+                <h3>Import</h3>
+                <textarea id="pasteInput"></textarea>
+                <button id="paste-button">Paste Table</button>
+                <input type="file" id="file-input" accept=".csv">
+                <hr>
+            </div>
+            <div class="actions">
+                <h3>Outport</h3>
+                <button id="copy-button">Copy Table</button>
+                <button id="download-pdf">Download PDF</button>
+                <button id="download-csv">Download CSV</button>
+            </div>
+
+            <div class="container" style="overflow: scroll;" >
+                <table id="results-table" class="display nowrap table table-striped table-sm table-hover table-active" width="100%">
+                    <tr>
+                        <th>Number</th>
+                        <th>Prefix</th>
+                        <th>Street Name</th>
+                        <th>Street Type</th>
+                        <th>Post St Type</th>
+                        <th>Suffix</th>
+                        <th>Apt Num</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>Country</th>
+                        <th>Line 1</th>
+                        <th>Line 2</th>
+                        <th>Line 3</th>
+                    </tr>
+                    <tr>
+                        <td>123</td>
+                        <td>W</td>
+                        <td>1st</td>
+                        <td>St</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Chicago</td>
+                        <td>IL</td>
+                        <td>60606</td>
+                        <td>USA</td>
+                        <td>123 W 1st St</td>
+                        <td>Chicago, IL 60606</td>
+                        <td></td>
+                    </tr>
+                       <tr>
+                        <td>123</td>
+                        <td>W</td>
+                        <td>1st</td>
+                        <td>St</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Chicago</td>
+                        <td>IL</td>
+                        <td>60606</td>
+                        <td>USA</td>
+                        <td>123 W 1st St</td>
+                        <td>Chicago, IL 60606</td>
+                        <td></td>
+                    </tr>
+                       <tr>
+                        <td>123</td>
+                        <td>W</td>
+                        <td>1st</td>
+                        <td>St</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Chicago</td>
+                        <td>IL</td>
+                        <td>60606</td>
+                        <td>USA</td>
+                        <td>123 W 1st St</td>
+                        <td>Chicago, IL 60606</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>123</td>
+                        <td>W</td>
+                        <td>1st</td>
+                        <td>St</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Chicago</td>
+                        <td>IL</td>
+                        <td>60606</td>
+                        <td>USA</td>
+                        <td>123 W 1st St</td>
+                        <td>Chicago, IL 60606</td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+	</body>
+</html>
