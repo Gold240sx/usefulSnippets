@@ -25,6 +25,52 @@ const ParsedDataEntry = {
     addressLn3: "",
 };
 
+//table preparation
+//add a copy row button to the beginning of each row
+var rows = document.querySelectorAll("table tr");
+for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    var copyRowBtn = document.createElement("button");
+    var blankTd = document.createElement("td");
+    copyRowBtn.setAttribute("class", "btn btn-sm copyBtn");
+    copyRowBtn.setAttribute("type", "button");
+    copyRowBtn.textContent = "Copy";
+    if (i !== 0) {
+            row.prepend(copyRowBtn, row.firstChild);
+    } else {
+        row.prepend(blankTd), row.firstChild;
+    }
+    copyRowBtn.addEventListener("click", function (e) {
+        var row = e.target.parentElement;
+        var rowData =
+            Array.from(row.children)
+                .filter(function (cell) {
+                    return (
+                        !cell.classList.contains("copyBtn") &&
+                        !cell.classList.contains("editBtn") &&
+                        !cell.classList.contains("saveBtn") &&
+                        !cell.classList.contains("cancelBtn")
+                    );
+                })
+                .map(function (cell) {
+                    return `${cell.textContent}`;
+                })
+                .join("\t");
+        navigator.clipboard.writeText(rowData).then(
+            function () {
+                /* clipboard successfully set */
+                alert("Copied!:", rowData);
+            },
+            function () {
+                /* clipboard write failed */
+                alert("Failed!", rowData);
+            }
+        );
+    }
+    );
+}
+
+
 const copyBtn = document.getElementById("copy-button");
 copyBtn.addEventListener("click", function () {
 	var rows = document.querySelectorAll("table tr");
@@ -34,6 +80,14 @@ copyBtn.addEventListener("click", function () {
 		.map(function (row) {
 			var originalRowTexts = [];
 			var rowTexts = Array.from(row.children)
+				.filter(function (cell) {
+					return (
+						!cell.classList.contains("copyBtn") &&
+						!cell.classList.contains("editBtn") &&
+						!cell.classList.contains("saveBtn") &&
+						!cell.classList.contains("cancelBtn")
+					);
+				})
 				.map(function (cell) {
 					var originalText = cell.textContent;
 					originalRowTexts.push(originalText);
@@ -94,3 +148,105 @@ document.getElementById("paste-button").addEventListener("click", function (e) {
 	// add the table to the DOM
 	document.body.appendChild(table);
 });
+
+
+//////////
+
+// get all rows of the table
+var rows = document.querySelectorAll("tr");
+
+// loop through rows
+for (var i = 0; i < rows.length; i++) {
+	// create an "edit" button
+	var editButton = document.createElement("button");
+	editButton.innerHTML = "Edit";
+    editButton.setAttribute("class", "btn btn-sm editBtn");
+
+	// create a "save" button
+	var saveButton = document.createElement("button");
+    saveButton.setAttribute("class", "btn btn-sm saveBtn");
+	saveButton.innerHTML = "Save";
+	saveButton.style.display = "none";
+
+	// create a "cancel" button
+	var cancelButton = document.createElement("button");
+    cancelButton.setAttribute("class", "btn  btn-sm cancelBtn"); 
+	cancelButton.innerHTML = "Cancel";
+	cancelButton.style.display = "none";
+
+	// add event listener to the "edit" button
+	editButton.addEventListener("click", function () {
+		// loop through cells of the row
+		var cells = this.parentNode.querySelectorAll("td");
+		for (var j = 0; j < cells.length; j++) {
+			// create an input element
+			var input = document.createElement("input");
+            var blankTd = document.createElement("td");
+            input.defaultValue = cells[j].innerHTML; /////
+			input.value = cells[j].innerHTML;
+			// replace the cell's content with the input
+			cells[j].innerHTML = "";
+            if (j !== 0) {
+                cells[j].appendChild(input);
+            } else {
+                cells[j].appendChild(blankTd);
+            }
+		}
+		// show save and cancel buttons
+		this.style.display = "none";
+		saveButton.style.display = "inline-block";
+		cancelButton.style.display = "inline-block";
+	});
+
+    saveButton.addEventListener("click", function() {
+        // loop through cells of the row
+        var cells = this.parentNode.parentNode.querySelectorAll("td");
+        for (var j = 0; j < cells.length; j++) {
+            // loop through all input elements in the cell
+            var inputs = cells[j].querySelectorAll("input");
+            for (var k = 0; k < inputs.length; k++) {
+                // get the value of the input element
+                var input = inputs[k];
+                var value = input.value;
+                // replace the input with the value
+                input.remove();
+                cells[j].innerHTML = value;
+            }
+        }
+        // hide save and cancel buttons
+        this.style.display = "none";
+        cancelButton.style.display = "none";
+        editButton.style.display = "inline-block";
+    });
+
+    // add event listener to the "cancel" button
+    cancelButton.addEventListener("click", function () {
+		// loop through cells of the row
+		var cells = this.parentNode.parentNode.querySelectorAll("td");
+		for (var j = 0; j < cells.length; j++) {
+			// loop through all input elements in the cell
+			var inputs = cells[j].querySelectorAll("input");
+			for (var k = 0; k < inputs.length; k++) {
+				// get the input element
+				var input = inputs[k];
+				// replace the input with the original value
+				var originalValue = input.defaultValue;
+				input.remove();
+				cells[j].innerHTML = originalValue;
+			}
+		}
+		// hide save and cancel buttons
+		this.style.display = "none";
+		saveButton.style.display = "none";
+		editButton.style.display = "inline-block";
+	});
+
+	// append the buttons to the row
+    if (i !== 0) {
+        rows[i].appendChild(editButton);
+        rows[i].appendChild(saveButton);
+        rows[i].appendChild(cancelButton);
+    }  else {
+        rows[i].appendChild(blankTd);
+    }
+}
