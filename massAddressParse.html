@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MassAddressParse</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+       <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // clifford: '#da373d',
+                    }
+                }
+            }
+        }
+    </script>
+     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script src="./massAddressParse.js" defer></script>
+</head>
+<body>
+      <section class="p-10">
+            <div class="px-4 sm:px-6 lg:px-8">
+                <div class="sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <h1 class="text-xl font-semibold text-gray-900">Address Parse</h1>
+                    </div>
+                    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                        <button type="button" id="copy-button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-[hotPInk] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[hotPink]-700 focus:outline-none focus:ring-2 focus:ring-[hotPink]-500 focus:ring-offset-2 sm:w-auto">Copy Table</button>
+                    </div>
+                </div>
+                <div class="mt-8 flex flex-col">
+                    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                        <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                            <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+                                <table class="min-w-full divide-y divide-gray-300" id="myTable">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6"></th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Number</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Prefix</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Street Name</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Street Type</th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Post St Type</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Suffix</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Apt Num</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">City</th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">State</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Zip</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Country</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Line 1</th>
+                                            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Line 2</th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Line 3</th>
+                                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6"></th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"></th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"></th>
+                                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200 bg-white">
+                                        <tr>
+                                            <td class="copyBtn text-indigo-600 hover:text-indigo-900">Copy</td>
+                                            <td data-attr="number" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">123</td>
+                                            <td data-attr="prefix" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">W</td>
+                                            <td data-attr="streetName" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">1st</td>
+                                            <td data-attr="streetType" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">St</td>
+                                            <td data-attr="postStType" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"></td>
+                                            <td data-attr="suffix" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"></td>
+                                            <td data-attr="aptNum" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"></td>
+                                            <td data-attr="city" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Chicago</td>
+                                            <td data-attr="state" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">IL</td>
+                                            <td data-attr="zip" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">34946</td>
+                                            <td data-attr="country" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">USA</td>
+                                            <td data-attr="line1" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">123 W 1st St</td>
+                                            <td data-attr="line2" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Chicago, IL 60606</td>
+                                            <td data-attr="line3" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"></td>
+                                            <td class="editBtn relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">Edit</td>
+                                            <td class="deleteBtn relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">Delete</td>
+                                            <td class="saveBtn relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">Save</td>
+                                            <td class="cancelBtn relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">Cancel</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

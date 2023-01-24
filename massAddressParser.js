@@ -26,72 +26,47 @@ const ParsedDataEntry = {
 };
 
 //table preparation
+function deleteRow(e) {
+	var rowToDelete = e.target.parentNode;
+	var confirmation = confirm("Are you sure you want to delete this row?");
+	if (confirmation) {
+		rowToDelete.remove();
+	}
+}
 //add a copy row button to the beginning of each row
 var rows = document.querySelectorAll("table tr");
 for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
-    var copyRowBtn = document.createElement("button");
     var blankTd = document.createElement("td");
-    copyRowBtn.setAttribute("class", "btn btn-sm copyBtn");
-    copyRowBtn.setAttribute("type", "button");
-    copyRowBtn.textContent = "Copy";
+    var deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.setAttribute("class", "btn btn-sm deleteBtn");
     if (i !== 0) {
-            row.prepend(copyRowBtn, row.firstChild);
+            row.appendChild(deleteBtn);
+            deleteBtn.addEventListener("click", deleteRow);
     } else {
         row.prepend(blankTd), row.firstChild;
     }
-    copyRowBtn.addEventListener("click", function (e) {
-        var row = e.target.parentElement;
-        var rowData =
-            Array.from(row.children)
-                .filter(function (cell) {
-                    return (
-                        !cell.classList.contains("copyBtn") &&
-                        !cell.classList.contains("editBtn") &&
-                        !cell.classList.contains("saveBtn") &&
-                        !cell.classList.contains("cancelBtn")
-                    );
-                })
-                .map(function (cell) {
-                    return `${cell.textContent}`;
-                })
-                .join("\t");
-        navigator.clipboard.writeText(rowData).then(
-            function () {
-                /* clipboard successfully set */
-                alert("Copied!:", rowData);
-            },
-            function () {
-                /* clipboard write failed */
-                alert("Failed!", rowData);
-            }
-        );
-    }
-    );
 }
 
 
+//copyAll  button
 const copyBtn = document.getElementById("copy-button");
 copyBtn.addEventListener("click", function () {
 	var rows = document.querySelectorAll("table tr");
-	console.log(rows);
-	var originalTexts = [];
 	var rowData = Array.from(rows)
 		.map(function (row) {
-			var originalRowTexts = [];
 			var rowTexts = Array.from(row.children)
 				.filter(function (cell) {
 					return (
-						!cell.classList.contains("copyBtn") &&
-						!cell.classList.contains("editBtn") &&
-						!cell.classList.contains("saveBtn") &&
-						!cell.classList.contains("cancelBtn")
+						!cell.parentNode.classList.contains("copyBtn") &&
+						!cell.parentNode.classList.contains("editBtn") &&
+						!cell.parentNode.classList.contains("saveBtn") &&
+						!cell.parentNode.classList.contains("cancelBtn")
 					);
 				})
 				.map(function (cell) {
-					var originalText = cell.textContent;
-					originalRowTexts.push(originalText);
-					return originalText;
+					return originalText + "\t";
 				})
 				.join("\t");
 			originalTexts.push(originalRowTexts);
@@ -166,18 +141,23 @@ for (var i = 0; i < rows.length; i++) {
 	var saveButton = document.createElement("button");
     saveButton.setAttribute("class", "btn btn-sm saveBtn");
 	saveButton.innerHTML = "Save";
-	saveButton.style.display = "none";
+	// saveButton.style.display = "none";
 
 	// create a "cancel" button
 	var cancelButton = document.createElement("button");
     cancelButton.setAttribute("class", "btn  btn-sm cancelBtn"); 
 	cancelButton.innerHTML = "Cancel";
-	cancelButton.style.display = "none";
+	// cancelButton.style.display = "none";
+
+    var copyRowBtn = document.createElement("button");
+    copyRowBtn.setAttribute("class", "btn btn-sm copyBtn");
+    copyRowBtn.innerHTML = "Copy";
 
 	// add event listener to the "edit" button
 	editButton.addEventListener("click", function () {
 		// loop through cells of the row
 		var cells = this.parentNode.querySelectorAll("td");
+        console.log(cells);
 		for (var j = 0; j < cells.length; j++) {
 			// create an input element
 			var input = document.createElement("input");
@@ -187,6 +167,7 @@ for (var i = 0; i < rows.length; i++) {
 			// replace the cell's content with the input
 			cells[j].innerHTML = "";
             if (j !== 0) {
+                // cells[j].prepend(copyRowBtn);
                 cells[j].appendChild(input);
             } else {
                 cells[j].appendChild(blankTd);
@@ -241,12 +222,46 @@ for (var i = 0; i < rows.length; i++) {
 		editButton.style.display = "inline-block";
 	});
 
+    copyRowBtn.addEventListener("click", function (e) {
+        var row = e.target.parentElement;
+        var rowData = Array.from(row.children)
+            .filter(function (cell) {
+                return (
+                    !cell.classList.contains("copyBtn") &&
+                    !cell.classList.contains("editBtn") &&
+                    !cell.classList.contains("saveBtn") &&
+                    !cell.classList.contains("deleteBtn") &&
+                    !cell.classList.contains("cancelBtn")
+                );
+            })
+            .map(function (cell) {
+                return `${cell.textContent}`;
+            })
+            .join("\t");
+        navigator.clipboard.writeText(rowData).then(
+            function () {
+                /* clipboard successfully set */
+                alert("Copied!:", rowData);
+            },
+            function () {
+                /* clipboard write failed */
+                alert("Failed!", rowData);
+            }
+        );
+    });
+
 	// append the buttons to the row
     if (i !== 0) {
-        rows[i].appendChild(editButton);
-        rows[i].appendChild(saveButton);
-        rows[i].appendChild(cancelButton);
+        rows[i].insertBefore(editButton, rows[i].lastChild);
+        rows[i].insertBefore(saveButton, rows[i].lastChild);
+        rows[i].insertBefore(cancelButton, rows[i].lastChild);
+        rows[i].insertBefore(copyRowBtn, rows[i].firstChild);
     }  else {
         rows[i].appendChild(blankTd);
     }
 }
+
+
+
+//////////
+//ACTUAL  PARSING FUNCTION
