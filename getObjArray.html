@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GetObjArray</title>
     <style>
-        #matchprompt {
-
-        }
     </style>
     <script src="./getObjArray.js" defer></script>
 </head>
@@ -19,12 +16,20 @@
             <h3 style="margin-top: 0; margin-right: 5px;">Input</h3>
             <textarea id="input" cols="30" rows="10" placeholder="paste in your table"></textarea>
             <button id="convert" style="background-color: blue; padding:5px 20px; font-size: 18px; border-radius: 999px; border: none; color: white; margin: 15px auto; cursor: pointer;">Convert!</button>
+            <button id="zipRegexCopy" style="background-color: blue; padding:5px 20px; font-size: 18px; border-radius: 999px; border: none; color: white; margin: 15px auto; cursor: pointer;">Convert Zip Match Regex!</button>
+            <button id="complexConvert" style="background-color: blue; padding:5px 20px; font-size: 18px; border-radius: 999px; border: none; color: white; margin: 15px auto; cursor: pointer;">Complex Convert!</button>
         </div>
         <div style="display: flex; flex-direction: column; align-items: start;">    
-            <h3 style="margin-top: 0; margin-right: 5px;">Output</h3>
+            <h2 style="margin-top: 0; margin-right: 5px;">Outputs</h2>
+            <h3>JS Object Library</h3>
             <p id="matchPrompt" style="color: green; font-size: 10px;">hasnt changed</p>
-            <div id="output" style="width: fit-content; height: fit-content; background-color: rgb(239, 239, 239); min-width: 202px; min-height: 106px; max-width: 500px; border: 1px solid black; padding: 15px;"></div>
+            <div id="output" style="width: fit-content; height: fit-content; background-color: rgb(239, 239, 239); min-width: 202px; min-height: 106px; max-width: 500px; border: 1px solid black; padding: 15px; max-height: 106px; overflow: hidden; text-overflow: ellipsis;"></div>
+            <button id="jsCopy" style="background-color: blue; padding:5px 20px; font-size: 18px; border-radius: 999px; border: none; color: white; margin: 15px auto; cursor: pointer;">Copy JS</button>
+            <h3>Regex</h3>
+            <div id="regex" style="width: fit-content; height: fit-content; background-color: rgb(239, 239, 239); min-width: 202px; min-height: 106px; max-width: 500px; border: 1px solid black; padding: 15px; max-height: 106px; overflow: hidden; text-overflow: ellipsis;"></div>
+            <button id="regexCopy" style="background-color: blue; padding:5px 20px; font-size: 18px; border-radius: 999px; border: none; color: white; margin: 15px auto; cursor: pointer;">Copy Regex</button>
         </div>
+
     </div>
 </body>
 </html>
