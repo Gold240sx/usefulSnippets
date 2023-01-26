@@ -61,11 +61,11 @@ const addRow = (table, data) => {
         row.appendChild(cancelButton);
     };
 
-    const copyBtn = document.querySelectorAll("[data-attr='copyBtn']");
-    const cancelBtn = document.querySelectorAll("[data-attr='cancelBtn']");
-    const saveBtn = document.querySelectorAll("[data-attr='saveBtn']");
-    const editBtn = document.querySelectorAll("[data-attr='editBtn']");
-    const deleteBtn = document.querySelectorAll("[data-attr='deleteBtn']");
+    const copyBtns = document.querySelectorAll(".copyBtn");
+    const cancelBtns = document.querySelectorAll("[data-attr='cancelBtn']");
+    const saveBtns = document.querySelectorAll("[data-attr='saveBtn']");
+    const editBtns = document.querySelectorAll("[data-attr='editBtn']");
+    const deleteBtns = document.querySelectorAll("[data-attr='deleteBtn']");
 
 addRow(myTable, {
 	number: "15495",
@@ -106,53 +106,69 @@ array.forEach(address => {
 });
 
 const copyTableValues = () => {
-    var rows = document.querySelectorAll("table tr");
-    var rowData = Array.from(rows)
-        .map(function (row) {
-            var rowTexts = Array.from(row.children)
-				.filter(function (cell) {
+	var rows = document.querySelectorAll("table tr");
+	var rowData = Array.from(rows)
+		.map(function (row) {
+			var rowTexts = Array.from(row.children)
+				.filter(function (cell, index) {
 					return (
-						( !cell.classList.contains("copyBtn")) &&
-						(!cell.classList.contains("editBtn")) &&
-						( !cell.classList.contains("saveBtn")) &&
-						(!cell.classList.contains("deleteBtn")) &&
-						(!cell.classList.contains("cancelBtn"))
+						index !== 0 &&
+						index !== row.children.length - 4 &&
+						index !== row.children.length - 3 &&
+						index !== row.children.length - 2 &&
+						index !== row.children.length - 1
 					);
 				})
-				.map(function (row) {
-					return Array.from(row.children)
-						.map(function (cell) {
-							return cell.textContent;
-						})
-						.join("\t");
+				.map(function (cell) {
+					return cell.textContent;
 				})
-            return rowTexts;
-        })
-        .join("\n");
-    navigator.clipboard.writeText(rowData).then(
-        function () {
-            /* clipboard successfully set */
-            alert("Copied!");
-            //add back the commas in the original format
-            for (var i = 0; i < originalTexts.length; i++) {
-                var rowTexts = originalTexts[i];
-                for (var j = 0; j < rowTexts.length; j++) {
-                    var cell = rows[i].children[j];
-                    cell.textContent = rowTexts[j];
-                }
-            }
-        },
-        function () {
-            /* clipboard write failed */
-            alert("Failed!");
-        }
-    );
+				.join("\t");
+			return rowTexts;
+		})
+		.join("\n");
+	navigator.clipboard.writeText(rowData).then(
+		function () {
+			/* clipboard successfully set */
+			alert("Copied!");
+		},
+		function () {
+			/* clipboard write failed */
+			alert("Failed!");
+		}
+	);
 };
+
+const copyRowValues = (event) => {
+	const row = event.target.parentElement;
+	const cells = Array.from(row.children)
+		.filter((cell, index) => index !== 0 && index < row.children.length - 4)
+		.map((cell) => cell.textContent)
+		.join("\t");
+	navigator.clipboard.writeText(cells).then(
+		() => {
+			/* clipboard successfully set */
+			console.log(`Copied: ${cells}`);
+		},
+		() => {
+			/* clipboard write failed */
+			console.log(`Failed to copy: ${cells}`);
+		}
+	);
+};
+
+
 
 // Copy  Table Button
 const copyAllBtn = document.getElementById("copy-button");
 copyAllBtn.addEventListener("click", () => {
     copyTableValues();
+});
+
+// Copy Row Buttons
+const rows = document.querySelectorAll("table tr");
+rows.forEach((row) => {
+	const copyButton = row.children[0];
+	copyButton.addEventListener("click", copyRowValues);
 });
 
 

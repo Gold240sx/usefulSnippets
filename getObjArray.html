@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GetObjArray</title>
+    <style>
+        #matchprompt {
+
+        }
+    </style>
+    <script src="./getObjArray.js" defer></script>
+</head>
+<body>
+    <h1>GetObjArray</h1>
+    <div style="display: flex; flex-direction: row; align-items: start; width: 80%; justify-content: space-evenly;">
+        <div style="display: flex; flex-direction: column; align-items: start;">    
+            <h3 style="margin-top: 0; margin-right: 5px;">Input</h3>
+            <textarea id="input" cols="30" rows="10" placeholder="paste in your table"></textarea>
+            <button id="convert" style="background-color: blue; padding:5px 20px; font-size: 18px; border-radius: 999px; border: none; color: white; margin: 15px auto; cursor: pointer;">Convert!</button>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: start;">    
+            <h3 style="margin-top: 0; margin-right: 5px;">Output</h3>
+            <p id="matchPrompt" style="color: green; font-size: 10px;">hasnt changed</p>
+            <div id="output" style="width: fit-content; height: fit-content; background-color: rgb(239, 239, 239); min-width: 202px; min-height: 106px; max-width: 500px; border: 1px solid black; padding: 15px;"></div>
+        </div>
+    </div>
+</body>
+</html>
